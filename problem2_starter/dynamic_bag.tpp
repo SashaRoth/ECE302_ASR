@@ -3,7 +3,7 @@
 template <typename T>
 DynamicBag<T>::DynamicBag()
 {
-  // TODO
+  current_size = 0;
 }
 
 template <typename T>

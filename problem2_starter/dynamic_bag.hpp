@@ -47,7 +47,8 @@ public:
   bool operator==(const AbstractBag<T> &other) const;
 
 private:
-  // TODO
+  uint32_t current_size;
+  T *data = new T[0];
 };
 
 #include "dynamic_bag.tpp"
