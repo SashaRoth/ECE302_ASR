@@ -32,7 +32,7 @@ public:
   bool isEmpty() const;
 
   // get number of items in the bag
-  int getCurrentSize() const;
+  uint32_t getCurrentSize() const;
 
   // clear the bag contents
   void clear();

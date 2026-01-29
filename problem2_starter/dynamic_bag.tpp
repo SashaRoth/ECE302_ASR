@@ -34,8 +34,9 @@ void DynamicBag<T>::swap(DynamicBag<T> &x)
 template <typename T>
 bool DynamicBag<T>::add(const T &item)
 {
-  // TODO
-  return false;
+  data[current_size] = item;
+  current_size++;
+  return true;
 }
 
 template <typename T>
@@ -53,10 +54,9 @@ bool DynamicBag<T>::isEmpty() const
 }
 
 template <typename T>
-int DynamicBag<T>::getCurrentSize() const
+uint32_t DynamicBag<T>::getCurrentSize() const
 {
-  // TODO
-  return 0;
+  return current_size;
 }
 
 template <typename T>
