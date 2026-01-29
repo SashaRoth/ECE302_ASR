@@ -42,14 +42,40 @@ bool DynamicBag<T>::add(const T &item)
 template <typename T>
 bool DynamicBag<T>::remove(const T &item)
 {
-  // TODO
-  return false;
+  bool flag = false;
+  T *newdata = new T[current_size - 1];
+  for (uint32_t i = 0; i < current_size; i++)
+  {
+    if (data[i] == item)
+    {
+      flag = true;
+    }
+    else
+    {
+      newdata[i] = data[i + (flag ? 1 : 0)];
+    }
+  }
+  if (flag)
+  {
+    current_size--;
+    delete[] data;
+    data = newdata;
+    return true;
+  }
+  else
+  {
+    delete[] newdata;
+    return false;
+  }
 }
 
 template <typename T>
 bool DynamicBag<T>::isEmpty() const
 {
-  // TODO
+  if (current_size == 0)
+  {
+    return true;
+  }
   return false;
 }
 
