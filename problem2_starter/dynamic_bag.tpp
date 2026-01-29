@@ -95,14 +95,23 @@ bool DynamicBag<T>::contains(const T &item) const
 template <typename T>
 void DynamicBag<T>::clear()
 {
-  // TODO
+  delete[] data;
+  data = new T[0];
+  current_size = 0;
 }
 
 template <typename T>
 int DynamicBag<T>::getFrequencyOf(const T &item) const
 {
-  // TODO
-  return 0;
+  int count = 0;
+  for (uint32_t i = 0; i < current_size; i++)
+  {
+    if (data[i] == item)
+    {
+      count++;
+    }
+  }
+  return count;
 };
 
 template <typename T>
