@@ -3,7 +3,6 @@
 template <typename T>
 DynamicBag<T>::DynamicBag()
 {
-  data = new T[0];
   current_size = 0;
 }
 
@@ -148,7 +147,7 @@ int DynamicBag<T>::getFrequencyOf(const T &item) const
     }
   }
   return count;
-};
+}
 
 template <typename T>
 bool DynamicBag<T>::operator==(const AbstractBag<T> &other) const
