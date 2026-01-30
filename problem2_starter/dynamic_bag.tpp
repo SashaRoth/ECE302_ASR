@@ -1,11 +1,18 @@
 #include "dynamic_bag.hpp"
 
+/**
+ * Default constructor initializing an empty bag
+ */
 template <typename T>
 DynamicBag<T>::DynamicBag()
 {
   current_size = 0;
 }
 
+/**
+ * Copy constructor for deep copy
+ * @param x DynamicBag to copy from
+ */
 template <typename T>
 DynamicBag<T>::DynamicBag(const DynamicBag<T> &x)
 {
@@ -17,6 +24,9 @@ DynamicBag<T>::DynamicBag(const DynamicBag<T> &x)
   }
 }
 
+/**
+ * Destructor to free allocated memory
+ */
 template <typename T>
 DynamicBag<T>::~DynamicBag()
 {
@@ -24,6 +34,11 @@ DynamicBag<T>::~DynamicBag()
   data = nullptr; // avoid dangling pointer
 }
 
+/**
+ * Copy assignment operator using copy-and-swap idiom
+ * @param x DynamicBag to copy from
+ * @return reference to *this DynamicBag, now with new contents
+ */
 template <typename T>
 DynamicBag<T> &DynamicBag<T>::operator=(DynamicBag<T> x) // passed by value, copy constructed
 {
@@ -31,6 +46,19 @@ DynamicBag<T> &DynamicBag<T>::operator=(DynamicBag<T> x) // passed by value, cop
   return *this; // return current object by reference, copy is destroyed
 }
 
+/* CITATION:
+In dynamic_bag.tpp, I encountered several memory leakage errors and improper indexing
+on my first attempt. I used the built-in VSCode Github Copilot AI to double-check my add(),
+remove(), and swap() methods, and point out where my issues were occuring. The AI suggested copying
+the pointers of the dynamic arrays in the swap() method, instead of element by element swapping, which
+fixed my issues in that method. I also fixed my add() and remove() methods by properly allocating a
+new array, copying the data over, and deleting the old array, which I had previously done in the wrong order.
+*/
+
+/**
+ * Swap method for copy-and-swap idiom
+ * @param x DynamicBag to swap contents with
+ */
 template <typename T>
 void DynamicBag<T>::swap(DynamicBag<T> &x)
 {
@@ -43,6 +71,11 @@ void DynamicBag<T>::swap(DynamicBag<T> &x)
   x.current_size = tmp_size;
 }
 
+/**
+ * Add an item to the bag
+ * @param item item to add
+ * @return true if added successfully, false if capacity exceeded
+ */
 template <typename T>
 bool DynamicBag<T>::add(const T &item)
 {
@@ -58,6 +91,11 @@ bool DynamicBag<T>::add(const T &item)
   return true;
 }
 
+/**
+ * Remove an item from the bag
+ * @param item item to remove
+ * @return true if removed successfully, false if not found
+ */
 template <typename T>
 bool DynamicBag<T>::remove(const T &item)
 {
@@ -100,6 +138,10 @@ bool DynamicBag<T>::remove(const T &item)
   return true;
 }
 
+/**
+ * Check if the bag is empty
+ * @return true if bag is empty, false if not
+ */
 template <typename T>
 bool DynamicBag<T>::isEmpty() const
 {
@@ -110,12 +152,21 @@ bool DynamicBag<T>::isEmpty() const
   return false;
 }
 
+/**
+ * Get the current size of the bag
+ * @return current size of the bag
+ */
 template <typename T>
 uint32_t DynamicBag<T>::getCurrentSize() const
 {
   return current_size;
 }
 
+/**
+ * Check if the bag contains a certain item
+ * @param item item to check for
+ * @return true if item is in the bag, false if not
+ */
 template <typename T>
 bool DynamicBag<T>::contains(const T &item) const
 {
@@ -129,6 +180,9 @@ bool DynamicBag<T>::contains(const T &item) const
   return false;
 }
 
+/**
+ * Clear the bag contents
+ */
 template <typename T>
 void DynamicBag<T>::clear()
 {
@@ -137,6 +191,11 @@ void DynamicBag<T>::clear()
   current_size = 0; // reset size to zero
 }
 
+/**
+ * Get the frequency of an item in the bag
+ * @param item item to count
+ * @return frequency of the item in the bag
+ */
 template <typename T>
 uint32_t DynamicBag<T>::getFrequencyOf(const T &item) const
 {
@@ -151,6 +210,11 @@ uint32_t DynamicBag<T>::getFrequencyOf(const T &item) const
   return count;
 }
 
+/**
+ * Check if two bags are equal
+ * @param other other bag to compare with
+ * @return true if bags are equal, false if not
+ */
 template <typename T>
 bool DynamicBag<T>::operator==(const AbstractBag<T> &other) const
 {
