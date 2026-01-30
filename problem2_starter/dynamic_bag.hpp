@@ -60,7 +60,7 @@ public:
    * Get the current size of the bag
    * @return current size of the bag
    */
-  uint32_t getCurrentSize() const override;
+  int getCurrentSize() const override;
 
   /**
    * Clear the bag contents
@@ -72,7 +72,7 @@ public:
    * @param item item to count
    * @return frequency of the item in the bag
    */
-  uint32_t getFrequencyOf(const T &item) const override;
+  int getFrequencyOf(const T &item) const override;
 
   /**
    * Check if the bag contains a certain item

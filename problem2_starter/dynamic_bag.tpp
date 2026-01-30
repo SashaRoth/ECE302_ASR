@@ -47,7 +47,7 @@ void DynamicBag<T>::swap(DynamicBag<T> &x)
   data = x.data;
   x.data = tmp_data;
 
-  uint32_t tmp_size = current_size; // swap sizes
+  int tmp_size = current_size; // swap sizes
   current_size = x.current_size;
   x.current_size = tmp_size;
 }
@@ -56,7 +56,7 @@ template <typename T>
 bool DynamicBag<T>::add(const T &item)
 {
   T *newdata = new T[current_size + 1]; // allocate new array with one extra space
-  for (uint32_t i = 0; i < current_size; i++)
+  for (int i = 0; i < current_size; i++)
   {
     newdata[i] = data[i]; // copy old data to new array
   }
@@ -74,8 +74,8 @@ bool DynamicBag<T>::remove(const T &item)
     return false;
 
   // find first occurrence
-  uint32_t index = -1;
-  for (uint32_t i = 0; i < current_size; i++)
+  int index = -1;
+  for (int i = 0; i < current_size; i++)
   {
     if (data[i] == item)
     {
@@ -96,7 +96,7 @@ bool DynamicBag<T>::remove(const T &item)
   }
 
   T *newdata = new T[current_size - 1]; // allocate new array with one less space
-  for (uint32_t i = 0, j = 0; i < current_size; i++)
+  for (int i = 0, j = 0; i < current_size; i++)
   {
     if (i == index)
       continue; // skip the item to be removed, skip incrementing j when the index is found
@@ -120,7 +120,7 @@ bool DynamicBag<T>::isEmpty() const
 }
 
 template <typename T>
-uint32_t DynamicBag<T>::getCurrentSize() const
+int DynamicBag<T>::getCurrentSize() const
 {
   return current_size;
 }
@@ -128,7 +128,7 @@ uint32_t DynamicBag<T>::getCurrentSize() const
 template <typename T>
 bool DynamicBag<T>::contains(const T &item) const
 {
-  for (uint32_t i = 0; i < current_size; i++)
+  for (int i = 0; i < current_size; i++)
   {
     if (data[i] == item) // if item is found
     {
@@ -147,10 +147,10 @@ void DynamicBag<T>::clear()
 }
 
 template <typename T>
-uint32_t DynamicBag<T>::getFrequencyOf(const T &item) const
+int DynamicBag<T>::getFrequencyOf(const T &item) const
 {
-  uint32_t count = 0; // initialize count to zero
-  for (uint32_t i = 0; i < current_size; i++)
+  int count = 0; // initialize count to zero
+  for (int i = 0; i < current_size; i++)
   {
     if (data[i] == item)
     {
@@ -167,7 +167,7 @@ bool DynamicBag<T>::operator==(const AbstractBag<T> &other) const
   {
     return false;
   }
-  for (uint32_t i = 0; i < current_size; i++)
+  for (int i = 0; i < current_size; i++)
   {
     if (this->getFrequencyOf(data[i]) != other.getFrequencyOf(data[i])) // check frequency of each item
     {

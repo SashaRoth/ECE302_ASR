@@ -36,7 +36,7 @@ public:
    * Get the current number of items in the bag
    * @return number of items in the bag
    */
-  uint32_t getCurrentSize() const;
+  int getCurrentSize() const;
 
   /**
    * Clear the bag contents
@@ -48,7 +48,7 @@ public:
    * @param item item to count
    * @return number of times item occurs in the bag
    */
-  uint32_t getFrequencyOf(const T &item) const;
+  int getFrequencyOf(const T &item) const;
 
   /**
    * Check if the bag contains a certain item
@@ -69,7 +69,7 @@ public:
 
 private:
   T items[maxsize];
-  uint32_t current_size;
+  int current_size;
 };
 
 #include "limited_size_bag.tpp"

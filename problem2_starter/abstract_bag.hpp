@@ -18,13 +18,13 @@ public:
   virtual bool isEmpty() const = 0;
 
   // get number of items in the bag
-  virtual uint32_t getCurrentSize() const = 0;
+  virtual int getCurrentSize() const = 0;
 
   // clear the bag contents
   virtual void clear() = 0;
 
   // count how many time item occurs in bag
-  virtual uint32_t getFrequencyOf(const T &item) const = 0;
+  virtual int getFrequencyOf(const T &item) const = 0;
 
   // check if item is in the bag
   virtual bool contains(const T &item) const = 0;
