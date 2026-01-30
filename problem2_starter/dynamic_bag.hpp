@@ -48,7 +48,7 @@ public:
 
 private:
   uint32_t current_size;
-  T *data = new T[0];
+  T *data = nullptr;
 };
 
 #include "dynamic_bag.tpp"
