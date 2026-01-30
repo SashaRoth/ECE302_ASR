@@ -21,14 +21,28 @@ bool LimitedSizeBag<T>::add(const T &item)
 template <typename T>
 bool LimitedSizeBag<T>::remove(const T &item)
 {
-  // TODO
-  return false;
+  bool found = false;
+  for (uint8_t i = 0; i < current_size; i++)
+  {
+    if (items[i] == item) // Check for first match
+    {
+      found = true;
+    }
+    if (found)
+    {
+      items[i] = items[i + 1]; // Shift items down, overwriting removed item
+    }
+  }
+  return found;
 }
 
 template <typename T>
 bool LimitedSizeBag<T>::isEmpty() const
 {
-  // TODO
+  if (current_size == 0)
+  {
+    return true;
+  }
   return false;
 }
 
@@ -43,9 +57,9 @@ bool LimitedSizeBag<T>::contains(const T &item) const
 {
   for (uint8_t i = 0; i < current_size; i++)
   {
-    if (items[i] == item)
+    if (items[i] == item) // Check for match
     {
-      return true;
+      return true; // Item found
     }
   }
   return false;
@@ -67,9 +81,9 @@ uint32_t LimitedSizeBag<T>::getFrequencyOf(const T &item) const
   uint32_t count = 0;
   for (uint8_t i = 0; i < current_size; i++)
   {
-    if (items[i] == item)
+    if (items[i] == item) // Check for match
     {
-      count++;
+      count++; // Increment count
     }
   }
   return count;
@@ -78,6 +92,16 @@ uint32_t LimitedSizeBag<T>::getFrequencyOf(const T &item) const
 template <typename T>
 bool LimitedSizeBag<T>::operator==(const AbstractBag<T> &other) const
 {
-  // TODO
+  if (current_size != other.getCurrentSize()) // Compare sizes
+  {
+    return false;
+  }
+  for (uint8_t i = 0; i < current_size; i++)
+  {
+    if (this->getFrequencyOf(items[i]) != other.getFrequencyOf(items[i])) // Compare amounts of each item
+    {
+      return false;
+    }
+  }
   return false;
 }

@@ -39,7 +39,7 @@ public:
 
 private:
   const uint8_t maxsize = 100;
-  T items = T[maxsize];
+  T items[maxsize];
   uint32_t current_size;
 };
 
