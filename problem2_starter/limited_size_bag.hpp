@@ -7,31 +7,61 @@ template <typename T>
 class LimitedSizeBag : public AbstractBag<T>
 {
 public:
-  // default constructor
+  /**
+   * Default constructor initializing an empty bag
+   */
   LimitedSizeBag();
 
-  // add an item to the bag
+  /**
+   * Add an item to the bag
+   * @param item item to add
+   * @return true if item was added, false if bag is full
+   */
   bool add(const T &item);
 
-  // remove an item
+  /**
+   * Remove an item from the bag
+   * @param item item to remove
+   * @return true if item was removed, false if not found
+   */
   bool remove(const T &item);
 
-  // check is the bag is empty
+  /**
+   * Check if the bag is empty
+   * @return true if bag is empty, false if not
+   */
   bool isEmpty() const;
 
-  // get number of items in the bag
+  /**
+   * Get the current number of items in the bag
+   * @return number of items in the bag
+   */
   uint32_t getCurrentSize() const;
 
-  // clear the bag contents
+  /**
+   * Clear the bag contents
+   */
   void clear();
 
-  // count how many time item occurs in bag
+  /**
+   * Get the frequency of an item in the bag
+   * @param item item to count
+   * @return number of times item occurs in the bag
+   */
   uint32_t getFrequencyOf(const T &item) const;
 
-  // check if item is in the bag
+  /**
+   * Check if the bag contains a certain item
+   * @param item item to check for
+   * @return true if item is in the bag, false if not
+   */
   bool contains(const T &item) const;
 
-  // check if two bags are equal
+  /**
+   * Check if two bags are equal
+   * @param other other bag to compare with
+   * @return true if bags are equal, false if not
+   */
   bool operator==(const AbstractBag<T> &other) const;
 
   // static variable to store the limited size

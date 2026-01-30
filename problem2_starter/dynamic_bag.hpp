@@ -7,43 +7,85 @@ template <typename T>
 class DynamicBag : public AbstractBag<T>
 {
 public:
-  // default constructor
+  /**
+   * Default constructor initializing an empty bag
+   */
   DynamicBag();
 
-  // copy constructor
+  /**
+   * Copy constructor for deep copy
+   * @param x DynamicBag to copy from
+   */
   DynamicBag(const DynamicBag &x);
 
-  // destructor
+  /**
+   * Destructor to free allocated memory
+   */
   ~DynamicBag() override;
 
-  // copy assignment
+  /**
+   * Copy assignment operator using copy-and-swap idiom
+   * @param x DynamicBag to copy from
+   * @return reference to *this DynamicBag, now with new contents
+   */
   DynamicBag &operator=(DynamicBag x);
 
-  // swap for copy swap idiom
+  /**
+   * Swap method for copy-and-swap idiom
+   * @param x DynamicBag to swap contents with
+   */
   void swap(DynamicBag &x);
 
-  // add an item to the bag
+  /**
+   * Add an item to the bag
+   * @param item item to add
+   * @return true if added successfully, false if capacity exceeded
+   */
   bool add(const T &item) override;
 
-  // remove an item
+  /**
+   * Remove an item from the bag
+   * @param item item to remove
+   * @return true if removed successfully, false if not found
+   */
   bool remove(const T &item) override;
 
-  // check is the bag is empty
+  /**
+   * Check if the bag is empty
+   * @return true if bag is empty, false if not
+   */
   bool isEmpty() const override;
 
-  // get number of items in the bag
+  /**
+   * Get the current size of the bag
+   * @return current size of the bag
+   */
   uint32_t getCurrentSize() const override;
 
-  // clear the bag contents
+  /**
+   * Clear the bag contents
+   */
   void clear() override;
 
-  // count how many time item occurs in bag
+  /**
+   * Get the frequency of an item in the bag
+   * @param item item to count
+   * @return frequency of the item in the bag
+   */
   uint32_t getFrequencyOf(const T &item) const override;
 
-  // check if item is in the bag
+  /**
+   * Check if the bag contains a certain item
+   * @param item item to check for
+   * @return true if item is in the bag, false if not
+   */
   bool contains(const T &item) const override;
 
-  // check if two bags are equal
+  /**
+   * Check if two bags are equal
+   * @param other other bag to compare with
+   * @return true if bags are equal, false if not
+   */
   bool operator==(const AbstractBag<T> &other) const override;
 
 private:
