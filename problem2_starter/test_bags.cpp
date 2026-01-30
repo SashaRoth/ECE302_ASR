@@ -5,7 +5,7 @@
 #include "dynamic_bag.hpp"
 
 // Test cases for LimitedSizeBag
-/*
+
 TEST_CASE("Calling all public methods of LimitedSizeBag", "[LimitedSizeBag]")
 {
   LimitedSizeBag<int> b;
@@ -19,7 +19,74 @@ TEST_CASE("Calling all public methods of LimitedSizeBag", "[LimitedSizeBag]")
   b.contains(0);
 }
 
-*/
+TEST_CASE("Testing default constructor of LimitedSizeBag", "[LimitedSizeBag]")
+{
+  LimitedSizeBag<int> b;
+  REQUIRE(b.isEmpty() == true);
+  REQUIRE(b.getCurrentSize() == 0);
+}
+
+TEST_CASE("Testing add and getCurrentSize of LimitedSizeBag", "[LimitedSizeBag]")
+{
+  LimitedSizeBag<int> b;
+  b.add(5);
+  b.add(10);
+  REQUIRE(b.getCurrentSize() == 2);
+}
+
+TEST_CASE("Testing add beyond max size of LimitedSizeBag", "[LimitedSizeBag]")
+{
+  LimitedSizeBag<int> b;
+  for (int i = 0; i < 100; i++)
+  {
+    REQUIRE(b.add(i) == true); // Should succeed
+  }
+  REQUIRE(b.add(100) == false); // Should fail, max size reached
+}
+
+TEST_CASE("Testing remove, clear, and isEmpty of LimitedSizeBag", "[LimitedSizeBag]")
+{
+  LimitedSizeBag<int> b;
+  b.add(5);
+  b.remove(5);
+  REQUIRE(b.isEmpty() == true);
+  b.add(10);
+  b.add(15);
+  b.clear();
+  REQUIRE(b.isEmpty() == true);
+}
+
+TEST_CASE("Testing getFrequencyOf of LimitedSizeBag", "[LimitedSizeBag]")
+{
+  LimitedSizeBag<int> b;
+  b.add(5);
+  b.add(5);
+  b.add(10);
+  REQUIRE(b.getFrequencyOf(5) == 2);
+  REQUIRE(b.getFrequencyOf(10) == 1);
+  REQUIRE(b.getFrequencyOf(15) == 0);
+}
+
+TEST_CASE("Testing contains of LimitedSizeBag", "[LimitedSizeBag]")
+{
+  LimitedSizeBag<int> b;
+  b.add(5);
+  REQUIRE(b.contains(5) == true);
+  REQUIRE(b.contains(10) == false);
+}
+
+TEST_CASE("Testing equivalence operator of LimitedSizeBag", "[LimitedSizeBag]")
+{
+  LimitedSizeBag<int> b1;
+  b1.add(5);
+  b1.add(10);
+  LimitedSizeBag<int> b2;
+  b2.add(5);
+  b2.add(10);
+  REQUIRE(b1 == b2);       // They should be equal
+  b2.add(15);              // Modify b2
+  REQUIRE_FALSE(b1 == b2); // They should not be equal now
+}
 
 // Test cases for DynamicBag
 

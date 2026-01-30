@@ -27,6 +27,7 @@ bool LimitedSizeBag<T>::remove(const T &item)
     if (items[i] == item) // Check for first match
     {
       found = true;
+      current_size--;
     }
     if (found)
     {
@@ -103,5 +104,5 @@ bool LimitedSizeBag<T>::operator==(const AbstractBag<T> &other) const
       return false;
     }
   }
-  return false;
+  return true;
 }
