@@ -24,7 +24,7 @@ public:
   virtual void clear() = 0;
 
   // count how many time item occurs in bag
-  virtual int getFrequencyOf(const T &item) const = 0;
+  virtual uint32_t getFrequencyOf(const T &item) const = 0;
 
   // check if item is in the bag
   virtual bool contains(const T &item) const = 0;

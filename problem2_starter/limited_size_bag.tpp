@@ -3,13 +3,18 @@
 template <typename T>
 LimitedSizeBag<T>::LimitedSizeBag()
 {
-  // TODO
+  current_size = 0;
 }
 
 template <typename T>
 bool LimitedSizeBag<T>::add(const T &item)
 {
-  // TODO
+  if (current_size < maxsize)
+  {
+    items[current_size] = item;
+    current_size++;
+    return true;
+  }
   return false;
 }
 
@@ -28,30 +33,46 @@ bool LimitedSizeBag<T>::isEmpty() const
 }
 
 template <typename T>
-int LimitedSizeBag<T>::getCurrentSize() const
+uint32_t LimitedSizeBag<T>::getCurrentSize() const
 {
-  // TODO
-  return 0;
+  return current_size;
 }
 
 template <typename T>
 bool LimitedSizeBag<T>::contains(const T &item) const
 {
-  // TODO
+  for (uint8_t i = 0; i < current_size; i++)
+  {
+    if (items[i] == item)
+    {
+      return true;
+    }
+  }
   return false;
 }
 
 template <typename T>
 void LimitedSizeBag<T>::clear()
 {
-  // TODO
+  for (uint8_t i = 0; i < current_size; i++)
+  {
+    items[i] = T(); // Reset to default value
+  }
+  current_size = 0; // Reset size
 }
 
 template <typename T>
-int LimitedSizeBag<T>::getFrequencyOf(const T &item) const
+uint32_t LimitedSizeBag<T>::getFrequencyOf(const T &item) const
 {
-  // TODO
-  return 0;
+  uint32_t count = 0;
+  for (uint8_t i = 0; i < current_size; i++)
+  {
+    if (items[i] == item)
+    {
+      count++;
+    }
+  }
+  return count;
 };
 
 template <typename T>

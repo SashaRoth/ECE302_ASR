@@ -20,13 +20,13 @@ public:
   bool isEmpty() const;
 
   // get number of items in the bag
-  int getCurrentSize() const;
+  uint32_t getCurrentSize() const;
 
   // clear the bag contents
   void clear();
 
   // count how many time item occurs in bag
-  int getFrequencyOf(const T &item) const;
+  uint32_t getFrequencyOf(const T &item) const;
 
   // check if item is in the bag
   bool contains(const T &item) const;
@@ -38,7 +38,9 @@ public:
   static const int maxsize = 100;
 
 private:
-  // TODO
+  const uint8_t maxsize = 100;
+  T items = T[maxsize];
+  uint32_t current_size;
 };
 
 #include "limited_size_bag.tpp"

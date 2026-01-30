@@ -38,7 +38,7 @@ public:
   void clear() override;
 
   // count how many time item occurs in bag
-  int getFrequencyOf(const T &item) const override;
+  uint32_t getFrequencyOf(const T &item) const override;
 
   // check if item is in the bag
   bool contains(const T &item) const override;

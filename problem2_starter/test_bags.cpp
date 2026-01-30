@@ -70,7 +70,7 @@ TEST_CASE("Testing assignment and equivalence operators of DynamicBag", "[Dynami
   b1.add(10);
   DynamicBag<int> b2;
   b2 = b1;
-  REQUIRE(b2 == b1); // They should be equal
+  REQUIRE(b1 == b2); // They should be equal
   b2.add(15);        // Modify b2 after assignment (to ensure deep copy)
   REQUIRE(b1.getCurrentSize() == 2);
   REQUIRE(b2.getCurrentSize() == 3);
@@ -78,8 +78,7 @@ TEST_CASE("Testing assignment and equivalence operators of DynamicBag", "[Dynami
   REQUIRE(b2.contains(10) == true);
   REQUIRE(b2.contains(15) == true);
   REQUIRE(b1.contains(15) == false);
-  REQUIRE((b1 == b2) == false); // They should not be equal now
-  REQUIRE(b1 == b2);
+  REQUIRE_FALSE(b1 == b2); // They should not be equal now
 }
 
 TEST_CASE("Testing remove, clear, and isEmpty of DynamicBag", "[DynamicBag]")

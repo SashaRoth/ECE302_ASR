@@ -138,9 +138,9 @@ void DynamicBag<T>::clear()
 }
 
 template <typename T>
-int DynamicBag<T>::getFrequencyOf(const T &item) const
+uint32_t DynamicBag<T>::getFrequencyOf(const T &item) const
 {
-  int count = 0; // initialize count to zero
+  uint32_t count = 0; // initialize count to zero
   for (uint32_t i = 0; i < current_size; i++)
   {
     if (data[i] == item)
