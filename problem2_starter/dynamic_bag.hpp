@@ -14,7 +14,7 @@ public:
   DynamicBag(const DynamicBag &x);
 
   // destructor
-  ~DynamicBag();
+  ~DynamicBag() override;
 
   // copy assignment
   DynamicBag &operator=(DynamicBag x);
@@ -23,28 +23,28 @@ public:
   void swap(DynamicBag &x);
 
   // add an item to the bag
-  bool add(const T &item);
+  bool add(const T &item) override;
 
   // remove an item
-  bool remove(const T &item);
+  bool remove(const T &item) override;
 
   // check is the bag is empty
-  bool isEmpty() const;
+  bool isEmpty() const override;
 
   // get number of items in the bag
-  uint32_t getCurrentSize() const;
+  uint32_t getCurrentSize() const override;
 
   // clear the bag contents
-  void clear();
+  void clear() override;
 
   // count how many time item occurs in bag
-  int getFrequencyOf(const T &item) const;
+  int getFrequencyOf(const T &item) const override;
 
   // check if item is in the bag
-  bool contains(const T &item) const;
+  bool contains(const T &item) const override;
 
   // check if two bags are equal
-  bool operator==(const AbstractBag<T> &other) const;
+  bool operator==(const AbstractBag<T> &other) const override;
 
 private:
   uint32_t current_size;

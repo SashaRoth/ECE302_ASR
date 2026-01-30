@@ -34,20 +34,13 @@ DynamicBag<T> &DynamicBag<T>::operator=(DynamicBag<T> x) // passed by value, cop
 template <typename T>
 void DynamicBag<T>::swap(DynamicBag<T> &x)
 {
-  T temp_data = data;                // create temporary data pointer
-  uint32_t temp_size = current_size; // create temporary size
+  T *tmp_data = data; // swap data pointers
+  data = x.data;
+  x.data = tmp_data;
 
-  temp_size = x.current_size; // copy other size to temp
-  temp_data = x.data;         // copy other data to temp
-
-  x.data = data;                 // swap data pointers
-  x.current_size = current_size; // swap sizes
-
-  data = temp_data;         // assign temp data to *this
-  current_size = temp_size; // assign temp size to *this
-
-  delete[] temp_data;  // free temporary data
-  temp_data = nullptr; // avoid dangling pointer
+  uint32_t tmp_size = current_size; // swap sizes
+  current_size = x.current_size;
+  x.current_size = tmp_size;
 }
 
 template <typename T>
@@ -58,9 +51,9 @@ bool DynamicBag<T>::add(const T &item)
   {
     newdata[i] = data[i]; // copy old data to new array
   }
-  data[current_size] = item; // add new item at the end
-  delete[] data;             // free old array
-  data = newdata;            // point to new array
+  newdata[current_size] = item; // add new item at the end
+  delete[] data;                // free old array
+  data = newdata;               // point to new array
   current_size++;
   return true;
 }
@@ -68,34 +61,43 @@ bool DynamicBag<T>::add(const T &item)
 template <typename T>
 bool DynamicBag<T>::remove(const T &item)
 {
-  bool flag = false;                    // to check if item is found
-  T *newdata = new T[current_size - 1]; // allocate new array with one less space
+  if (current_size == 0)
+    return false;
+
+  // find first occurrence
+  uint32_t index = -1;
   for (uint32_t i = 0; i < current_size; i++)
   {
-    if (data[i] == item) // if item is found
+    if (data[i] == item)
     {
-      flag = true;
-    }
-    else
-    {
-      newdata[i] = data[i + (flag ? 1 : 0)]; // copy old data to new array, skip the found item
+      index = i; // store index of found object
+      break;
     }
   }
-  if (flag) // if item was found and removed
+  if (index == -1) // item not found
+    return false;
+
+  if (current_size == 1)
   {
-    current_size--;
-    delete[] data;     // free old array
-    data = newdata;    // point to new array
-    delete[] newdata;  // free temporary array
-    newdata = nullptr; // avoid dangling pointer
+    // removing the only element
+    delete[] data;
+    data = new T[0];
+    current_size = 0;
     return true;
   }
-  else // if item was not found
+
+  T *newdata = new T[current_size - 1]; // allocate new array with one less space
+  for (uint32_t i = 0, j = 0; i < current_size; i++)
   {
-    delete[] newdata;  // free temporary array
-    newdata = nullptr; // avoid dangling pointer
-    return false;
+    if (i == index)
+      continue; // skip the item to be removed, skip incrementing j when the index is found
+    newdata[j++] = data[i];
   }
+
+  delete[] data;  // free old array
+  data = newdata; // point to new array
+  current_size--;
+  return true;
 }
 
 template <typename T>

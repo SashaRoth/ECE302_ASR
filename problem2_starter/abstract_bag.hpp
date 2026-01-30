@@ -18,7 +18,7 @@ public:
   virtual bool isEmpty() const = 0;
 
   // get number of items in the bag
-  virtual int getCurrentSize() const = 0;
+  virtual uint32_t getCurrentSize() const = 0;
 
   // clear the bag contents
   virtual void clear() = 0;
