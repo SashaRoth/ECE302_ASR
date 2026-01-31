@@ -24,7 +24,7 @@ bool LimitedSizeBag<T>::remove(const T &item)
   bool found = false;
   for (int i = 0; i < current_size; i++)
   {
-    if (items[i] == item) // Check for first match
+    if ((items[i] == item) && (found == false)) // Check for first match
     {
       found = true;
       current_size--;

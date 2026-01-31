@@ -166,3 +166,46 @@ TEST_CASE("Bitarray: Test asString() after various operations", "[bitarray]")
     b1.toggle(0);
     REQUIRE(b1.asString().compare("01000") == 0);
 }
+
+// Project 1 Checkoff Tests
+
+TEST_CASE("Bitarray: Test reset() and toggle() methods to perform the same function as set()", "[bitarray]")
+{
+    std::string ex_string = "101010101010100010";
+
+    BitArray b_to_set(ex_string); // create array to be set
+    REQUIRE(b_to_set.good() == true);
+
+    b_to_set.set(0);                   // set first bit
+    b_to_set.set(b_to_set.size() - 1); // set last bit
+
+    BitArray b_to_toggle(ex_string); // create array to be reset/toggled
+    REQUIRE(b_to_toggle.good() == true);
+
+    b_to_toggle.reset(0);                      // reset first bit
+    b_to_toggle.reset(b_to_toggle.size() - 1); // reset last bit
+
+    b_to_toggle.toggle(0);                      // toggle first bit
+    b_to_toggle.toggle(b_to_toggle.size() - 1); // toggle last bit
+
+    REQUIRE(b_to_toggle.asString() == b_to_set.asString()); // compare
+}
+
+TEST_CASE("Bitarry: Test additional complement() method", "[bitarray]")
+{
+    BitArray unsign("010101");
+    std::string comp1 = complement(unsign);
+    REQUIRE(comp1 == "010101");
+
+    BitArray ones("111111");
+    std::string comp2 = complement(ones);
+    REQUIRE(comp2 == "000001");
+
+    BitArray zeros("100000");
+    std::string comp3 = complement(zeros);
+    REQUIRE(comp3 == "100000");
+
+    BitArray half("111000");
+    std::string comp4 = complement(half);
+    REQUIRE(comp4 == "00100");
+}

@@ -178,3 +178,32 @@ TEST_CASE("Testing contains of DynamicBag", "[DynamicBag]")
   REQUIRE(b.contains(5) == true);
   REQUIRE(b.contains(10) == false);
 }
+
+// Additional test case recommended by Gavin
+TEST_CASE("Bags: Test LimitedSizeBag == LimitedSizeBag", "[LimitedSizeBag]")
+{
+  LimitedSizeBag<int> x;
+  x.add(1);
+  x.add(2);
+  x.add(3);
+  x.add(3);
+  x.add(4);
+  x.add(1);
+  x.remove(1);
+  LimitedSizeBag<int> y;
+  y.add(1);
+  y.add(1);
+  y.add(3);
+  y.add(3);
+  y.add(4);
+  y.add(2);
+  y.remove(1);
+  REQUIRE(x == y);
+
+  LimitedSizeBag<int> z(x);
+  REQUIRE(x == z);
+
+  LimitedSizeBag<int> u;
+  u = x;
+  REQUIRE(x == u);
+}

@@ -50,4 +50,7 @@ private:
   bool valid;
 };
 
+// New method for checkoff
+std::string complement(BitArray &array);
+
 #endif

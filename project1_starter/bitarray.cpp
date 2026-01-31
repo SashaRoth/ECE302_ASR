@@ -112,6 +112,39 @@ bool BitArray::test(intmax_t index)
     return data[index] == 1; // compare bit to 1
 }
 
+std::string complement(BitArray &array)
+{
+    if (array.test(0) == 0)
+    {
+        return array.asString();
+    }
+
+    for (int i = 0; i < array.size(); i++) // if negative, toggle every bit
+    {
+        array.toggle(i);
+    }
+
+    bool carry = true;
+    int count = array.size() - 1;
+
+    while ((carry == true) && count >= 0)
+    {
+        if (array.test(count) == 0)
+        {
+            array.toggle(count);
+            carry = false;
+        }
+        else if (array.test(count) == 1)
+        {
+            array.toggle(count);
+            carry == true;
+        }
+        count--;
+    }
+
+    return array.asString();
+}
+
 std::string BitArray::asString() const
 {
     std::string result = ""; // initialize empty string
