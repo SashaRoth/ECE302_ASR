@@ -17,8 +17,8 @@ ArrayList<T>::~ArrayList()
 template <typename T>
 ArrayList<T>::ArrayList(const ArrayList &rhs)
 {
-  current_size = rhs.getLength(); // copy size
-  data = new T[current_size];        // allocate new list with other list's size
+  size = rhs.getLength(); // copy size
+  data = new T[size];        // allocate new list with other list's size
   for (uint32_t i = 0; i < rhs.size; i++)
   {
     data[i] = rhs.data[i]; // copy data from other list element-by-element
@@ -28,14 +28,15 @@ ArrayList<T>::ArrayList(const ArrayList &rhs)
 template <typename T>
 ArrayList<T> &ArrayList<T>::operator=(ArrayList rhs)
 {
-  swap(x);      // swap current object with copy
+  swap(rhs);      // swap current object with copy
   return *this; // return current object by reference, copy is destroyed
 }
 
 template <typename T>
 void ArrayList<T>::swap(ArrayList &rhs)
 {
-   T *tmp_data = data; // swap data pointers
+  T *tmp_data = new T[size];
+  tmp_data = data; // swap data pointers
   data = rhs.data;
   rhs.data = tmp_data;
 
@@ -65,7 +66,7 @@ bool ArrayList<T>::insert(int position, const T &item)
     return false; // invalid position
   }
 
-  T *temp = T[size + 1]; // create new array with increased size
+  T *temp = new T[size + 1]; // create new array with increased size
   for(int i = 0; i < size + 1; i++) {
     if(i == position - 1) {
       temp[i] = item; // insert new item at position
@@ -89,7 +90,7 @@ bool ArrayList<T>::remove(int position)
     return false; // invalid position
   }
 
-  T *temp = T[size - 1]
+  T *temp = new T[size - 1];
   for(int i = position - 1; i < size - 1; i++) {
     temp[i] = data[i + 1]; // shift elements left to fill gap
   }
