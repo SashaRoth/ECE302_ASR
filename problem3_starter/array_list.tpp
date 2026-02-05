@@ -61,25 +61,50 @@ int ArrayList<T>::getLength() const noexcept
 template <typename T>
 bool ArrayList<T>::insert(int position, const T &item)
 {
-  // TODO
-  return false;
+  if(position < 1 || position > size + 1) {
+    return false; // invalid position
+  }
+
+  T *temp = T[size + 1]; // create new array with increased size
+  for(int i = 0; i < size + 1; i++) {
+    if(i == position - 1) {
+      temp[i] = item; // insert new item at position
+    } else if(i > position - 1) {
+      temp[i] = data[i - 1]; // shift elements right after position
+    } else{
+    temp[i] = data[i]; // copy elements before position
+    }
+  }
+
+  delete[] data; // free old array
+  data = temp; // point to new array
+  size++; // increase size
+  return true;
 }
 
 template <typename T>
 bool ArrayList<T>::remove(int position)
 {
+  if(position < 1 || position > size + 1) {
+    return false; // invalid position
+  }
+
+  T *temp = T[size - 1]
   for(int i = position - 1; i < size - 1; i++) {
-    data[i] = data[i + 1]; // shift elements left to fill gap
-  })
-  return false;
+    temp[i] = data[i + 1]; // shift elements left to fill gap
+  }
+  
+  delete[] data; // free old array
+  data = temp; // point to new array
+  size--; // decrease size
+  return true;
 }
 
 template <typename T>
 void ArrayList<T>::clear()
 {
-  for(int i = 0; i < size; i++) {
-    data[i] = T(); // reset each element to default value
-  }
+  delete[] data; // free old array
+  data = new T[0]; // allocate new empty array
   size = 0; // reset size to zero
 }
 
