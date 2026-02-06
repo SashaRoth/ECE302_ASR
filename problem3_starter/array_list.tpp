@@ -98,8 +98,12 @@ bool ArrayList<T>::remove(int position)
   }
 
   T *temp = new T[size - 1];
-  for(int i = position - 1; i < size - 1; i++) {
-    temp[i] = data[i + 1]; // shift elements left to fill gap
+  for(int i = 0; i < size - 1; i++) {
+    if(i >= position - 1) {
+      temp[i] = data[i + 1]; // shift elements left after position
+    } else {
+      temp[i] = data[i]; // copy elements before position
+    }
   }
   
   delete[] data; // free old array
