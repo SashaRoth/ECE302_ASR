@@ -46,7 +46,8 @@ public:
   void setEntry(int position, const T &newValue);
 
 private:
-  // TODO
+  int size;
+  Node *headptr;
 };
 
 #include "linked_list.tpp"

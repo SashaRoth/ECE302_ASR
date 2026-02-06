@@ -3,7 +3,8 @@
 template <typename T>
 LinkedList<T>::LinkedList()
 {
-  // TODO, default constructor
+  size = 0;
+  headptr = nullptr;
 }
 
 template <typename T>
@@ -15,20 +16,29 @@ LinkedList<T>::~LinkedList()
 template <typename T>
 LinkedList<T>::LinkedList(const LinkedList<T> &x)
 {
-  // TODO, copy constructor
+  size = 
 }
 
 template <typename T>
 LinkedList<T> &LinkedList<T>::operator=(LinkedList<T> x)
 {
-  // TODO, copy assignment
+  swap(x);
   return *this;
 }
 
 template <typename T>
 void LinkedList<T>::swap(LinkedList &x)
 {
-  // TODO, swap helper function for copy assignment
+  LinkedList temp;
+
+  temp.headptr = headptr;
+  headptr = x.headptr;
+  x.headptr = temp.headptr;
+  temp.headptr = nullptr;
+
+  temp.size = size;
+  size = x.size;
+  x.size = temp.size;
 }
 
 template <typename T>
