@@ -47,7 +47,7 @@ public:
 
 private:
   int size;
-  Node *headptr;
+  Node<T> *headptr;
 };
 
 #include "linked_list.tpp"

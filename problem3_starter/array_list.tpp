@@ -19,7 +19,7 @@ ArrayList<T>::ArrayList(const ArrayList &rhs)
 {
   size = rhs.getLength(); // copy size
   data = new T[size];        // allocate new list with other list's size
-  for (uint32_t i = 0; i < rhs.size; i++)
+  for (int i = 0; i < rhs.size; i++)
   {
     data[i] = rhs.data[i]; // copy data from other list element-by-element
   }
