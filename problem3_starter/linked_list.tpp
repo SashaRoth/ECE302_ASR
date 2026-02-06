@@ -116,7 +116,6 @@ pointers between the three objects.
 I have screenshots of the Copilot logs if needed :)
 */
 
-
 template <typename T>
 bool LinkedList<T>::remove(int position) //returns false if invalid index
 {
