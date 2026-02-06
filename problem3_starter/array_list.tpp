@@ -90,6 +90,13 @@ bool ArrayList<T>::remove(int position)
     return false; // invalid position
   }
 
+  if(size == 1) { // if only one element, clear the list
+    delete[] data;
+    data = new T[0];
+    size = 0;
+    return true;
+  }
+
   T *temp = new T[size - 1];
   for(int i = position - 1; i < size - 1; i++) {
     temp[i] = data[i + 1]; // shift elements left to fill gap
