@@ -20,7 +20,7 @@ LinkedList<T>::LinkedList(const LinkedList<T> &x)
   headptr = nullptr;
 
   if(x.getLength() == 0){
-    return; //list is empty, noting to copy
+    return; //list is empty, nothing to copy
   }
 
   headptr = new Node<T>(x.headptr->getItem());
@@ -48,7 +48,7 @@ template <typename T>
 void LinkedList<T>::swap(LinkedList &x)
 {
   Node<T> *temp_ptr = headptr;
-  temp_ptr = x.headptr;
+  headptr = x.headptr;
   x.headptr = temp_ptr;
 
   int temp_size = size;
@@ -77,6 +77,12 @@ bool LinkedList<T>::insert(int position, const T &item) //returns false if inval
   if(position < 1 || position > size + 1){
     return false; //position is out of bounds
   }
+  if(position == 1){ //inserting at head
+    Node<T> *new_node = new Node<T>(item, headptr); //create new node with item as data and previous 1st node as next node
+    headptr = new_node; //set headptr to new node
+    size++; //increment size
+    return true;
+  }
   Node<T> *current = headptr;
   Node<T> *new_node = new Node<T>(item); //create new node with item as data
   for(int i = 1; i < position - 1; i++){ //iteratire through list until position - 1
@@ -88,28 +94,58 @@ bool LinkedList<T>::insert(int position, const T &item) //returns false if inval
   return true;
 }
 
+/*
+CITATION: I used VSCode's built-in Github Copilot to help me resolve memory leaks
+in the remove() and swap() methods. 
+
+My initial remove() function was experiencing memory
+leaks because I did not have a special case for removing the head node. When I removed the head node, 
+I originally did:
+
+Node<T>* prev = headptr;
+to_remove = prev->getNext(); // wrong when removing head
+
+which instead removed the second node in the list and left the head node dangling, causing a memory leak. 
+I resolved this by adding a special case for removing the head node, which properly deletes the head node 
+and updates the head pointer.
+
+In the swap() function, I had a simply typo in my copy-swap idiom that assigned x.headptr to temp_ptr,
+and then temp_ptr to x.headptr. This was a redundant operation, which I resolved by properly swapping
+pointers between the three objects.
+
+I have screenshots of the Copilot logs if needed :)
+*/
+
+
 template <typename T>
 bool LinkedList<T>::remove(int position) //returns false if invalid index
 {
   if(position < 1 || position > size){
     return false; //position is out of bounds
   }
+  Node<T> *to_remove = nullptr;
+
+  if(position == 1){ // remove head
+    to_remove = headptr;
+    headptr = headptr->getNext();
+    to_remove->setNext(nullptr);
+    delete to_remove;
+    size--;
+    return true;
+  }
 
   Node<T> *prev = headptr;
-  Node<T> *to_remove = nullptr;
-  Node<T> *next = nullptr;
-
   for(int i = 1; i < position - 1; i++){ //iterate through list until node before one to be removed
     prev = prev->getNext();
   }
 
   to_remove = prev->getNext(); //store pointer to node to be removed
-  next = to_remove->getNext(); //store pointer to node after node to be removed
+  Node<T> *next = to_remove->getNext(); //store pointer to node after node to be removed
   prev->setNext(next); //set next node of current to node after node to be removed
-  
+
   to_remove->setNext(nullptr); //set next node of node to be removed to nullptr
   delete to_remove; //delete node to be removed
-  
+
   size--; //decrement size
   return true;
 }
@@ -125,6 +161,7 @@ void LinkedList<T>::clear()
     current = next;
   }
   headptr = nullptr;
+  size = 0;
 }
 
 // throw std::out_of_range if position < 1 or position > getLength()
