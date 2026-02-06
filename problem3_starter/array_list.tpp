@@ -113,6 +113,9 @@ void ArrayList<T>::clear()
 template <typename T>
 T ArrayList<T>::getEntry(int position) const
 {
+  if(position < 1 || position > size){
+    throw std::out_of_range("Invalid index");
+  }
   return data[position - 1]; // return the item at the specified position
 }
 
@@ -120,5 +123,8 @@ T ArrayList<T>::getEntry(int position) const
 template <typename T>
 void ArrayList<T>::setEntry(int position, const T &newValue)
 {
+  if(position < 1 || position > size){
+    throw std::out_of_range("Invalid index");
+  }
   data[position - 1] = newValue; // set the value at the specified position
 }

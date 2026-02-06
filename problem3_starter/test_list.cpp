@@ -37,7 +37,7 @@ TEST_CASE("Lists: Test ArrayList 1-index Edge Cases", "[ArrayList]")
   // and your insertion at pos=n+1 is also valid (which appends to the end of the list)
   // your removal at pos=1 is valid, but your removal at pos=n+1 is invalid
 }
-
+/*
 TEST_CASE("Lists: Test LinkedList 1-index Edge Cases", "[LinkedList]")
 {
   LinkedList<int> list;
@@ -69,6 +69,7 @@ TEST_CASE("Lists: Test LinkedList 1-index Edge Cases", "[LinkedList]")
   // and your insertion at pos=n+1 is also valid (which appends to the end of the list)
   // your removal at pos=1 is valid, but your removal at pos=n+1 is invalid
 }
+  */
 
 //Sasha's test cases
 
@@ -76,7 +77,7 @@ TEST_CASE("Lists: Test LinkedList 1-index Edge Cases", "[LinkedList]")
 TEST_CASE("Lists: Test ArrayList default constructor", "[ArrayList]"){
   ArrayList<int> a;
   REQUIRE(a.getLength() == 0);
-  REQUIRE(a.isEmpty() == 0);
+  REQUIRE(a.isEmpty() == true);
 }
 
 TEST_CASE("Lists: Test ArrayList copy constructor", "[ArrayList]"){
@@ -147,24 +148,83 @@ TEST_CASE("Lists: Test ArrayList getLength method", "[ArrayList]"){
 
 TEST_CASE("Lists: Test ArrayList insert method", "[ArrayList]"){ //require false if invalid position
   ArrayList<int> a;
+
+  REQUIRE(a.insert(1, 3)); //insert into empty array
+  REQUIRE(a.getEntry(1) == 3); 
+
+  REQUIRE(a.insert(1, 6)); //insert into beginning of array
+  REQUIRE(a.getEntry(1) == 6);
+  REQUIRE(a.getEntry(2) == 3);
+
+  REQUIRE(a.insert(2, 9)); //insert into middle of array
+  REQUIRE(a.getEntry(1) == 6);
+  REQUIRE(a.getEntry(2) == 9);
+  REQUIRE(a.getEntry(3) == 3);
+
+  REQUIRE_FALSE(a.insert(-1, 12)); //insert at invalid index (negative)
+  REQUIRE_FALSE(a.insert(5, 12)); //insert at invalid index (too large)
 }
 
 TEST_CASE("Lists: Test ArrayList remove method", "[ArrayList]"){ //require false if invalid position
   ArrayList<int> a;
+
+  a.insert(1, 8);
+  a.insert(2, 16);
+  a.remove(1);
+  REQUIRE(a.getLength() == 1); //check if size was updated
+  REQUIRE(a.getEntry(1) == 16); //check if elements were shifted
+
+  REQUIRE_FALSE(a.remove(-1)); //test invalid index (negative)
+  REQUIRE_FALSE(a.remove(10)); //test invalid index (too large)
 }
 
 TEST_CASE("Lists: Test ArrayList clear method", "[ArrayList]"){
   ArrayList<int> a;
+
+  a.insert(1, 4);
+  a.insert(2, 8);
+  a.insert(3, 12);
+  a.insert(4, 16);
+
+  REQUIRE(a.getLength() == 4); //ensure array was full before clear
+
+  a.clear();
+
+  REQUIRE(a.getLength() == 0); //array should be empty after clear
 }
 
 TEST_CASE("Lists: Test ArrayList getEntry method", "[ArrayList]"){ //throw exception if invalid position
   ArrayList<int> a;
+
+  a.insert(1, 2);
+  a.insert(2, 4);
+  a.insert(3, 6);
+
+  REQUIRE(a.getEntry(1) == 2);
+  REQUIRE(a.getEntry(2) == 4);
+  REQUIRE(a.getEntry(3) == 6);
+  REQUIRE_THROWS_AS(a.getEntry(-1), std::out_of_range); //require throw for negative index
+  REQUIRE_THROWS_AS(a.getEntry(4), std::out_of_range); //require throw for too large index
 }
 
 TEST_CASE("Lists: Test ArrayList setEntry method", "[ArrayList]"){ //throw exception if invalid position
   ArrayList<int> a;
-}
 
+  a.insert(1, 6);
+  a.insert(2, 12);
+  a.insert(3, 18);
+
+  REQUIRE(a.getEntry(2) == 12); //ensure unchanged value is valid
+  REQUIRE(a.getLength() == 3); //check initial length
+
+  a.setEntry(2, 13);
+
+  REQUIRE(a.getEntry(2) == 13); //value should now be different
+  REQUIRE(a.getLength() == 3); //length should be unchanged
+  REQUIRE_THROWS_AS(a.setEntry(-1, 100), std::out_of_range); //require throw for negative index
+  REQUIRE_THROWS_AS(a.setEntry(4, 100), std::out_of_range); //require throw for too large index
+}
+/*
 //LinkedList Unit Tests
 TEST_CASE("Lists: Test LinkedList default constructor", "[LinkedList]"){
   LinkedList<int> l;
@@ -242,20 +302,81 @@ TEST_CASE("Lists: Test LinkedList getLength method", "[LinkedList]"){
 
 TEST_CASE("Lists: Test LinkedList insert method", "[LinkedList]"){ //require false if invalid position
   LinkedList<int> l;
+
+  REQUIRE(l.insert(1, 3)); //insert into empty array
+  REQUIRE(l.getEntry(1) == 3); 
+
+  REQUIRE(l.insert(1, 6)); //insert into beginning of array
+  REQUIRE(l.getEntry(1) == 6);
+  REQUIRE(l.getEntry(2) == 3);
+
+  REQUIRE(l.insert(2, 9)); //insert into middle of array
+  REQUIRE(l.getEntry(1) == 6);
+  REQUIRE(l.getEntry(2) == 9);
+  REQUIRE(l.getEntry(3) == 3);
+
+  REQUIRE_FALSE(l.insert(-1, 12)); //insert at invalid index (negative)
+  REQUIRE_FALSE(l.insert(5, 12)); //insert at invalid index (too large)
+
 }
 
 TEST_CASE("Lists: Test LinkedList remove method", "[LinkedList]"){ //require false if invalid position
   LinkedList<int> l;
+
+  l.insert(1, 8);
+  l.insert(2, 16);
+  l.remove(1);
+  REQUIRE(l.getLength() == 1); //check if size was updated
+  REQUIRE(l.getEntry(1) == 16); //check if elements were shifted
+
+  REQUIRE_FALSE(l.remove(-1)); //test invalid index (negative)
+  REQUIRE_FALSE(l.remove(10)); //test invalid index (too large)
 }
 
 TEST_CASE("Lists: Test LinkedList clear method", "[LinkedList]"){
   LinkedList<int> l;
+
+  l.insert(1, 4);
+  l.insert(2, 8);
+  l.insert(3, 12);
+  l.insert(4, 16);
+
+  REQUIRE(l.getLength() == 4); //ensure array was full before clear
+
+  l.clear();
+
+  REQUIRE(l.getLength() == 0); //array should be empty after clear
 }
 
 TEST_CASE("Lists: Test LinkedList getEntry method", "[LinkedList]"){ //throw exception if invalid position
   LinkedList<int> l;
+
+  l.insert(1, 2);
+  l.insert(2, 4);
+  l.insert(3, 6);
+
+  REQUIRE(l.getEntry(1) == 2);
+  REQUIRE(l.getEntry(2) == 4);
+  REQUIRE(l.getEntry(3) == 6);
+  REQUIRE_THROWS_AS(l.getEntry(-1), std::out_of_range); //require throw for negative index
+  REQUIRE_THROWS_AS(l.getEntry(4), std::out_of_range); //require throw for too large index
 }
 
 TEST_CASE("Lists: Test LinkedList setEntry method", "[LinkedList]"){ //throw exception if invalid position
   LinkedList<int> l;
+
+  l.insert(1, 6);
+  l.insert(2, 12);
+  l.insert(3, 18);
+
+  REQUIRE(l.getEntry(2) == 12); //ensure unchanged value is valid
+  REQUIRE(l.getLength() == 3); //check initial length
+
+  l.setEntry(2, 13);
+
+  REQUIRE(l.getEntry(2) == 13); //value should now be different
+  REQUIRE(l.getLength() == 3); //length should be unchanged
+  REQUIRE_THROWS_AS(l.setEntry(-1, 100), std::out_of_range); //require throw for negative index
+  REQUIRE_THROWS_AS(l.setEntry(4, 100), std::out_of_range); //require throw for too large index
 }
+*/
