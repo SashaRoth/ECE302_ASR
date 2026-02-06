@@ -37,7 +37,7 @@ TEST_CASE("Lists: Test ArrayList 1-index Edge Cases", "[ArrayList]")
   // and your insertion at pos=n+1 is also valid (which appends to the end of the list)
   // your removal at pos=1 is valid, but your removal at pos=n+1 is invalid
 }
-/*
+
 TEST_CASE("Lists: Test LinkedList 1-index Edge Cases", "[LinkedList]")
 {
   LinkedList<int> list;
@@ -69,7 +69,7 @@ TEST_CASE("Lists: Test LinkedList 1-index Edge Cases", "[LinkedList]")
   // and your insertion at pos=n+1 is also valid (which appends to the end of the list)
   // your removal at pos=1 is valid, but your removal at pos=n+1 is invalid
 }
-  */
+  
 
 //Sasha's test cases
 
@@ -224,7 +224,7 @@ TEST_CASE("Lists: Test ArrayList setEntry method", "[ArrayList]"){ //throw excep
   REQUIRE_THROWS_AS(a.setEntry(-1, 100), std::out_of_range); //require throw for negative index
   REQUIRE_THROWS_AS(a.setEntry(4, 100), std::out_of_range); //require throw for too large index
 }
-/*
+
 //LinkedList Unit Tests
 TEST_CASE("Lists: Test LinkedList default constructor", "[LinkedList]"){
   LinkedList<int> l;
@@ -379,4 +379,3 @@ TEST_CASE("Lists: Test LinkedList setEntry method", "[LinkedList]"){ //throw exc
   REQUIRE_THROWS_AS(l.setEntry(-1, 100), std::out_of_range); //require throw for negative index
   REQUIRE_THROWS_AS(l.setEntry(4, 100), std::out_of_range); //require throw for too large index
 }
-*/

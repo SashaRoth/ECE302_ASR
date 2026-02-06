@@ -19,7 +19,7 @@ LinkedList<T>::LinkedList(const LinkedList<T> &x)
   size = 0;
   headptr = nullptr;
 
-  if(x.getLength == 0){
+  if(x.getLength() == 0){
     return; //list is empty, noting to copy
   }
 
@@ -30,7 +30,7 @@ LinkedList<T>::LinkedList(const LinkedList<T> &x)
   Node<T> *x_next_ptr = x.headptr->getNext();
 
   while(x_next_ptr != nullptr){
-    current_ptr->setNext(new Node<T>(x_next_ptr->data)); //a little convoluted but it might work?
+    current_ptr->setNext(new Node<T>(x_next_ptr->getItem())); //a little convoluted but it might work?
     current_ptr = current_ptr->getNext();
     x_next_ptr = x_next_ptr->getNext();
     size++;
