@@ -86,7 +86,7 @@ bool ArrayList<T>::insert(int position, const T &item)
 template <typename T>
 bool ArrayList<T>::remove(int position)
 {
-  if(position < 1 || position > size + 1) {
+  if(position < 1 || position > size) {
     return false; // invalid position
   }
 
