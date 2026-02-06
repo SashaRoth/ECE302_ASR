@@ -23,14 +23,14 @@ LinkedList<T>::LinkedList(const LinkedList<T> &x)
     return; //list is empty, noting to copy
   }
 
-  headptr = new Node(x.headptr->getItem());
+  headptr = new Node<T>(x.headptr->getItem());
   size++;
 
-  Node *current_ptr = headptr; 
-  Node *x_next_ptr = x.headptr->getNext();
+  Node<T> *current_ptr = headptr; 
+  Node<T> *x_next_ptr = x.headptr->getNext();
 
   while(x_next_ptr != nullptr){
-    current_ptr->setNext(new Node(x_next_ptr->data)); //a little convoluted but it might work?
+    current_ptr->setNext(new Node<T>(x_next_ptr->data)); //a little convoluted but it might work?
     current_ptr = current_ptr->getNext();
     x_next_ptr = x_next_ptr->getNext();
     size++;
@@ -47,7 +47,7 @@ LinkedList<T> &LinkedList<T>::operator=(LinkedList<T> x)
 template <typename T>
 void LinkedList<T>::swap(LinkedList &x)
 {
-  Node *temp_ptr = headptr;
+  Node<T> *temp_ptr = headptr;
   temp_ptr = x.headptr;
   x.headptr = temp_ptr;
 
@@ -77,8 +77,8 @@ bool LinkedList<T>::insert(int position, const T &item) //returns false if inval
   if(position < 1 || position > size + 1){
     return false; //position is out of bounds
   }
-  Node *current = headptr;
-  Node *new_node = new Node(item); //create new node with item as data
+  Node<T> *current = headptr;
+  Node<T> *new_node = new Node<T>(item); //create new node with item as data
   for(int i = 1; i < position - 1; i++){ //iteratire through list until position - 1
     current = current->getNext();
   }
@@ -95,9 +95,9 @@ bool LinkedList<T>::remove(int position) //returns false if invalid index
     return false; //position is out of bounds
   }
 
-  Node *prev = headptr;
-  Node *to_remove = nullptr;
-  Node *next = nullptr;
+  Node<T> *prev = headptr;
+  Node<T> *to_remove = nullptr;
+  Node<T> *next = nullptr;
 
   for(int i = 1; i < position - 1; i++){ //iterate through list until node before one to be removed
     prev = prev->getNext();
@@ -117,8 +117,8 @@ bool LinkedList<T>::remove(int position) //returns false if invalid index
 template <typename T>
 void LinkedList<T>::clear()
 {
-  Node* current = headptr;
-  Node* next = nullptr;
+  Node<T> *current = headptr;
+  Node<T> *next = nullptr;
   while(current != nullptr){
     next = current->getNext();
     delete current;
@@ -135,7 +135,7 @@ T LinkedList<T>::getEntry(int position) const //throws std::out_of_range if posi
     throw std::out_of_range("Invalid index");
   }
 
-  Node *current = headptr;
+  Node<T> *current = headptr;
   for(int i = 1; i < position; i++){ //iterate through list until position
     current = current->getNext();
   }
@@ -149,7 +149,7 @@ void LinkedList<T>::setEntry(int position, const T &newValue) //throws std::out_
   if(position < 1 || position > size){
     throw std::out_of_range("Invalid index");
   }
-  Node *current = headptr;
+  Node<T> *current = headptr;
   for(int i = 1; i < position; i++){ //iterate through list until position
     current = current->getNext();
   }
