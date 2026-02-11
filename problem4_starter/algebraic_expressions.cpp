@@ -44,7 +44,7 @@ void convert(const std::string &postfix, std::string &prefix)
   if(!isPost(postfix)){
     throw std::invalid_argument("Not a valid postfix expression");
   }
-  int postLength = postfix.length(); //get original postfix expression length
+  int postLength = postfix.size(); //get original postfix expression length
   char last = postfix[postLength - 1];
   prefix = "";
 
@@ -52,7 +52,7 @@ void convert(const std::string &postfix, std::string &prefix)
     //last character is a letter; base case
     prefix = prefix + last; //concatenate letter to prefix expression
   }
-  else{ 
+  else if(isoperator(last)){ 
     //first character is an operator
     //postfix has form <post1><post2><operator>
     int endFirst = endPost(postfix, postLength-1); //find end index of post2
@@ -61,5 +61,8 @@ void convert(const std::string &postfix, std::string &prefix)
     //convert post2 into prefix
     convert(postfix.substr(endFirst, postLength - 1), prefix);
     prefix = prefix + last;
+  }
+  else{
+    throw std::invalid_argument("Expression contains invalid character");
   }
 }
