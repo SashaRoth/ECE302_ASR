@@ -77,3 +77,27 @@ TEST_CASE("Postpre: Test other operators", "[postpre]")
 }
 
 /** Your Test Cases Go Here */
+TEST_CASE("Postpre: Test specific Problem 4 requirements", "[postpre]")
+{
+  //just generally test a complex expression
+  std::string postfix = "na*b/t-mj/ho*+*";
+  std::string prefix = "";
+  std::string test = "*-/*nabt+/mj*ho";
+
+  REQUIRE_NOTHROW(convert(postfix, prefix));
+  REQUIRE(prefix == test);
+
+  //require throw for invalid postfix expression
+  postfix = "ab+c";
+  prefix = "";
+  REQUIRE_THROWS_AS(convert(postfix, prefix), std::invalid_argument);
+
+  //require throw for invalid characters in postfix expression
+  postfix = "ab+13-/";
+  prefix = "";
+  REQUIRE_THROWS_AS(convert(postfix, prefix), std::invalid_argument);
+
+  postfix = "a(b+c$*";
+  prefix = "";
+  REQUIRE_THROWS_AS(convert(postfix, prefix), std::invalid_argument);
+}

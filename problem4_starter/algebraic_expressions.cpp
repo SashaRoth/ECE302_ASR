@@ -56,9 +56,10 @@ void convert(const std::string &postfix, std::string &prefix)
     if(postLength == 1 && isalpha(last)){
       //string is a single letter; base case
       prefix = std::string(1, last) + prefix; //concatenate letter to prefix expression
-      //CITATION: I initially just concatenated last to prefix, but this caused unexpected behavior
-      //because I was concatenating a string and a char. I consulted with Github Copilot, which
-      //suggested using std::string(1, last) to convert the char into a string before concatenating.
+      //CITATION: I initially just concatenated last to prefix with "prefix = last + prefix", but 
+      //this caused unexpected behavior because I was concatenating a string and a char. I consulted 
+      //with Github Copilot, which suggested using std::string(1, last) to convert the char into a 
+      //string before concatenating. This fixed the string indexing issue I was experiencing.
     }
     else if(isoperator(last)){ 
       //last character is an operator
