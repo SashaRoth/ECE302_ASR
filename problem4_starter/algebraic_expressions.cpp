@@ -48,7 +48,7 @@ void convert(const std::string &postfix, std::string &prefix)
   char last = postfix[postLength - 1];
   prefix = "";
 
-  if(last <= 'z' && last >= 'A'){
+  if(isalpha(last)){
     //last character is a letter; base case
     prefix = prefix + last; //concatenate letter to prefix expression
   }
@@ -57,9 +57,9 @@ void convert(const std::string &postfix, std::string &prefix)
     //postfix has form <post1><post2><operator>
     int endFirst = endPost(postfix, postLength-1); //find end index of post2
     //convert post1 into prefix
-    convert(postfix.substr(0, (postLength - 1) - (endFirst + 1)), prefix);
+    convert(postfix.substr(0, endFirst), prefix);
     //convert post2 into prefix
-    convert(postfix.substr(endFirst, postLength - 1), prefix);
+    convert(postfix.substr(endFirst, postLength - 1 - endFirst), prefix);
     prefix = prefix + last;
   }
   else{
