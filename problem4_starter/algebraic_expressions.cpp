@@ -44,25 +44,33 @@ void convert(const std::string &postfix, std::string &prefix)
   if(!isPost(postfix)){
     throw std::invalid_argument("Not a valid postfix expression");
   }
-  int postLength = postfix.size(); //get original postfix expression length
-  char last = postfix[postLength - 1];
-  prefix = "";
+  int postLength = postfix.size(); //get postfix expression length
 
-  if(isalpha(last)){
-    //last character is a letter; base case
-    prefix = prefix + last; //concatenate letter to prefix expression
-  }
-  else if(isoperator(last)){ 
-    //first character is an operator
-    //postfix has form <post1><post2><operator>
-    int endFirst = endPost(postfix, postLength-1); //find end index of post2
-    //convert post1 into prefix
-    convert(postfix.substr(0, endFirst), prefix);
-    //convert post2 into prefix
-    convert(postfix.substr(endFirst, postLength - 1 - endFirst), prefix);
-    prefix = prefix + last;
+  if(postLength == 0){
+    //empty string is a valid postfix expression, so do nothing
   }
   else{
-    throw std::invalid_argument("Expression contains invalid character");
+    char last = postfix[postLength - 1]; //get last character of postfix expression
+
+    if(postLength == 1 && isalpha(last)){
+      //string is a single letter; base case
+      prefix = last + prefix; //concatenate letter to prefix expression
+    }
+    else if(isoperator(last)){ 
+      //last character is an operator
+      //postfix has form <post1><post2><operator>
+      //example: "ab+cd-/"
+      int endPost2 = endPost(postfix, postLength-2); //find end index of post2
+      std::string post1 = postfix.substr(0, endPost2); //get post1
+      std::string post2 = postfix.substr(endPost2, postLength - 1 - endPost2); //get post2
+      //convert post1 into prefix
+      convert(post2, prefix);
+      //convert post2 into prefix
+      convert(post1, prefix);
+      prefix = last + prefix; //append operator to beginning of new prefix expression
+    }
+    else{
+      throw std::invalid_argument("Expression contains invalid character");
+    }
   }
 }
