@@ -11,7 +11,10 @@ bool isoperator(char ch)
 
 int endPost(std::string s, int last)
 {
-  if (last < 0) return -1;
+  if(last < 0){
+    //if last is out of bounds, then the string cannot be a valid postfix expression
+    return -1;
+  }
   char ch = s[last];
   if (isalpha(ch))
   {
@@ -61,6 +64,10 @@ void convert(const std::string &postfix, std::string &prefix)
       //with Github Copilot, which suggested using std::string(1, last) to convert the char into a 
       //string before concatenating. This fixed the string indexing issue I was experiencing.
     }
+    else if(postLength == 1 && !isalpha(last)){
+      //string is a single character that is not a letter, so it is invalid
+      throw std::invalid_argument("Expression contains invalid character");
+    }
     else if(isoperator(last)){ 
       //last character is an operator
       //postfix has form <post1><post2><operator>
@@ -75,6 +82,7 @@ void convert(const std::string &postfix, std::string &prefix)
       prefix = std::string(1, last) + prefix; //append operator to beginning of new prefix expression
     }
     else{
+      //last character is not an operator or a letter, so it is invalid
       throw std::invalid_argument("Expression contains invalid character");
     }
   }
