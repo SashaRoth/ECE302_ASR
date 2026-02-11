@@ -41,5 +41,25 @@ bool isPost(std::string s)
 
 void convert(const std::string &postfix, std::string &prefix)
 {
-  // TODO
+  if(!isPost(postfix)){
+    throw std::invalid_argument("Not a valid postfix expression");
+  }
+  int postLength = postfix.length(); //get original postfix expression length
+  char last = postfix[postLength - 1];
+  prefix = "";
+
+  if(last <= 'z' && last >= 'A'){
+    //last character is a letter; base case
+    prefix = prefix + last; //concatenate letter to prefix expression
+  }
+  else{ 
+    //first character is an operator
+    //postfix has form <post1><post2><operator>
+    int endFirst = endPost(postfix, postLength-1); //find end index of post2
+    //convert post1 into prefix
+    convert(postfix.substr(0, (postLength - 1) - (endFirst + 1)), prefix);
+    //convert post2 into prefix
+    convert(postfix.substr(endFirst, postLength - 1), prefix);
+    prefix = prefix + last;
+  }
 }
