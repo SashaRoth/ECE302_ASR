@@ -11,6 +11,7 @@ bool isoperator(char ch)
 
 int endPost(std::string s, int last)
 {
+  if (last < 0) return -1;
   char ch = s[last];
   if (isalpha(ch))
   {
@@ -54,7 +55,10 @@ void convert(const std::string &postfix, std::string &prefix)
 
     if(postLength == 1 && isalpha(last)){
       //string is a single letter; base case
-      prefix = last + prefix; //concatenate letter to prefix expression
+      prefix = std::string(1, last) + prefix; //concatenate letter to prefix expression
+      //CITATION: I initially just concatenated last to prefix, but this caused unexpected behavior
+      //because I was concatenating a string and a char. I consulted with Github Copilot, which
+      //suggested using std::string(1, last) to convert the char into a string before concatenating.
     }
     else if(isoperator(last)){ 
       //last character is an operator
@@ -67,7 +71,7 @@ void convert(const std::string &postfix, std::string &prefix)
       convert(post2, prefix);
       //convert post2 into prefix
       convert(post1, prefix);
-      prefix = last + prefix; //append operator to beginning of new prefix expression
+      prefix = std::string(1, last) + prefix; //append operator to beginning of new prefix expression
     }
     else{
       throw std::invalid_argument("Expression contains invalid character");
