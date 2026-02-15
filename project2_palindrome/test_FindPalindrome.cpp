@@ -21,3 +21,6 @@ TEST_CASE("test recursion", "[FindPalindrome]")
 }
 
 /** Your Test Cases Go Here */
+
+//Test case: require number of permutation to be N!
+
