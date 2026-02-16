@@ -39,15 +39,38 @@ bool FindPalindrome::isPalindrome(std::string currentString) const
 void FindPalindrome::recursiveFindPalindromes(std::vector<std::string> candidateStringVector,
 																							std::vector<std::string> currentStringVector)
 {
-	// TODO
-	return;
+	// currentStringVector  A vector of strings that are currently in the palindrome sentence being built.
+	// candidateStringVector  A vector of strings that are candidates for being in a palindrome sentence.
+	for(int i = candidateStringVector.size() - 1; i >= 0; i--) //for each candidate word, add it to the current palindrome sentence and recurse with the remaining candidate words
+	{
+		std::string thisword = candidateStringVector[i]; //the word being added to the current palindrome sentence
+		candidateStringVector.erase(candidateStringVector.begin() + i); //remove the word from the candidate vector
+		currentStringVector.push_back(thisword); //add the word to the current palindrome sentence vector
+		
+		for(int j = currentStringVector.size() - 1; j >= 0; j--) //build the current palindrome sentence string by concatenating the words in currentStringVector
+		{
+			thisword += currentStringVector[j];
+		}
+
+		if(isPalindrome(thisword)) //if the word being added is a palindrome, then the current palindrome sentence is a palindrome sentence, so add it to the list of palindromes
+		{ 
+			palindromes.push_back(currentStringVector);
+		}
+		
+		if(candidateStringVector.size() > 0) //if there are still candidate words, then continue building the palindrome sentences
+		{
+			recursiveFindPalindromes(candidateStringVector, currentStringVector); //recurse with the current palindrome sentence and the remaining candidate words
+		}
+		return;
+	}
 }
 
 //------------------- PUBLIC CLASS METHODS -------------------------------------
 
 FindPalindrome::FindPalindrome()
 {
-	// TODO
+	numWords = 0;
+	numPalindromes = 0;
 }
 
 FindPalindrome::~FindPalindrome()
@@ -57,13 +80,19 @@ FindPalindrome::~FindPalindrome()
 
 int FindPalindrome::number() const
 {
-	// TODO
-	return -1;
+	int num = 0;
+	for(int i = words.size(); i > 0; i--)
+	{
+		num = num*i; //the number of permutations of the words is the factorial of the number of words (assuming all words are unique);
+	}
+	return num;
 }
 
 void FindPalindrome::clear()
 {
-	// TODO
+	words.clear();
+	numWords = 0;
+	numPalindromes = 0;
 }
 
 bool FindPalindrome::cutTest1(const std::vector<std::string> &stringVector)
@@ -139,14 +168,45 @@ bool FindPalindrome::cutTest2(const std::vector<std::string> &stringVector1,
 
 bool FindPalindrome::add(const std::string &value)
 {
-	// TODO
-	return false;
+	int length = value.size();
+	if(length < 1) //if the string is empty, invalid
+	{
+		return false;
+	}
+	for(int i = 0; i < length; i++)
+	{
+		if(!std::isalpha(value[i])) //if the string contains a non-letter character, invalid
+		{
+			return false;
+		}
+	}
+	std::string lowerValue = value; //create lowercase version to check for uniqueness
+	convertToLowerCase(lowerValue);
+
+	for(int i = 0; i < words.size(); i++){
+		std::string lowerWord = words[i];
+		convertToLowerCase(lowerWord);
+		if(lowerWord == lowerValue) //if the string is not unique, invalid
+		{
+			return false;
+		}
+	}
+	words.push_back(value); //add the string to the vector of words
+	numWords++; //update the number of words in the class
+	numPalindromes = number(); //update the number of sentence permutations
+	return true;
 }
 
 bool FindPalindrome::add(const std::vector<std::string> &stringVector)
 {
-	// TODO
-	return false;
+	for(int i = 0; i < stringVector.size(); i++)
+	{
+		if(!add(stringVector[i])) //if any of the strings in the vector are invalid, then the whole vector is invalid
+		{
+			return false;
+		}
+	}
+	return true;
 }
 
 std::vector<std::vector<std::string>> FindPalindrome::toVector() const
