@@ -46,18 +46,37 @@ void FindPalindrome::recursiveFindPalindromes(std::vector<std::string> candidate
 		std::string thisword = candidateStringVector[i]; //the word being added to the current palindrome sentence
 		candidateStringVector.erase(candidateStringVector.begin() + i); //remove the word from the candidate vector
 		currentStringVector.push_back(thisword); //add the word to the current palindrome sentence vector
-		
-		for(int j = currentStringVector.size() - 1; j >= 0; j--) //build the current palindrome sentence string by concatenating the words in currentStringVector
+
+		//cut test 1: if current vector has more than one character with an odd count, then it cannot be a palindrome sentence, so skip the rest of the function and continue with the next candidate word
+		if(!cutTest1(currentStringVector)) //if the current palindrome sentence cannot be a palindrome sentence, then skip the rest of the function and continue with the next candidate word
+		{
+			currentStringVector.pop_back(); //remove the word from the current palindrome sentence vector
+			candidateStringVector.insert(candidateStringVector.begin() + i, thisword); //add the word back to the candidate vector
+			continue;
+		}
+
+		//convert the current palindrome sentence into a string by concatenating the words in currentStringVector
+		for(int j = currentStringVector.size() - 1; j >= 0; j--) 
 		{
 			thisword += currentStringVector[j];
 		}
 
-		if(isPalindrome(thisword)) //if the word being added is a palindrome, then the current palindrome sentence is a palindrome sentence, so add it to the list of palindromes
+		//if the current vector is a palindrome, add it to the list of palindromes
+		if(isPalindrome(thisword)) 
 		{ 
 			palindromes.push_back(currentStringVector);
 		}
+
+		//cut test 2: if the bigger vector (current vs candidate) does not have an equal number or more of each character in the smaller vector, no more palindromes can be made, so skip the rest of the function and continue with the next candidate word
+		if(!cutTest2(currentStringVector, candidateStringVector))
+		{
+			currentStringVector.pop_back(); //remove the word from the current palindrome sentence vector
+			candidateStringVector.insert(candidateStringVector.begin() + i, thisword); //add the word back to the candidate vector
+			continue;
+		}
 		
-		if(candidateStringVector.size() > 0) //if there are still candidate words, then continue building the palindrome sentences
+		//if there are still candidate words, then continue building the palindrome sentences
+		if(candidateStringVector.size() > 0) 
 		{
 			recursiveFindPalindromes(candidateStringVector, currentStringVector); //recurse with the current palindrome sentence and the remaining candidate words
 		}
