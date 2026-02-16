@@ -65,6 +65,7 @@ void FindPalindrome::recursiveFindPalindromes(std::vector<std::string> candidate
 		if(isPalindrome(thisword)) 
 		{ 
 			palindromes.push_back(currentStringVector);
+			numPalindromes++; //update the number of palindromes in the class
 		}
 
 		//cut test 2: if the bigger vector (current vs candidate) does not have an equal number or more of each character in the smaller vector, no more palindromes can be made, so skip the rest of the function and continue with the next candidate word
@@ -88,28 +89,27 @@ void FindPalindrome::recursiveFindPalindromes(std::vector<std::string> candidate
 
 FindPalindrome::FindPalindrome()
 {
+	words = std::vector<std::string>();
+	palindromes = std::vector<std::vector<std::string>>();
 	numWords = 0;
 	numPalindromes = 0;
 }
 
 FindPalindrome::~FindPalindrome()
 {
-	// TODO
+	words.clear();
+	palindromes.clear();
 }
 
 int FindPalindrome::number() const
 {
-	int num = 0;
-	for(int i = words.size(); i > 0; i--)
-	{
-		num = num*i; //the number of permutations of the words is the factorial of the number of words (assuming all words are unique);
-	}
-	return num;
+	return numPalindromes;
 }
 
 void FindPalindrome::clear()
 {
 	words.clear();
+	palindromes.clear();
 	numWords = 0;
 	numPalindromes = 0;
 }
@@ -212,24 +212,54 @@ bool FindPalindrome::add(const std::string &value)
 	}
 	words.push_back(value); //add the string to the vector of words
 	numWords++; //update the number of words in the class
-	numPalindromes = number(); //update the number of sentence permutations
+
+	//recompute the number of sentence palindromes with the new vector of words
+	recursiveFindPalindromes(words, std::vector<std::string>());
+
 	return true;
 }
 
 bool FindPalindrome::add(const std::vector<std::string> &stringVector)
 {
-	for(int i = 0; i < stringVector.size(); i++)
-	{
-		if(!add(stringVector[i])) //if any of the strings in the vector are invalid, then the whole vector is invalid
+	for(int i = 0; i < stringVector.size(); i++){ //check every string in the vector for validity
+		int length = stringVector[i].size();
+		if(length < 1) //if the string is empty, invalid
 		{
 			return false;
 		}
+		for(int j = 0; j < length; j++)
+		{
+			if(!std::isalpha(stringVector[i][j])) //if the string contains a non-letter character, invalid
+			{
+				return false;
+			}
+		}
+		std::string lowerValue = stringVector[i]; //create lowercase version to check for uniqueness
+		convertToLowerCase(lowerValue);
+
+		for(int i = 0; i < words.size(); i++){
+			std::string lowerWord = words[i];
+			convertToLowerCase(lowerWord);
+			if(lowerWord == lowerValue) //if the string is not unique, invalid
+			{
+				return false;
+			}
+		}
 	}
+
+	//if all strings are valid, add them to the vector of words and update the number of words in the class
+	for(int i = 0; i < stringVector.size(); i++){
+		words.push_back(stringVector[i]); //add the string to the vector of words
+		numWords++; //update the number of words in the class
+	}
+
+	//recompute the number of sentence palindromes with the new vector of words
+	recursiveFindPalindromes(words, std::vector<std::string>()); 
+
 	return true;
 }
 
 std::vector<std::vector<std::string>> FindPalindrome::toVector() const
 {
-	// TODO
-	return std::vector<std::vector<std::string>>();
+	return palindromes;
 }
