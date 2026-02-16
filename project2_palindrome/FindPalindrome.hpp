@@ -9,6 +9,10 @@ class FindPalindrome
 private:
 	/** More private stuff that you define and implement goes here */
 	// TODO
+	std::vector<std::string> words; //vector which contains the words in this class
+	std::vector<std::vector<std::string>> palindromes; //vector of vectors which contains the palindromes in this class. Each palindrome is a vector of strings (with orders), where the strings include all current strings added to the FindPalindrome instance.
+	int numWords; //number of words in the class
+	int numPalindromes; //number of palindromes in the class
 
 	/** @brief findPalindrome internal method
 			@attention write this recursive function per the project description.

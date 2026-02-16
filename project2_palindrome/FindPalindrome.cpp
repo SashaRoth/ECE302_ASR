@@ -56,13 +56,14 @@ void FindPalindrome::recursiveFindPalindromes(std::vector<std::string> candidate
 		}
 
 		//convert the current palindrome sentence into a string by concatenating the words in currentStringVector
+		std::string tostring = ""; //the current palindrome sentence as a string
 		for(int j = currentStringVector.size() - 1; j >= 0; j--) 
 		{
-			thisword += currentStringVector[j];
+			tostring += currentStringVector[j];
 		}
 
 		//if the current vector is a palindrome, add it to the list of palindromes
-		if(isPalindrome(thisword)) 
+		if(isPalindrome(tostring)) 
 		{ 
 			palindromes.push_back(currentStringVector);
 			numPalindromes++; //update the number of palindromes in the class
@@ -81,8 +82,8 @@ void FindPalindrome::recursiveFindPalindromes(std::vector<std::string> candidate
 		{
 			recursiveFindPalindromes(candidateStringVector, currentStringVector); //recurse with the current palindrome sentence and the remaining candidate words
 		}
-		return;
 	}
+	return; //if there are no more candidate words, then the current palindrome sentence is complete, so backtrack a level of recursion
 }
 
 //------------------- PUBLIC CLASS METHODS -------------------------------------
@@ -221,7 +222,22 @@ bool FindPalindrome::add(const std::string &value)
 
 bool FindPalindrome::add(const std::vector<std::string> &stringVector)
 {
-	for(int i = 0; i < stringVector.size(); i++){ //check every string in the vector for validity
+	//check for duplicate words in the input vector
+	for(int i = 0; i < stringVector.size(); i++){
+		for(int j = i + 1; j < stringVector.size(); j++){
+			std::string lowerValue1 = stringVector[i]; //create lowercase version to check for uniqueness
+			std::string lowerValue2 = stringVector[j];
+			convertToLowerCase(lowerValue1);
+			convertToLowerCase(lowerValue2);
+			if(lowerValue1 == lowerValue2) //if there are duplicate strings in the input vector, invalid
+			{
+				return false;
+			}
+		}
+	}
+
+	//check each individual string in the input vector for validity
+	for(int i = 0; i < stringVector.size(); i++){
 		int length = stringVector[i].size();
 		if(length < 1) //if the string is empty, invalid
 		{
@@ -240,7 +256,7 @@ bool FindPalindrome::add(const std::vector<std::string> &stringVector)
 		for(int i = 0; i < words.size(); i++){
 			std::string lowerWord = words[i];
 			convertToLowerCase(lowerWord);
-			if(lowerWord == lowerValue) //if the string is not unique, invalid
+			if(lowerWord == lowerValue) //if the string is not unique compared to the existing words in the class, invalid
 			{
 				return false;
 			}
