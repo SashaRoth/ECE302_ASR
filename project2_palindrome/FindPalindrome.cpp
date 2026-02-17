@@ -39,51 +39,55 @@ bool FindPalindrome::isPalindrome(std::string currentString) const
 void FindPalindrome::recursiveFindPalindromes(std::vector<std::string> candidateStringVector,
 																							std::vector<std::string> currentStringVector)
 {
-	// currentStringVector  A vector of strings that are currently in the palindrome sentence being built.
-	// candidateStringVector  A vector of strings that are candidates for being in a palindrome sentence.
+	//Problem I faced: At first called cutTest1 during each iteration, but this cut out valid candidate sentences that just weren't done being
+	//built yet, so I moved cutTest1 to the beginning of the function and only call it once when the current palindrome sentence is empty
+	
+	//cut test 1: if initial words[] does not have at most one character with an odd count, then no palindromes can be made
+	if(currentStringVector.size() == 0){
+		if(!cutTest1(candidateStringVector))
+		{
+			return;
+		}
+	}
+
 	for(int i = candidateStringVector.size() - 1; i >= 0; i--) //for each candidate word, add it to the current palindrome sentence and recurse with the remaining candidate words
 	{
 		std::string thisword = candidateStringVector[i]; //the word being added to the current palindrome sentence
 		candidateStringVector.erase(candidateStringVector.begin() + i); //remove the word from the candidate vector
 		currentStringVector.push_back(thisword); //add the word to the current palindrome sentence vector
 
-		//cut test 1: if current vector has more than one character with an odd count, then it cannot be a palindrome sentence, so skip the rest of the function and continue with the next candidate word
-		if(!cutTest1(currentStringVector)) //if the current palindrome sentence cannot be a palindrome sentence, then skip the rest of the function and continue with the next candidate word
+		if(candidateStringVector.size() > 0) //if there are still candidate words, then continue building the palindrome sentence
 		{
-			currentStringVector.pop_back(); //remove the word from the current palindrome sentence vector
-			candidateStringVector.insert(candidateStringVector.begin() + i, thisword); //add the word back to the candidate vector
-			continue;
-		}
-
-		//convert the current palindrome sentence into a string by concatenating the words in currentStringVector
-		std::string tostring = ""; //the current palindrome sentence as a string
-		for(int j = currentStringVector.size() - 1; j >= 0; j--) 
-		{
-			tostring += currentStringVector[j];
-		}
-
-		//if the current vector is a palindrome, add it to the list of palindromes
-		if(isPalindrome(tostring)) 
-		{ 
-			palindromes.push_back(currentStringVector);
-			numPalindromes++; //update the number of palindromes in the class
-		}
-
-		//cut test 2: if the bigger vector (current vs candidate) does not have an equal number or more of each character in the smaller vector, no more palindromes can be made, so skip the rest of the function and continue with the next candidate word
-		if(!cutTest2(currentStringVector, candidateStringVector))
-		{
-			currentStringVector.pop_back(); //remove the word from the current palindrome sentence vector
-			candidateStringVector.insert(candidateStringVector.begin() + i, thisword); //add the word back to the candidate vector
-			continue;
-		}
-		
-		//if there are still candidate words, then continue building the palindrome sentences
-		if(candidateStringVector.size() > 0) 
-		{
+			//cut test 2: if the bigger vector (current vs candidate) does not have an equal number or more of each character in the smaller vector, no more palindromes can be made, so skip the rest of the function and continue with the next candidate word
+			if(!cutTest2(currentStringVector, candidateStringVector))
+			{
+				currentStringVector.pop_back(); //remove the word from the current palindrome sentence vector
+				candidateStringVector.insert(candidateStringVector.begin() + i, thisword); //add the word back to the candidate vector
+				continue;
+			}
 			recursiveFindPalindromes(candidateStringVector, currentStringVector); //recurse with the current palindrome sentence and the remaining candidate words
 		}
+		//if there are no more candidate words, then the current palindrome sentence is complete, so check if it is a palindrome and add it to the list of palindromes if it is
+		else{
+			std::string tostring = ""; //the current sentence as a string
+			for(int j = 0; j < currentStringVector.size(); j++) 
+			{
+				tostring += currentStringVector[j];
+			}
+
+			//if the current vector is a palindrome, add it to the list of palindromes
+			if(isPalindrome(tostring)) 
+			{ 
+				palindromes.push_back(currentStringVector);
+				numPalindromes++; //update the number of palindromes in the class
+			}
+		}
+		//restore the candidate and current vectors to their original states before the next iteration
+		currentStringVector.pop_back(); //remove the word from the current palindrome sentence vector
+		candidateStringVector.insert(candidateStringVector.begin() + i, thisword); //add the word back to the candidate vector
+
 	}
-	return; //if there are no more candidate words, then the current palindrome sentence is complete, so backtrack a level of recursion
+	return; //after iterating through all candidate words, return from the function
 }
 
 //------------------- PUBLIC CLASS METHODS -------------------------------------
@@ -215,6 +219,8 @@ bool FindPalindrome::add(const std::string &value)
 	numWords++; //update the number of words in the class
 
 	//recompute the number of sentence palindromes with the new vector of words
+	palindromes.clear();
+	numPalindromes = 0;
 	recursiveFindPalindromes(words, std::vector<std::string>());
 
 	return true;
@@ -270,6 +276,8 @@ bool FindPalindrome::add(const std::vector<std::string> &stringVector)
 	}
 
 	//recompute the number of sentence palindromes with the new vector of words
+	palindromes.clear();
+	numPalindromes = 0;
 	recursiveFindPalindromes(words, std::vector<std::string>()); 
 
 	return true;
