@@ -110,8 +110,8 @@ TEST_CASE("Test add(vector<string>)", "[FindPalindrome]")
 TEST_CASE("Test cutTest1", "[FindPalindrome]")
 {
 	FindPalindrome b;
-	std::vector<std::string> validVector = {"never", "or", "even", "odd"}; //valid vector of strings that should pass cutTest1
-	std::vector<std::string> invalidVector = {"kayak", "civic", "level"}; //invalid vector of strings that should fail cutTest1
+	std::vector<std::string> validVector = {"never", "or", "even", "odd"}; //valid vector of strings that should pass cutTest1 (all chars have even count)
+	std::vector<std::string> invalidVector = {"a", "bb", "ccc"}; //invalid vector of strings that should fail cutTest1 (a:1, b:2, c:3 = 2 odd counts)
 
 	REQUIRE(b.cutTest1(validVector)); //test that the valid vector passes cutTest1
 	REQUIRE(!b.cutTest1(invalidVector)); //test that the invalid vector fails cutTest1
@@ -122,8 +122,8 @@ TEST_CASE("Test cutTest2", "[FindPalindrome]")
 {
 	FindPalindrome b;
 	std::vector<std::string> vector1 = {"never", "or", "even"}; //vector of strings for cutTest2
-	std::vector<std::string> vector2 = {"odd"}; //vector of strings for cutTest2 that should pass cutTest2 with vector1
-	std::vector<std::string> vector3 = {"kayak"}; //vector of strings for cutTest2 that should fail cutTest2 with vector1
+	std::vector<std::string> vector2 = {"nor"}; //vector of strings for cutTest2 that should pass cutTest2 with vector1 (all chars of "nor" are in vector1)
+	std::vector<std::string> vector3 = {"kayak"}; //vector of strings for cutTest2 that should fail cutTest2 with vector1 (has 'k' and 'y' which vector1 doesn't have)
 
 	REQUIRE(b.cutTest2(vector1, vector2)); //test that vector1 and vector2 pass cutTest2
 	REQUIRE(!b.cutTest2(vector1, vector3)); //test that vector1 and vector3 fail cutTest2

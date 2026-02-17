@@ -124,14 +124,18 @@ bool FindPalindrome::cutTest1(const std::vector<std::string> &stringVector)
 	uint8_t numOdd = 0; //the number of characters with odd counts
 	uint32_t charIndex = 0; //the index of the character in stringVector being analyzed
 	std::vector<int> charCounts(26, 0); //26 letters of the alphabet, initial count 0
-	for(int i = stringVector.size() - 1; i >= 0; i--)
-	{
-		for(int j = stringVector[i].size() - 1; j >= 0; j--)
-		{
-			charIndex = std::tolower(stringVector[i][j]) - 'a'; //extracts character and converts to index of that character in the alphabet (e.x. 0 for 'a')
-			charCounts[charIndex]++; //increments the count for that character
-		}
+	std::string toString = ""; //the stringVector as a string
+
+	for(int i = 0; i < stringVector.size(); i++){
+		toString += stringVector[i]; //combine the vector of strings into one string to analyze the character counts
 	}
+
+	for(int i = 0; i < toString.size(); i++)
+	{
+		charIndex = std::tolower(toString[i]) - 'a'; //extracts character and converts to index of that character in the alphabet (e.x. 0 for 'a')
+		charCounts[charIndex]++; //increments the count for that character
+	}
+
 	for(int i = 0; i < 26; i++)
 	{
 		if(charCounts[i] % 2 != 0) //if the count of a character is odd, then it cannot be in a palindrome sentence (since the characters must be symmetric)
@@ -152,8 +156,12 @@ bool FindPalindrome::cutTest2(const std::vector<std::string> &stringVector1,
 	uint32_t charIndex = 0; //the index of the character in stringVector being analyzed
 	std::vector<int> charCounts1(26, 0); //26 letters of the alphabet, initial count 0
 	std::vector<int> charCounts2(26, 0); //26 letters of the alphabet, initial count 0
+	int totalChars1 = 0; //total number of characters in stringVector1
+	int totalChars2 = 0; //total number of characters in stringVector2
+	
 	for(int i = stringVector1.size() - 1; i >= 0; i--)
 	{
+		totalChars1 += stringVector1[i].size(); //add the size of each string to the total
 		for(int j = stringVector1[i].size() - 1; j >= 0; j--)
 		{
 			charIndex = std::tolower(stringVector1[i][j]) - 'a'; //extracts character and converts to index of that character in the alphabet (e.x. 0 for 'a')
@@ -162,13 +170,14 @@ bool FindPalindrome::cutTest2(const std::vector<std::string> &stringVector1,
 	}
 	for(int i = stringVector2.size() - 1; i >= 0; i--)
 	{
+		totalChars2 += stringVector2[i].size(); //add the size of each string to the total
 		for(int j = stringVector2[i].size() - 1; j >= 0; j--)
 		{
 			charIndex = std::tolower(stringVector2[i][j]) - 'a'; //extracts character and converts to index of that character in the alphabet (e.x. 0 for 'a')
 			charCounts2[charIndex]++; //increments the count for that character
 		}
 	}
-	bool comp = (stringVector1.size() < stringVector2.size()); //boolean to determine which vector has fewer characters
+	bool comp = (totalChars1 < totalChars2); //boolean to determine which vector has fewer characters
 	if(comp){
 		for(int i = 0; i < 26; i++)
 		{
