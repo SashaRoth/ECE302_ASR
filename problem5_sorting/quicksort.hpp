@@ -31,6 +31,16 @@ void quick_sort(List<T> &list, int first, int last)
 template <typename T>
 int partition(List<T> &list, int first, int last)
 {
+    int length = list.getLength();
+    int pivot_val = getEntry(first); //first entry is pivot
+    int pivot_index = first; //store initial index of pivot (1)
+    if(first > last || last > length){ //check validity of bounds
+        std::__throw_out_of_range("Invalid list bounds");
+    }
+    
+    for(int i = 0; i < length; i++){
+        if(list[i]) //check if current entry is greater than/less than pivot, move accordingly
+    }
     // TODO
     // You can choose the pivot yourself, but no matter what you choose
     // list[first..pivotIndex-1] <= pivot, list[pivotIndex] == pivot, list[pivotIndex + 1..last] >= pivot
