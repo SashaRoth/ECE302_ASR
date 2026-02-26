@@ -36,7 +36,8 @@ public:
 
 private:
 
-  //TODO
+  int size;
+  T *data;
   
 };
 

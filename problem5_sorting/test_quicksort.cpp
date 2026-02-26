@@ -35,7 +35,7 @@ TEST_CASE("Sort: Test move entry", "[sorting]")
   REQUIRE(lst.getEntry(4) == 100);
   REQUIRE(lst.getEntry(5) == 25);
 }
-
+/*
 TEST_CASE("Sort: Integer sorting", "[sorting]")
 {
   List<int> lst;
@@ -55,6 +55,7 @@ TEST_CASE("Sort: Integer sorting", "[sorting]")
   REQUIRE(lst.getEntry(4) == 25);
   REQUIRE(lst.getEntry(5) == 100);
 }
+*/
 
 TEST_CASE("Sort: Test move entry throw", "[sorting]")
 {

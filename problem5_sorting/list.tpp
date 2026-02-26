@@ -142,5 +142,9 @@ void List<T>::setEntry(int position, const T &newValue)
 template <typename T>
 void List<T>::moveEntry(int from, int to)
 {
-  // TODO, feel free to reuse your Problem 3 code, note the 1-index based list
+  T entry1, entry2;
+  push(getEntry(from)); //push "from" to stack
+  push(getEntry(to)); //push "to" to stack
+  setEntry(from, pop()); //pop original "to" to "from"
+  setEntry(to, pop()); //pop original "from" to "to"
 }
