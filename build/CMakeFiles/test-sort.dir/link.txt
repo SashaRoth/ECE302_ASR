@@ -1,0 +1,3 @@
+"C:\Program Files\CMake\bin\cmake.exe" -E rm -f CMakeFiles\test-sort.dir/objects.a
+C:\msys64\ucrt64\bin\ar.exe qc CMakeFiles\test-sort.dir/objects.a @CMakeFiles\test-sort.dir\objects1.rsp
+C:\msys64\ucrt64\bin\g++.exe -g -Wl,--whole-archive CMakeFiles\test-sort.dir/objects.a -Wl,--no-whole-archive -o test-sort.exe -Wl,--out-implib,libtest-sort.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\test-sort.dir\linkLibs.rsp

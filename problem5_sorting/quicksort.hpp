@@ -34,5 +34,6 @@ int partition(List<T> &list, int first, int last)
     // TODO
     // You can choose the pivot yourself, but no matter what you choose
     // list[first..pivotIndex-1] <= pivot, list[pivotIndex] == pivot, list[pivotIndex + 1..last] >= pivot
+    return -1;
 }
 #endif

@@ -1,0 +1,8 @@
+[
+{
+  "directory": "C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe   -g -std=gnu++11 -o CMakeFiles\\test-sort.dir\\test_quicksort.cpp.obj -c C:\\Users\\Sasha\\Desktop\\302\\personal_git_repository\\ECE302_ASR\\problem5_sorting\\test_quicksort.cpp",
+  "file": "C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/problem5_sorting/test_quicksort.cpp",
+  "output": "CMakeFiles/test-sort.dir/test_quicksort.cpp.obj"
+}
+]

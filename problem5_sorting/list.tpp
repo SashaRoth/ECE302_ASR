@@ -17,18 +17,18 @@ List<T>::~List()
 template <typename T>
 List<T>::List(const List<T> &x)
 {
-  size = rhs.getLength(); // copy size
+  size = x.getLength(); // copy size
   data = new T[size];        // allocate new list with other list's size
-  for (int i = 0; i < rhs.size; i++)
+  for (int i = 0; i < x.size; i++)
   {
-    data[i] = rhs.data[i]; // copy data from other list element-by-element
+    data[i] = x.data[i]; // copy data from other list element-by-element
   }
 }
 
 template <typename T>
 List<T> &List<T>::operator=(List<T> x)
 {
-  swap(rhs);      // swap current object with copy
+  swap(x);      // swap current object with copy
   return *this; // return current object by reference, copy is destroyed
 }
 
@@ -37,12 +37,12 @@ void List<T>::swap(List &x)
 {
   T *tmp_data = new T[size];
   tmp_data = data; // swap data pointers
-  data = rhs.data;
-  rhs.data = tmp_data;
+  data = x.data;
+  x.data = tmp_data;
 
   int tmp_size = size; // swap sizes
-  size = rhs.size;
-  rhs.size = tmp_size;
+  size = x.size;
+  x.size = tmp_size;
 }
 
 template <typename T>
@@ -142,9 +142,12 @@ void List<T>::setEntry(int position, const T &newValue)
 template <typename T>
 void List<T>::moveEntry(int from, int to)
 {
-  T entry1, entry2;
-  push(getEntry(from)); //push "from" to stack
-  push(getEntry(to)); //push "to" to stack
-  setEntry(from, pop()); //pop original "to" to "from"
-  setEntry(to, pop()); //pop original "from" to "to"
+  if(to > getLength() || to < 1){ //check validity of [to] index
+    std::__throw_out_of_range("Index out of range");
+  }
+  
+  T temp;
+  temp = getEntry(from); //store value; throws error if [from] out of range
+  remove(from); //remove value from [from]
+  insert(to, temp); //insert value into [to]
 }
