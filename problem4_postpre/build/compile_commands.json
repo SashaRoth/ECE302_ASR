@@ -1,0 +1,14 @@
+[
+{
+  "directory": "C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/problem4_postpre/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe   -g -std=gnu++11 -o CMakeFiles\\postpre-test.dir\\test_postpre.cpp.obj -c C:\\Users\\Sasha\\Desktop\\302\\personal_git_repository\\ECE302_ASR\\problem4_postpre\\test_postpre.cpp",
+  "file": "C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/problem4_postpre/test_postpre.cpp",
+  "output": "CMakeFiles/postpre-test.dir/test_postpre.cpp.obj"
+},
+{
+  "directory": "C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/problem4_postpre/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe   -g -std=gnu++11 -o CMakeFiles\\postpre-test.dir\\algebraic_expressions.cpp.obj -c C:\\Users\\Sasha\\Desktop\\302\\personal_git_repository\\ECE302_ASR\\problem4_postpre\\algebraic_expressions.cpp",
+  "file": "C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/problem4_postpre/algebraic_expressions.cpp",
+  "output": "CMakeFiles/postpre-test.dir/algebraic_expressions.cpp.obj"
+}
+]

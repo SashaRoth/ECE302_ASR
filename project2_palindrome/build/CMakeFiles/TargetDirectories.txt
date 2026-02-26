@@ -1,0 +1,6 @@
+C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/project2_palindrome/build/CMakeFiles/test-FindPalindrome.dir
+C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/project2_palindrome/build/CMakeFiles/submission.dir
+C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/project2_palindrome/build/CMakeFiles/starter_download.dir
+C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/project2_palindrome/build/CMakeFiles/test.dir
+C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/project2_palindrome/build/CMakeFiles/edit_cache.dir
+C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/project2_palindrome/build/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,79 @@
+{
+	"configurations" : 
+	[
+		{
+			"abstractTargets" : [],
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-f6f22219c74102c3da70.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.10"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "lists",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "starter_download::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-starter_download-Debug-7484da9971ca0c5a2f11.json",
+					"name" : "starter_download",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "submission::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-submission-Debug-d606d29b9f7c7649d49e.json",
+					"name" : "submission",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "test-list::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-test-list-Debug-194cbfb1949ca3adb3ec.json",
+					"name" : "test-list",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/problem3_starter/build",
+		"source" : "C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/problem3_starter"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 9
+	}
+}

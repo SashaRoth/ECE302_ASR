@@ -163,3 +163,38 @@ TEST_CASE("Test toVector method", "[FindPalindrome]")
 	REQUIRE(list == validVector1Palindromes); //test that the list of palindromes is correct after adding validVector1
 	
 }
+
+//checkoff test case: will fail if even string has one odd character
+
+TEST_CASE("Test invlaid even string with cuttest1","[FindPalindrome]"){
+	FindPalindrome b;
+	std::vector<std::string> invalid_even = {"abcd", "m", "bcd"};
+	b.add(invalid_even);
+	REQUIRE(b.cutTest1(invalid_even) == FALSE);
+}
+
+//checkoff test case: test equivalence operator
+
+TEST_CASE("Test equivalence operator", "[FindPalindrome]"){
+	FindPalindrome a;
+	FindPalindrome b;
+	FindPalindrome c;
+	FindPalindrome d;
+	std::vector<std::string> valid1 = {"never", "or", "odd", "even"};
+	std::vector<std::string> valid2 = {"kayak"};
+	std::vector<std::string> invalid = {"word"};
+
+	a.add(valid1);
+	b.add(valid1);
+	c.add(valid2);
+	d.add(invalid);
+
+	REQUIRE(a.number() == 1);
+	REQUIRE(b.number() == 1);
+	REQUIRE(c.number() == 1);
+	REQUIRE(d.number() == 0);
+
+	REQUIRE(a == b); //same number, same palindromes
+	REQUIRE_FALSE(a == c); //same number, different palindromes
+	REQUIRE_FALSE(a == d); //different number
+}

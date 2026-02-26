@@ -1,0 +1,14 @@
+[
+{
+  "directory": "C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/project2_palindrome/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe   -g -std=gnu++11 -o CMakeFiles\\test-FindPalindrome.dir\\FindPalindrome.cpp.obj -c C:\\Users\\Sasha\\Desktop\\302\\personal_git_repository\\ECE302_ASR\\project2_palindrome\\FindPalindrome.cpp",
+  "file": "C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/project2_palindrome/FindPalindrome.cpp",
+  "output": "CMakeFiles/test-FindPalindrome.dir/FindPalindrome.cpp.obj"
+},
+{
+  "directory": "C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/project2_palindrome/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe   -g -std=gnu++11 -o CMakeFiles\\test-FindPalindrome.dir\\test_FindPalindrome.cpp.obj -c C:\\Users\\Sasha\\Desktop\\302\\personal_git_repository\\ECE302_ASR\\project2_palindrome\\test_FindPalindrome.cpp",
+  "file": "C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/project2_palindrome/test_FindPalindrome.cpp",
+  "output": "CMakeFiles/test-FindPalindrome.dir/test_FindPalindrome.cpp.obj"
+}
+]

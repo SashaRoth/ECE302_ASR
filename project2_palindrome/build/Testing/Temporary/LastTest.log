@@ -1,0 +1,38 @@
+Start testing: Feb 17 09:18 Eastern Standard Time
+----------------------------------------------------------
+1/1 Testing: test-FindPalindrome
+1/1 Test: test-FindPalindrome
+Command: "C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/project2_palindrome/build/test-FindPalindrome.exe"
+Directory: C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/project2_palindrome/build
+"test-FindPalindrome" start time: Feb 17 09:18 Eastern Standard Time
+Output:
+----------------------------------------------------------
+After adding 'a': 1 palindromes
+After adding 'AA': 2 palindromes
+After adding 'AaA': 6 palindromes
+Final palindromes found: 
+AaA AA a 
+AaA a AA 
+AA AaA a 
+AA a AaA 
+a AaA AA 
+a AA AaA 
+After adding 'kayak': 1 palindromes
+kayak 
+After adding 'civic': 0 palindromes
+List of palindromes found: 1
+never odd or even 
+List of palindromes found after adding validVector1: 1
+never odd or even 
+===============================================================================
+All tests passed (30 assertions in 9 test cases)
+
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"test-FindPalindrome" end time: Feb 17 09:18 Eastern Standard Time
+"test-FindPalindrome" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Feb 17 09:18 Eastern Standard Time

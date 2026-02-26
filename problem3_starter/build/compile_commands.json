@@ -1,0 +1,8 @@
+[
+{
+  "directory": "C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/problem3_starter/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe   -g -std=gnu++11 -o CMakeFiles\\test-list.dir\\test_list.cpp.obj -c C:\\Users\\Sasha\\Desktop\\302\\personal_git_repository\\ECE302_ASR\\problem3_starter\\test_list.cpp",
+  "file": "C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/problem3_starter/test_list.cpp",
+  "output": "CMakeFiles/test-list.dir/test_list.cpp.obj"
+}
+]

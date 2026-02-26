@@ -105,6 +105,20 @@ public:
 								Also, the sentence palindromes should preserve the case of the strings as they were added
 			@return A vector of vectors containing all sentence palindromes. */
 	std::vector<std::vector<std::string>> toVector() const;
+
+	bool operator ==(const FindPalindrome& other) const{
+		if(number() != other.number()){
+			return false;
+		}
+		else{
+			for(int i=0; i < number(); i++){
+				if(palindromes[i] != other.palindromes[i]){
+					return false;
+				}
+			}
+		}
+		return true;
+	}
 };
 
 #endif

@@ -1,0 +1,2 @@
+test-FindPalindrome 2 0.00494825
+---
