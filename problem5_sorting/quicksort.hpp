@@ -14,6 +14,26 @@
 template <typename T>
 void quick_sort(List<T> &list, int first, int last)
 {
+    if(first < 1 || last < 1 || first > last || last > list.getLength()){
+        throw std::out_of_range("Invalid bounds indexing quick_sort");
+    }
+    if(first == last){ //list size of 1; base case
+        return;
+    }
+    int pivot = partition(list, first, last);
+    if(pivot > first){ //sort left half if pivot is not at the start
+        quick_sort(list, first, pivot - 1);
+    }
+    if(pivot < last){ //sort right half if pivot is not at the end
+        quick_sort(list, pivot + 1, last);
+    }
+
+    std::cout << "Current sublist: ";
+
+    for(int i = first; i <= last; i++){
+        std::cout << list.getEntry(i) << " ";
+    }
+    std::cout << std::endl;
     // TODO
     // Must call helper function partition()
 }
@@ -33,10 +53,10 @@ template <typename T>
 int partition(List<T> &list, int first, int last)
 {
     int length = list.getLength();
-    int pivot_val = list.getEntry(first); //first entry is pivot
+    T pivot_val = list.getEntry(first); //first entry is pivot
     int pivot_index = first; //store initial index of pivot
     if(first > last || first < 1 || last > length){ //check validity of bounds
-        std::__throw_out_of_range("Invalid list bounds partition");
+        throw std::out_of_range("Invalid list bounds partition");
     }
     
     for(int i = first + 1; i <= last; i++){ //start iteration after pivot, i is 1-indexed

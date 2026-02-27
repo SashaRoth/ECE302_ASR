@@ -36,7 +36,7 @@ TEST_CASE("Sort: Test move entry", "[sorting]")
   REQUIRE(lst.getEntry(4) == 100);
   REQUIRE(lst.getEntry(5) == 25);
 }
-/*
+
 TEST_CASE("Sort: Integer sorting", "[sorting]")
 {
   List<int> lst;
@@ -56,7 +56,7 @@ TEST_CASE("Sort: Integer sorting", "[sorting]")
   REQUIRE(lst.getEntry(4) == 25);
   REQUIRE(lst.getEntry(5) == 100);
 }
-*/
+
 
 TEST_CASE("Sort: Test move entry throw", "[sorting]")
 {
@@ -82,7 +82,30 @@ TEST_CASE("Sort: Test move entry throw", "[sorting]")
 
 /* Your test cases */
 
-//test partition
+//test move entry
+
+TEST_CASE("Test move entry valid and invalid", "[sorting]")
+{
+  List<int> lst;
+
+  lst.insert(1, 100);
+  lst.insert(2, 4);
+  lst.insert(3, 10);
+
+  //valid move
+  lst.moveEntry(1, 3); //move first entry to middle of list
+  REQUIRE(lst.getEntry(1) == 4);
+  REQUIRE(lst.getEntry(2) == 10);
+  REQUIRE(lst.getEntry(3) == 100);
+
+  //invalid moves
+  REQUIRE_THROWS(lst.moveEntry(0, 2)); //from index is out of bounds
+  REQUIRE_THROWS(lst.moveEntry(4, 1)); //from index is out of bounds
+  REQUIRE_THROWS(lst.moveEntry(2, 0)); //to index is out of bounds
+  REQUIRE_THROWS(lst.moveEntry(1, 4)); //to index is out of bounds
+}
+
+//test partition helper method
 
 TEST_CASE("Test partition helper method", "[sorting]"){
   List<int> lst;
@@ -106,4 +129,72 @@ TEST_CASE("Test partition helper method", "[sorting]"){
   REQUIRE(lst.getEntry(3) == 5);
   REQUIRE(lst.getEntry(4) == 8);
   REQUIRE(lst.getEntry(5) == 7);
+}
+
+//test quick sort
+
+TEST_CASE("Test quick sort: integer values", "[sorting]"){
+  List<int> lst;
+  lst.insert(1, 50);
+  lst.insert(1, 90);
+  lst.insert(1, 12);
+  lst.insert(1, 42);
+  lst.insert(1, 66);
+  lst.insert(1, 100);
+  lst.insert(1, 3);
+  lst.insert(1, 14);
+  lst.insert(1, 32);
+  lst.insert(1, 87);
+
+  quick_sort(lst, 1, lst.getLength());
+
+  for(int i = 1; i < lst.getLength(); i++){
+    REQUIRE(lst.getEntry(i) <= lst.getEntry(i + 1)); //check that list is sorted
+  }
+}
+
+TEST_CASE("Test quick sort: boolean values", "[sorting]"){
+  List<bool> lst;
+  lst.insert(1, true);
+  lst.insert(1, false);
+  lst.insert(1, true);
+  lst.insert(1, false);
+  lst.insert(1, true);
+
+  quick_sort(lst, 1, lst.getLength());
+
+  for(int i = 1; i < lst.getLength(); i++){
+    REQUIRE(lst.getEntry(i) <= lst.getEntry(i + 1)); //check that list is sorted
+  }
+}
+
+TEST_CASE("Test quick sort: float values", "[sorting]"){
+  List<float> lst;
+  lst.insert(1, 3.14);
+  lst.insert(1, 2.71);
+  lst.insert(1, 1.41);
+  lst.insert(1, 0.577);
+  lst.insert(1, 1.618);
+
+  quick_sort(lst, 1, lst.getLength());
+
+  for(int i = 1; i < lst.getLength(); i++){
+    std::cout << lst.getEntry(i) << " ";
+    REQUIRE(lst.getEntry(i) <= lst.getEntry(i + 1)); //check that list is sorted
+  }
+}
+
+TEST_CASE("Test quick sort: char values", "[sorting]"){
+  List<char> lst;
+  lst.insert(1, 'z');
+  lst.insert(1, 'a');
+  lst.insert(1, 'm');
+  lst.insert(1, 'e');
+  lst.insert(1, 'b');
+
+  quick_sort(lst, 1, lst.getLength());
+
+  for(int i = 1; i < lst.getLength(); i++){
+    REQUIRE(lst.getEntry(i) <= lst.getEntry(i + 1)); //check that list is sorted
+  }
 }
