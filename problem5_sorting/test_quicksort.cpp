@@ -105,6 +105,17 @@ TEST_CASE("Test move entry valid and invalid", "[sorting]")
   REQUIRE_THROWS(lst.moveEntry(1, 4)); //to index is out of bounds
 }
 
+TEST_CASE("Test move entry edge cases", "[sorting]")
+{
+  List<int> lst;
+
+  lst.insert(1, 100);
+
+  //move only element in list
+  lst.moveEntry(1, 1);
+  REQUIRE(lst.getEntry(1) == 100);
+}
+
 //test partition helper method
 
 TEST_CASE("Test partition helper method", "[sorting]"){
@@ -131,6 +142,17 @@ TEST_CASE("Test partition helper method", "[sorting]"){
   REQUIRE(lst.getEntry(5) == 7);
 }
 
+TEST_CASE("Test partition helper method edge cases", "[sorting]"){
+  List<int> lst;
+  lst.insert(1, 5); //list of size 1
+  int result = partition(lst, 1, lst.getLength());
+  REQUIRE(result == 1);
+  REQUIRE(lst.getEntry(1) == 5);
+
+  List<int> emptyLst; //empty list
+  REQUIRE_THROWS(partition(emptyLst, 1, emptyLst.getLength()));
+}
+
 //test quick sort
 
 TEST_CASE("Test quick sort: integer values", "[sorting]"){
@@ -151,6 +173,16 @@ TEST_CASE("Test quick sort: integer values", "[sorting]"){
   for(int i = 1; i < lst.getLength(); i++){
     REQUIRE(lst.getEntry(i) <= lst.getEntry(i + 1)); //check that list is sorted
   }
+}
+
+TEST_CASE("Test quick sort: integer edge cases", "[sorting]"){
+  List<int> lst;
+  lst.insert(1, 1); //list of size 1
+  quick_sort(lst, 1, lst.getLength());
+  REQUIRE(lst.getEntry(1) == 1);
+
+  List<int> emptyLst; //empty list
+  quick_sort(emptyLst, 1, emptyLst.getLength());
 }
 
 TEST_CASE("Test quick sort: boolean values", "[sorting]"){
@@ -175,11 +207,12 @@ TEST_CASE("Test quick sort: float values", "[sorting]"){
   lst.insert(1, 1.41);
   lst.insert(1, 0.577);
   lst.insert(1, 1.618);
+  lst.insert(1, 0.693);
+  lst.insert(1, 2.71828);
 
   quick_sort(lst, 1, lst.getLength());
 
   for(int i = 1; i < lst.getLength(); i++){
-    std::cout << lst.getEntry(i) << " ";
     REQUIRE(lst.getEntry(i) <= lst.getEntry(i + 1)); //check that list is sorted
   }
 }

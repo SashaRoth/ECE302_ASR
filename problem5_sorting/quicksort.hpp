@@ -14,6 +14,9 @@
 template <typename T>
 void quick_sort(List<T> &list, int first, int last)
 {
+    if(list.isEmpty()){
+        return; //empty list is already sorted
+    }
     if(first < 1 || last < 1 || first > last || last > list.getLength()){
         throw std::out_of_range("Invalid bounds indexing quick_sort");
     }
