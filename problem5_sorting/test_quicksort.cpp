@@ -1,5 +1,6 @@
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
+#include <iostream>
 
 #include "list.hpp"
 #include "quicksort.hpp"
@@ -80,3 +81,29 @@ TEST_CASE("Sort: Test move entry throw", "[sorting]")
 }
 
 /* Your test cases */
+
+//test partition
+
+TEST_CASE("Test partition helper method", "[sorting]"){
+  List<int> lst;
+  lst.insert(1, 8);
+  lst.insert(1, -2);
+  lst.insert(1, 7);
+  lst.insert(1, 3);
+  lst.insert(1, 5); //contents of list: 5, 3, 7, 2, 8
+
+  int result = partition(lst, 1, 5); //partition the list
+  
+  std::cout << "Sorted partition: ";
+  for(int i = 1; i <= 5; i++){
+    std::cout << lst.getEntry(i) << " ";
+  }
+  std::cout << std::endl;
+
+  REQUIRE(result == 3); //new pivot should be at index 3
+  REQUIRE(lst.getEntry(1) == 3);
+  REQUIRE(lst.getEntry(2) == -2);
+  REQUIRE(lst.getEntry(3) == 5);
+  REQUIRE(lst.getEntry(4) == 8);
+  REQUIRE(lst.getEntry(5) == 7);
+}

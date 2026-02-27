@@ -125,7 +125,7 @@ template <typename T>
 T List<T>::getEntry(int position) const
 {
   if(position < 1 || position > size){
-    throw std::out_of_range("Invalid index");
+    throw std::out_of_range("Invalid index getEntry");
   }
   return data[position - 1]; // return the item at the specified position
 }
@@ -134,7 +134,7 @@ template <typename T>
 void List<T>::setEntry(int position, const T &newValue)
 {
   if(position < 1 || position > size){
-    throw std::out_of_range("Invalid index");
+    throw std::out_of_range("Invalid index setEntry");
   }
   data[position - 1] = newValue; // set the value at the specified position
 }
@@ -143,7 +143,7 @@ template <typename T>
 void List<T>::moveEntry(int from, int to)
 {
   if(to > getLength() || to < 1){ //check validity of [to] index
-    std::__throw_out_of_range("Index out of range");
+    std::__throw_out_of_range("Index out of range moveEntry");
   }
   
   T temp;

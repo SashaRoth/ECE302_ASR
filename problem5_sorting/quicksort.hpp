@@ -1,6 +1,7 @@
 #ifndef _SORT_HPP
 #define _SORT_HPP
 
+#include <iostream>
 #include "list.hpp"
 
 /** Sorts an array into ascending order. Uses the quick sort method.
@@ -32,18 +33,24 @@ template <typename T>
 int partition(List<T> &list, int first, int last)
 {
     int length = list.getLength();
-    int pivot_val = getEntry(first); //first entry is pivot
-    int pivot_index = first; //store initial index of pivot (1)
-    if(first > last || last > length){ //check validity of bounds
-        std::__throw_out_of_range("Invalid list bounds");
+    int pivot_val = list.getEntry(first); //first entry is pivot
+    int pivot_index = first; //store initial index of pivot
+    if(first > last || first < 1 || last > length){ //check validity of bounds
+        std::__throw_out_of_range("Invalid list bounds partition");
     }
     
-    for(int i = 0; i < length; i++){
-        if(list[i]) //check if current entry is greater than/less than pivot, move accordingly
+    for(int i = first + 1; i <= last; i++){ //start iteration after pivot, i is 1-indexed
+        if(list.getEntry(i) >= pivot_val){ //check if current entry is greater than/less than pivot, move accordingly
+            list.moveEntry(i, pivot_index + 1); //move greater values to after pivot
+        }
+        else{
+            list.moveEntry(i, pivot_index); //move smaller values to before pivot
+            pivot_index++; //increment pivot
+        }
     }
     // TODO
     // You can choose the pivot yourself, but no matter what you choose
     // list[first..pivotIndex-1] <= pivot, list[pivotIndex] == pivot, list[pivotIndex + 1..last] >= pivot
-    return -1;
+    return pivot_index;
 }
 #endif
