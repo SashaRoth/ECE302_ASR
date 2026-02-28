@@ -1,0 +1,5 @@
+C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/Lecture 10/build/CMakeFiles/test_iterator.dir
+C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/Lecture 10/build/CMakeFiles/direct_download.dir
+C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/Lecture 10/build/CMakeFiles/test.dir
+C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/Lecture 10/build/CMakeFiles/edit_cache.dir
+C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/Lecture 10/build/CMakeFiles/rebuild_cache.dir

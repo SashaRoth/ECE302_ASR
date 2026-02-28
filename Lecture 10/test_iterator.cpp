@@ -29,7 +29,7 @@ TEST_CASE("Using iterator to traverse LinkedList", "[LinkedList]")
   }
   REQUIRE(sum == 60);
 }
-
+/*
 TEST_CASE("Using two different methods to traverse vector and measure time", "[vector]")
 {
   LinkedListwIterator<int> list;
@@ -40,7 +40,7 @@ TEST_CASE("Using two different methods to traverse vector and measure time", "[v
   auto start = std::chrono::high_resolution_clock::now();
   for (auto it = list.begin(); it != list.end(); ++it)
   {
-    std::cout << "It now points to " << *it << std::endl;
+    std::cout << *it;
   }
   auto end = std::chrono::high_resolution_clock::now();
   std::chrono::duration<double> elapsed = end - start;
@@ -49,7 +49,7 @@ TEST_CASE("Using two different methods to traverse vector and measure time", "[v
   start = std::chrono::high_resolution_clock::now();
   for (int i = 1; i <= list.getLength(); ++i)
   {
-    std::cout << "It now points to " << list.getEntry(i) << std::endl;
+    std::cout << list.getEntry(i);
   }
   end = std::chrono::high_resolution_clock::now();
   elapsed = end - start;
@@ -62,7 +62,7 @@ TEST_CASE("Using two different methods to traverse vector and measure time", "[v
   start = std::chrono::high_resolution_clock::now();
   for (auto it = list.begin(); it != list.end(); ++it)
   {
-    std::cout << "It now points to " << *it << std::endl;
+    std::cout << *it;
   }
   end = std::chrono::high_resolution_clock::now();
   elapsed = end - start;
@@ -71,7 +71,7 @@ TEST_CASE("Using two different methods to traverse vector and measure time", "[v
   start = std::chrono::high_resolution_clock::now();
   for (int i = 1; i <= list.getLength(); ++i)
   {
-    std::cout << "It now points to " << list.getEntry(i) << std::endl;
+    std::cout << list.getEntry(i);
   }
   end = std::chrono::high_resolution_clock::now();
   elapsed = end - start;
@@ -84,7 +84,7 @@ TEST_CASE("Using two different methods to traverse vector and measure time", "[v
   start = std::chrono::high_resolution_clock::now();
   for (auto it = list.begin(); it != list.end(); ++it)
   {
-    std::cout << "It now points to " << *it << std::endl;
+    std::cout << *it;
   }
   end = std::chrono::high_resolution_clock::now();
   elapsed = end - start;
@@ -93,7 +93,7 @@ TEST_CASE("Using two different methods to traverse vector and measure time", "[v
   start = std::chrono::high_resolution_clock::now();
   for (int i = 1; i <= list.getLength(); ++i)
   {
-    std::cout << "It now points to " << list.getEntry(i) << std::endl;
+    std::cout << list.getEntry(i);
   }
   end = std::chrono::high_resolution_clock::now();
   elapsed = end - start;
@@ -102,6 +102,7 @@ TEST_CASE("Using two different methods to traverse vector and measure time", "[v
   // TODO: Run the test and comment the differences you noticed from running for 100, 1000, and 10000 items list.
   // Does the time complexity of using iterator and getEntry() to traverse the list match the theoretical time complexity we discussed in class?
 }
+  */
 
 TEST_CASE("Using std::vector's iterator to test all operators", "[vector]")
 {
@@ -170,18 +171,19 @@ TEST_CASE("Using std::vector's iterator to erase and insert", "[vector]")
   }
 
   // Erase the second element (20)
-  it = vec.erase(vec.begin() + 1);
+  it = vec.erase(vec.begin() + 100);
+  std::cout << "After erasing an invalid index, `it` points to " << *it << std::endl;
   REQUIRE(vec.size() == 4);
-  REQUIRE(vec[1] == 30);
-  REQUIRE(*it == 30);
+  //REQUIRE(vec[1] == 30);
+  //REQUIRE(*it == 30);
 
   // Insert 25 at the end the vector
   it = vec.insert(vec.begin() + 4, 25);
-  REQUIRE(vec.size() == 5);
-  REQUIRE(vec[4] == 25);
+  //REQUIRE(vec.size() == 5);
+  //REQUIRE(vec[4] == 25);
   REQUIRE(*it == 25); // 10 30 40 50 25
   it--;
-  REQUIRE(*it == 50); // 10 30 40 50 25
+  //REQUIRE(*it == 50); // 10 30 40 50 25
 
   // TODO: based on the above lines, what are the designed return type of erase and insert?
   // Test yourself what are the return value (or it would crash) if erase and insert on vector get invalid?
@@ -314,7 +316,7 @@ TEST_CASE("Sandbox to test forward iterator", "[sandbox]")
   auto it2 = list2.begin();
   // (1) int num2 = *it2;
   // (2) bool x2 = (it2 != list2.end());
-  // (3) auto y2 = it2;
+  // (3) auto y2 = it2; std::cout << "y2 points to " << *y2 << std::endl;
   // (4) ++it2;
   // (5) std::cout << *y2 << std::endl;
   // (6) *it2 = 100;
