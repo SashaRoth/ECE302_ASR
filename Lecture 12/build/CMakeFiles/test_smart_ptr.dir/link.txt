@@ -1,0 +1,3 @@
+"C:\Program Files\CMake\bin\cmake.exe" -E rm -f CMakeFiles\test_smart_ptr.dir/objects.a
+C:\msys64\ucrt64\bin\ar.exe qc CMakeFiles\test_smart_ptr.dir/objects.a @CMakeFiles\test_smart_ptr.dir\objects1.rsp
+C:\msys64\ucrt64\bin\g++.exe -g -Wl,--whole-archive CMakeFiles\test_smart_ptr.dir/objects.a -Wl,--no-whole-archive -o test_smart_ptr.exe -Wl,--out-implib,libtest_smart_ptr.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\test_smart_ptr.dir\linkLibs.rsp

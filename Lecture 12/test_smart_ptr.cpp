@@ -177,7 +177,7 @@ TEST_CASE("shared_ptr with linked list", "[smart_ptr]")
   REQUIRE(RoomList.headPtr->next->next->next->next->next->next.use_count() == 1);
 }
 
-/*
+
 TEST_CASE("shared_ptr with linked list destructor", "[smart_ptr]")
 {
   auto start = std::chrono::high_resolution_clock::now();
@@ -193,4 +193,3 @@ TEST_CASE("shared_ptr with linked list destructor", "[smart_ptr]")
   auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
   std::cout << "Time taken to destroy the linked list: " << duration.count() << " microseconds" << std::endl;
 }
-*/

@@ -1,0 +1,6 @@
+C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/problem6/build/CMakeFiles/test-sorted-list.dir
+C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/problem6/build/CMakeFiles/submission.dir
+C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/problem6/build/CMakeFiles/starter_download.dir
+C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/problem6/build/CMakeFiles/test.dir
+C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/problem6/build/CMakeFiles/edit_cache.dir
+C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/problem6/build/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,5 @@
+C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/Lecture 12/build/CMakeFiles/test_smart_ptr.dir
+C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/Lecture 12/build/CMakeFiles/direct_download.dir
+C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/Lecture 12/build/CMakeFiles/test.dir
+C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/Lecture 12/build/CMakeFiles/edit_cache.dir
+C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/Lecture 12/build/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,8 @@
+[
+{
+  "directory": "C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/Lecture 12/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe   -g -std=gnu++11 -o CMakeFiles\\test_smart_ptr.dir\\test_smart_ptr.cpp.obj -c \"C:\\Users\\Sasha\\Desktop\\302\\personal_git_repository\\ECE302_ASR\\Lecture 12\\test_smart_ptr.cpp\"",
+  "file": "C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/Lecture 12/test_smart_ptr.cpp",
+  "output": "CMakeFiles/test_smart_ptr.dir/test_smart_ptr.cpp.obj"
+}
+]

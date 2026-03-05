@@ -92,17 +92,17 @@ public:
     // TODO: find all the options to deallocate the memory used by the linked list that won't cause a compilation error
     // Of those options, which one(s) will take the longest time to execute?
 
-    // clear();              // option 1
-    // headPtr = nullptr;    // option 2
-    // itemCount = 0;        // option 3
-    // delete headPtr;       // option 4
-    // *headPtr = 0;         // option 5
-    // // nothing            // option 6
-    // while (itemCount > 0) // option 7
+    // clear();              // option 1 vvv
+    // headPtr = nullptr;    // option 2 vvv
+    // itemCount = 0;        // option 3 
+    // delete headPtr;       // option 4 xxxx
+    // *headPtr = 0;         // option 5 xxxx
+    // // nothing            // option 6 xxxx
+    // while (itemCount > 0) // option 7 vvv
     // {
     //   remove(1);
     // }
-    // while (itemCount > 0) // option 8
+    // while (itemCount > 0) // option 8 ///
     // {
     //   remove(itemCount);
     // }
