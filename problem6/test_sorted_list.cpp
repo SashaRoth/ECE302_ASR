@@ -44,7 +44,6 @@ TEST_CASE("SortedList: Testing insert", "[sorted list]")
   for (int i = 1; i <= 26; ++i)
   {
     getEntryCheck = (lst.getEntry(i) == 'a' + i - 1);
-    std::cout << "getEntry(" << i << "): " << lst.getEntry(i) << std::endl; // debug statement to check getEntry
     if (!getEntryCheck)
     {
       break;

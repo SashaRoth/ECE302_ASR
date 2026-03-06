@@ -48,7 +48,6 @@ void List<T>::swap(List &x)
 template <typename T>
 bool List<T>::isEmpty() const noexcept
 {
-  std::cout << "size: " << size << std::endl; // debug statement to check size
   if (size == 0){
     return true;
   }
