@@ -25,39 +25,11 @@
 	ProcessorClockFrequency="2000"
 	>
 	<Testing>
-		<StartDateTime>Mar 05 19:45 Eastern Standard Time</StartDateTime>
-		<StartTestTime>1772757911</StartTestTime>
-		<TestList>
-			<Test>./test-sorted-list</Test>
-		</TestList>
-		<Test Status="passed">
-			<Name>test-sorted-list</Name>
-			<Path>.</Path>
-			<FullName>./test-sorted-list</FullName>
-			<FullCommandLine>C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\problem6\build\test-sorted-list.exe</FullCommandLine>
-			<Results>
-				<NamedMeasurement type="numeric/double" name="Execution Time">
-					<Value>0.118354</Value>
-				</NamedMeasurement>
-				<NamedMeasurement type="numeric/double" name="Processors">
-					<Value>1</Value>
-				</NamedMeasurement>
-				<NamedMeasurement type="text/string" name="Completion Status">
-					<Value>Completed</Value>
-				</NamedMeasurement>
-				<NamedMeasurement type="text/string" name="Command Line">
-					<Value>C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\problem6\build\test-sorted-list.exe</Value>
-				</NamedMeasurement>
-				<NamedMeasurement type="text/string" name="Environment">
-					<Value>#CTEST_RESOURCE_GROUP_COUNT=</Value>
-				</NamedMeasurement>
-				<Measurement>
-					<Value encoding="base64" compression="gzip">eJyt0DkOwkAMheF+TuESurCFRaKg4CCBDCEQEoiHJTk9fhHSvAMwjf1JLn6Nlr3fSOJ0mJPfTFzhw74ObTeajDeSRU6Nh8iZ8Rg5N+aRC6OPTI2nyKWxiFwZz5FrY0kZiflCRteVjLCKjLIbGWk1GW0NGXF3MuoeZOS1ZPQp/Qv6Ahl9TzL6XmT0vcno+5DR15HR17vtf5/bVZUEr0Hlnqn6XEbzqWBrQ9nUKmUt6XAgx0y9jp37AoWApvY=</Value>
-				</Measurement>
-			</Results>
-		</Test>
-		<EndDateTime>Mar 05 19:45 Eastern Standard Time</EndDateTime>
-		<EndTestTime>1772757912</EndTestTime>
+		<StartDateTime>Mar 05 20:12 Eastern Standard Time</StartDateTime>
+		<StartTestTime>1772759521</StartTestTime>
+		<TestList/>
+		<EndDateTime>Mar 05 20:12 Eastern Standard Time</EndDateTime>
+		<EndTestTime>1772759521</EndTestTime>
 		<ElapsedMinutes>0</ElapsedMinutes>
 	</Testing>
 </Site>
