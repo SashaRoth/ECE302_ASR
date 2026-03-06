@@ -46,12 +46,18 @@ int SortedList<T>::getLength() const noexcept
 template <typename T>
 void SortedList<T>::insert(const T &item)
 {
+  if((List<T>::getLength() == 0) || (item <= List<T>::getEntry(1))){
+      List<T>::insert(1, item); // if list empty or item <= first element, insert at position 1
+      return;
+    }
   for(int i = 1; i <= List<T>::getLength(); i++){
-    if(item >= List<T>::getEntry(i)) {
+    if(item <= List<T>::getEntry(i)) {
       List<T>::insert(i, item); // insert item at the correct position to maintain sorted order
       return;
     }
   }
+  // If we get here, item is larger than all elements, so append at the end
+  List<T>::insert(List<T>::getLength() + 1, item);
 }
 
 template <typename T>

@@ -48,8 +48,10 @@ void List<T>::swap(List &x)
 template <typename T>
 bool List<T>::isEmpty() const noexcept
 {
-  if (size == 0)
+  std::cout << "size: " << size << std::endl; // debug statement to check size
+  if (size == 0){
     return true;
+  }
   return false;
 }
 
@@ -93,6 +95,7 @@ void List<T>::remove(int position)
     delete[] data;
     data = new T[0];
     size = 0;
+    return;
   }
 
   T *temp = new T[size - 1];
