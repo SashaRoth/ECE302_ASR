@@ -17,35 +17,32 @@ bool XMLParser::tokenizeInputString(const std::string &inputString)
 	// TODO
 	// Use '<' and '>' as anchors to scan the string. Remember to clear each time before
 	// tokenizing a new string, and refer to the following code structure:
-
+	
+	//initial error checking
 	int size = inputString.size();
-	char c;
-	bool openbracket = false;
 
-	if(size == 0){
+	if(size <= 1){
 		return false;
 	}
-	
+	if(inputString[0] != '<' || inputString[size-1] != '>'){
+		return false;
+	}
+
+	//iterate through string
 	for(int i = 0; i < size; i++){
-		c = inputString[i];
-		if(c == '<'){
-			if(openbracket) return false;
-			openbracket = true;
-			continue;
-		}
-		else if(c == '>'){
-			if(!openbracket) return false;
-			openbracket = false;
-
-			while(!parseStack.isEmpty()){
-
+		char c = inputString[i];
+		
+		if(c == '<'){ //tokenize tag
+			std::string candidate;
+			StringTokenType candidate_type;
+			while(c != '>'){
+				int term = inputString.find(62, i);
+				candidate = inputString.substr(i, term - i);
+				//check for valid tag name syntax
 			}
-
-			continue;
 		}
-		//else if(c = ) if c = invalid char
 
-		parseStack.push(std::string(1, c));
+		//tokenize content
 	}
 
 	// for (char c : inputString)
@@ -100,4 +97,20 @@ int XMLParser::frequencyElementName(const std::string &element) const
 	// If Bag is updated correctly, this should be as simple as one line.
 
 	return -1;
+}
+
+// Helper functions
+
+bool XMLParser::isValidSym(char c) const {
+	if( c == '_' || c == '-' || c == '.' || (c >= 48 && c <= 57)){
+		return true;
+	}
+	return false;
+}
+
+bool XMLParser::isAlpha(char c) const {
+	if((c >= 65 && c <= 90) || (c >= 97 && c <= 122)){
+		return true;
+	}
+	return false;
 }

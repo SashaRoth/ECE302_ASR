@@ -98,6 +98,18 @@ public:
 	/** Clears the internal data structures for an instance of the class.
 		@post The class instance can be used to tokenize a new input string. */
 	void clear();
+
+private: //private helper functions
+	/** Checks if a given character is a valid symbol (_ - . or integers 0-9)
+	  @param c character to be checked
+	  @return bool false if character is invalid, true if character is valid */
+	bool isValidSym(char c) const;
+
+	/** Checks if a given character is a letter
+	  @param c character to be checked
+	  @return bool false if character is invalid, true if character is valid */
+	bool isAlpha(char c) const;
+
 }; // end XMLParser
 
 #endif
