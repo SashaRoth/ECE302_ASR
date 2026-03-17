@@ -18,6 +18,36 @@ bool XMLParser::tokenizeInputString(const std::string &inputString)
 	// Use '<' and '>' as anchors to scan the string. Remember to clear each time before
 	// tokenizing a new string, and refer to the following code structure:
 
+	int size = inputString.size();
+	char c;
+	bool openbracket = false;
+
+	if(size == 0){
+		return false;
+	}
+	
+	for(int i = 0; i < size; i++){
+		c = inputString[i];
+		if(c == '<'){
+			if(openbracket) return false;
+			openbracket = true;
+			continue;
+		}
+		else if(c == '>'){
+			if(!openbracket) return false;
+			openbracket = false;
+
+			while(!parseStack.isEmpty()){
+
+			}
+
+			continue;
+		}
+		//else if(c = ) if c = invalid char
+
+		parseStack.push(std::string(1, c));
+	}
+
 	// for (char c : inputString)
 	// {
 	// 	if (c == '<') {?? continue;}
