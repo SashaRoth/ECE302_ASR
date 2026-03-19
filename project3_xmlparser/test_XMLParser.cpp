@@ -288,3 +288,36 @@ TEST_CASE("XMLParser: Test XMLParser with XML file workflow", "[XMLParser]")
 }
 
 /* Write your own uint tests here*/
+
+/*Stack unit tests*/
+
+/*XML Parser unit tests*/
+TEST_CASE("XML Parser: test XMLParser object attributes", "[XMLParser]"){
+	//basic check
+	XMLParser SashasParser;
+
+	//should be empty before any actions
+	std::vector<TokenStruct> output = SashasParser.returnTokenizedInput();
+	REQUIRE(output.size() == 0);
+
+	//basic valid string to tokenize, should pass
+	std::string string1 = "<root><head>content!</head></root>";
+	REQUIRE(SashasParser.tokenizeInputString(string1));
+
+	//should now have tokens
+	output = SashasParser.returnTokenizedInput();
+	REQUIRE(output.size() == 5);
+
+	SashasParser.clear();
+
+	//should now be empty again
+	output = SashasParser.returnTokenizedInput();
+	REQUIRE(output.size() == 5);
+}
+
+TEST_CASE("XML Parser: test containsElementName", "[XMLParser]"){
+	
+}
+TEST_CASE("XML Parser: test frequencyElementName", "[XMLParser]"){
+
+}
