@@ -105,6 +105,11 @@ private: //private helper functions
 	  @return bool false if character is invalid, true if character is valid */
 	bool isValidSym(char c) const;
 
+	/** Checks if a given character is invalid symbol
+	  @param c character to be checked
+	  @return bool true if character is invalid, false if character is valid */
+	bool isInvalidSym(char c) const;
+
 	/** Checks if a given character is a letter
 	  @param c character to be checked
 	  @return bool false if character is invalid, true if character is valid */

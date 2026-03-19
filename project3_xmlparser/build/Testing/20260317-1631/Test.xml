@@ -19,17 +19,17 @@
 	ProcessorCacheSize="64"
 	NumberOfLogicalCPU="16"
 	NumberOfPhysicalCPU="8"
-	TotalVirtualMemory="18235"
+	TotalVirtualMemory="18107"
 	TotalPhysicalMemory="15419"
 	LogicalProcessorsPerPhysical="2"
 	ProcessorClockFrequency="2000"
 	>
 	<Testing>
-		<StartDateTime>Mar 17 14:42 Eastern Daylight Time</StartDateTime>
-		<StartTestTime>1773772933</StartTestTime>
+		<StartDateTime>Mar 18 21:20 Eastern Daylight Time</StartDateTime>
+		<StartTestTime>1773883220</StartTestTime>
 		<TestList/>
-		<EndDateTime>Mar 17 14:42 Eastern Daylight Time</EndDateTime>
-		<EndTestTime>1773772933</EndTestTime>
+		<EndDateTime>Mar 18 21:20 Eastern Daylight Time</EndDateTime>
+		<EndTestTime>1773883220</EndTestTime>
 		<ElapsedMinutes>0</ElapsedMinutes>
 	</Testing>
 </Site>

@@ -7,6 +7,7 @@
 #include <stdexcept>
 #include <vector>
 
+
 /* Provided test cases*/
 TEST_CASE("XMLParser: Test int Stack push and size", "[Stack]")
 {
@@ -102,7 +103,7 @@ TEST_CASE("XMLParser: Test std::string Stack peek, pop and clear", "[Stack]")
 	REQUIRE(stringStack.isEmpty() == true);
 }
 
-/*
+
 TEST_CASE("XMLParser: Test tokenize <test>stuff</test>", "[XMLParser]")
 {
 	// You can assume that the beginning and the end of CONTENT will not be filled with whitespace
@@ -120,6 +121,7 @@ TEST_CASE("XMLParser: Test tokenize <test>stuff</test>", "[XMLParser]")
 		REQUIRE(result[i].tokenString == output[i].tokenString);
 	}
 }
+
 
 TEST_CASE("XMLParser: Test tokenize with invalid chars", "[XMLParser]")
 {
@@ -185,6 +187,8 @@ TEST_CASE("XMLParser: Test tokenize string with more elements", "[XMLParser]")
 	REQUIRE(correctType);
 	REQUIRE(correctString);
 }
+
+/*
 
 TEST_CASE("XMLParser: Test parseTokenizedInput", "[XMLParser]")
 {
