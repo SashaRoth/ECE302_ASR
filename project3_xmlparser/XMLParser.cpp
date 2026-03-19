@@ -25,7 +25,7 @@ bool XMLParser::tokenizeInputString(const std::string &inputString)
 
 	//check for valid size
 	if(size <= 1){
-		std::cout << "String is too short to be valid" << std::endl;
+		////std::cout << "String is too short to be valid" << std::endl;
 		return false;
 	}
 
@@ -41,7 +41,7 @@ bool XMLParser::tokenizeInputString(const std::string &inputString)
 
 	//check if string is enclosed by brackets
 	if(inputCopy[0] != '<' || inputCopy[size-1] != '>'){
-		std::cout << "String is not enclosed by brackets" << std::endl;
+		//std::cout << "String is not enclosed by brackets" << std::endl;
 		return false;
 	}
 
@@ -62,11 +62,11 @@ bool XMLParser::tokenizeInputString(const std::string &inputString)
 			//bounds checking in case '<' is not found and returns npos
 			size_t name_end = inputCopy.find('>', i);
 			if(name_end == std::string::npos){
-				std::cout << "Missing closing '>' for tag" << std::endl;
+				//std::cout << "Missing closing '>' for tag" << std::endl;
 				return false;
 			}
 			if(name_end <= static_cast<size_t>(i + 1)){
-				std::cout << "Empty tag content" << std::endl;
+				//std::cout << "Empty tag content" << std::endl;
 				return false;
 			}
 			candidate = inputCopy.substr(i + 1, name_end - i - 1);
@@ -76,16 +76,16 @@ bool XMLParser::tokenizeInputString(const std::string &inputString)
 				candidate_type = START_TAG;
 			}
 			else if(candidate.find('?') == candidate.rfind('?')){ //only one '?', not a valid declaration
-				std::cout << "Invalid use of '?'" << std::endl;
+				//std::cout << "Invalid use of '?'" << std::endl;
 				return false;
 			}
 			else if((candidate.find('?') != 0) || (candidate.rfind('?') != (candidate.length() - 1))){ // contains multiple '?', but not at the ends
-				std::cout << "Invalid use of multiple '?'" << std::endl;
+				//std::cout << "Invalid use of multiple '?'" << std::endl;
 				return false;
 			}
 			else{
 				if(notbeginning){
-					std::cout << "Declarations not valid if not at the beginning of file" << std::endl;
+					//std::cout << "Declarations not valid if not at the beginning of file" << std::endl;
 					return false;
 				}
 				candidate_type = DECLARATION; //tag is valid declaration, assign type and remove '?'
@@ -104,12 +104,12 @@ bool XMLParser::tokenizeInputString(const std::string &inputString)
 
 				//check for nested brackets
 				if(candidate.find('<') != -1){ //tag contains nested '<' bracket
-					std::cout << "Tag contains nested bracket" << std::endl;
+					//std::cout << "Tag contains nested bracket" << std::endl;
 					return false;
 				}
 
 				if(candidate.length() == 0){
-					std::cout << "Tag contains no name" << std::endl;
+					//std::cout << "Tag contains no name" << std::endl;
 					return false;
 				}
 
@@ -124,26 +124,26 @@ bool XMLParser::tokenizeInputString(const std::string &inputString)
 				else if(index == revindex){ //if both indicies are equal, only one '/' is present
 					if(index == 0){ //if '/' is at the beginning, this is an end tag
 						if(hasattribute){
-							std::cout << "End tag cannot contain attributes" << std::endl;
+							//std::cout << "End tag cannot contain attributes" << std::endl;
 							return false;
 						}
 						candidate_type = END_TAG;
 					}
 					else if(index == (candidate.length() - 1)){ //if '/' is at the end, this is an empty tag
-						std::cout << "Empty tag containing attribute detected" << std::endl;
+						//std::cout << "Empty tag containing attribute detected" << std::endl;
 						candidate_type = EMPTY_TAG;
 					}
 					candidate.erase(index, 1);
 				}
 				else{ //if indicies are not equal, tag name contains multiple '/' --> invalid
-					std::cout << "Multiple instances of '/' in tag name" << std::endl;
+					//std::cout << "Multiple instances of '/' in tag name" << std::endl;
 					return false;
 				}
 
 				for(char m : candidate){ //if whitespace is found, check validity
 					if(std::isspace(m)){
 						if(candidate.find(m) == 0){
-							std::cout << "Tag name starts with white space" << std::endl;
+							//std::cout << "Tag name starts with white space" << std::endl;
 							return false;
 						}
 						//if there are attributes after the tag name, just extract the tag name
@@ -155,13 +155,13 @@ bool XMLParser::tokenizeInputString(const std::string &inputString)
 
 				//check for valid tag name syntax
 				if(isValidSym(candidate[0])){ //check if tag name starts with invalid character
-					std::cout << "Tag name starts with invalid character" << std::endl;
+					//std::cout << "Tag name starts with invalid character" << std::endl;
 					return false;
 				}
 
 				for(char m : candidate){ //check if characters in isolated name (after attribute and '/' removal) are valid
 					if(isInvalidSym(m)){
-						std::cout << "Tag name contains invalid symbol" << std::endl;
+						//std::cout << "Tag name contains invalid symbol" << std::endl;
 						return false;
 					}
 				}
@@ -218,7 +218,7 @@ bool XMLParser::parseTokenizedInput()
 	std::string root = "";
 
 	if(token_amt == 0){
-		std::cout << "Cannot parse empty input" << std::endl;
+		//std::cout << "Cannot parse empty input" << std::endl;
 		return false;
 	}
 
@@ -233,13 +233,13 @@ bool XMLParser::parseTokenizedInput()
 			try{
 				parseStack.peek();
 			}catch(std::logic_error){
-				std::cout << "End tag cannot come before start tag";
+				//std::cout << "End tag cannot come before start tag";
 				return false;
 			}
 			if(parseStack.peek() != tokenizedInputVector[i].tokenString){ //if there is a start/end tag mismatch, invalid
 				std::string end = tokenizedInputVector[i].tokenString;
 				std::string start = parseStack.peek();
-				std::cout << "End tag does not match preceding start tag" << std::endl;
+				//std::cout << "End tag does not match preceding start tag" << std::endl;
 				return false;
 			}
 			elementNameBag.add(tokenizedInputVector[i].tokenString); //add valid tag name to bag
@@ -250,7 +250,7 @@ bool XMLParser::parseTokenizedInput()
 		}
 		if(i == tokenizedInputVector.size() - 1){
 			if(tokenizedInputVector[i].tokenString != root){
-				std::cout << "String must be enclosed by one root" << std::endl;
+				//std::cout << "String must be enclosed by one root" << std::endl;
 				return false;
 			}
 		}

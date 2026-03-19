@@ -269,9 +269,7 @@ TEST_CASE("XMLParser: Test XMLParser with XML file workflow", "[XMLParser]")
 
 	// look at the tokenized input string
 	std::vector<TokenStruct> tokenizedInput = myParser.returnTokenizedInput();
-	for(int i = 0 ; i < tokenizedInput.size(); i++){
-		std::cout << tokenizedInput[i].tokenString << std::endl;
-	}
+	
 	REQUIRE(tokenizedInput.size() == 91);
 
 	// try to parse the tokenized input string to see if it is valid XML
