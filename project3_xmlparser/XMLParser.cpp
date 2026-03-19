@@ -9,7 +9,8 @@
 
 XMLParser::XMLParser()
 {
-	// TODO
+	tokenized = 0;
+	parsed = 0;
 }
 
 // Then finish this function to pass unit tests 4-6
@@ -45,7 +46,7 @@ bool XMLParser::tokenizeInputString(const std::string &inputString)
 	}
 
 	// clear tokens from previous parse
-	tokenizedInputVector.clear();
+	clear();
 
 	//iterate through string
 	for(int i = 0; i < size; i++){
@@ -177,7 +178,7 @@ bool XMLParser::tokenizeInputString(const std::string &inputString)
 			}
 		}
 
-		else if(isAlpha(c)){ //branch if content
+		else if(isAlpha(c) || isValidSym(c) || isInvalidSym(c)){ //branch if content
 			std::string candidate;
 			StringTokenType candidate_type = CONTENT;
 			
@@ -191,12 +192,6 @@ bool XMLParser::tokenizeInputString(const std::string &inputString)
 			}
 			candidate = inputCopy.substr(i, content_end - i);
 
-			//check for content validity
-			if((candidate.find("\\n") != -1)){
-				std::cout << "Content cannot contain returns" << std::endl;
-				return false;
-			}
-
 			//this point is only reached if content  is valid -- push candidate into tokenized input vector
 			TokenStruct toadd;
 			toadd.tokenString = candidate;
@@ -207,17 +202,21 @@ bool XMLParser::tokenizeInputString(const std::string &inputString)
 		}
 	}
 
+	tokenized = 1;
+	parsed = 0;
 	return true;
 }
 
 // Then finish this function to pass unit tests 7-9
 bool XMLParser::parseTokenizedInput()
 {
-	// TODO
+	// TODO: check whether there is one root element
 	// Iterate through tokenizedInputVector to check its validity
 	// and update the stack and bag accordingly, and refer to the following code structure:
 
 	int token_amt = tokenizedInputVector.size();
+	std::string root = "";
+
 	if(token_amt == 0){
 		std::cout << "Cannot parse empty input" << std::endl;
 		return false;
@@ -225,9 +224,18 @@ bool XMLParser::parseTokenizedInput()
 
 	for (int i = 0; i < tokenizedInputVector.size(); i++){
 		if (tokenizedInputVector[i].tokenType == START_TAG) {
+			if(root == ""){
+				root = tokenizedInputVector[i].tokenString;
+			}
 			parseStack.push(tokenizedInputVector[i].tokenString);
 		}
 		else if (tokenizedInputVector[i].tokenType == END_TAG) { 
+			try{
+				parseStack.peek();
+			}catch(std::logic_error){
+				std::cout << "End tag cannot come before start tag";
+				return false;
+			}
 			if(parseStack.peek() != tokenizedInputVector[i].tokenString){ //if there is a start/end tag mismatch, invalid
 				std::string end = tokenizedInputVector[i].tokenString;
 				std::string start = parseStack.peek();
@@ -240,14 +248,25 @@ bool XMLParser::parseTokenizedInput()
 		else if (tokenizedInputVector[i].tokenType == EMPTY_TAG) { 
 			elementNameBag.add(tokenizedInputVector[i].tokenString); //add valid empty tag name to bag
 		}
+		if(i == tokenizedInputVector.size() - 1){
+			if(tokenizedInputVector[i].tokenString != root){
+				std::cout << "String must be enclosed by one root" << std::endl;
+				return false;
+			}
+		}
 	}
 
+	parsed = 1;
 	return true;
 }
 
 void XMLParser::clear()
 {
-	// TODO
+	tokenizedInputVector.clear();
+	parseStack.clear();
+	elementNameBag.clear();
+	tokenized = 0;
+	parsed = 0;
 }
 
 std::vector<TokenStruct> XMLParser::returnTokenizedInput() const
@@ -257,7 +276,9 @@ std::vector<TokenStruct> XMLParser::returnTokenizedInput() const
 
 bool XMLParser::containsElementName(const std::string &element) const
 {
-	// TODO
+	if(elementNameBag.contains(element)){
+		return true;
+	}
 	return false;
 }
 
@@ -267,8 +288,14 @@ int XMLParser::frequencyElementName(const std::string &element) const
 	// Throw std::logic_error if either tokenizeInputString()
 	// or parseTokenizedInput() returns false
 	// If Bag is updated correctly, this should be as simple as one line.
+	if(!tokenized){
+		throw std::logic_error("Cannot call freuqncyElementName on untokenized XMLParser");
+	}
+	if(!parsed){
+		throw std::logic_error("Cannot call freuqncyElementName on unparsed XMLParser");
+	}
 
-	return -1;
+	return elementNameBag.getFrequencyOf(element);
 }
 
 // Helper functions

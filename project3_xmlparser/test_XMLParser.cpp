@@ -6,6 +6,7 @@
 #include <fstream>
 #include <stdexcept>
 #include <vector>
+#include <iostream>
 
 
 /* Provided test cases*/
@@ -233,7 +234,6 @@ TEST_CASE("XMLParser: Test XMLParser tokenize then parse various strings", "[XML
 	REQUIRE_FALSE(myXMLParser.parseTokenizedInput());
 }
 
-/*
 TEST_CASE("XMLParser: Test XMLParser parse, contains and frequency", "[XMLParser]")
 {
 	XMLParser myXMLParser;
@@ -269,6 +269,9 @@ TEST_CASE("XMLParser: Test XMLParser with XML file workflow", "[XMLParser]")
 
 	// look at the tokenized input string
 	std::vector<TokenStruct> tokenizedInput = myParser.returnTokenizedInput();
+	for(int i = 0 ; i < tokenizedInput.size(); i++){
+		std::cout << tokenizedInput[i].tokenString << std::endl;
+	}
 	REQUIRE(tokenizedInput.size() == 91);
 
 	// try to parse the tokenized input string to see if it is valid XML
@@ -283,6 +286,5 @@ TEST_CASE("XMLParser: Test XMLParser with XML file workflow", "[XMLParser]")
 	int number = myParser.frequencyElementName("span");
 	REQUIRE(number == 16);
 }
-*/
 
 /* Write your own uint tests here*/

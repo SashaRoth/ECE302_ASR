@@ -35,6 +35,8 @@ private:
 	std::vector<TokenStruct> tokenizedInputVector;
 
 	// TODO: add private members or private functions if needed
+	bool tokenized;
+	bool parsed;
 
 public:
 	/** The class constructor.
