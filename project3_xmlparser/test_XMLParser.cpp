@@ -188,8 +188,6 @@ TEST_CASE("XMLParser: Test tokenize string with more elements", "[XMLParser]")
 	REQUIRE(correctString);
 }
 
-/*
-
 TEST_CASE("XMLParser: Test parseTokenizedInput", "[XMLParser]")
 {
 	XMLParser myXMLParser;
@@ -218,6 +216,7 @@ TEST_CASE("XMLParser: Test parseTokenizedInput", "[XMLParser]")
 	REQUIRE(correctString);
 }
 
+/*
 // Refer to online parser https://jsonformatter.org/xml-parser#Sample
 TEST_CASE("XMLParser: Test XMLParser tokenize then parse various strings", "[XMLParser]")
 {
