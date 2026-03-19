@@ -35,6 +35,7 @@ private:
 	std::vector<TokenStruct> tokenizedInputVector;
 
 	// TODO: add private members or private functions if needed
+	//added flags to record if parser has been tokenized and parsed, for error throwing in frequencyElementName function
 	bool tokenized;
 	bool parsed;
 
@@ -101,7 +102,7 @@ public:
 		@post The class instance can be used to tokenize a new input string. */
 	void clear();
 
-private: //private helper functions
+private: //private helper functions: I added these to more easily test the validity of tag names
 	/** Checks if a given character is a valid symbol (_ - . or integers 0-9)
 	  @param c character to be checked
 	  @return bool false if character is invalid, true if character is valid */

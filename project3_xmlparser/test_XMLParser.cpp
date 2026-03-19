@@ -290,6 +290,50 @@ TEST_CASE("XMLParser: Test XMLParser with XML file workflow", "[XMLParser]")
 /* Write your own uint tests here*/
 
 /*Stack unit tests*/
+TEST_CASE("Stack: basic funcitonality tests", "[Stack]") {
+	Stack<int> s;
+	REQUIRE(s.isEmpty());
+	REQUIRE(s.size() == 0);
+
+	REQUIRE(s.push(10));
+	REQUIRE(!s.isEmpty());
+	REQUIRE(s.size() == 1);
+	REQUIRE(s.peek() == 10);
+
+	REQUIRE(s.push(20));
+	REQUIRE(s.size() == 2);
+	REQUIRE(s.peek() == 20);
+
+	REQUIRE(s.pop());
+	REQUIRE(s.size() == 1);
+	REQUIRE(s.peek() == 10);
+
+	REQUIRE(s.pop());
+	REQUIRE(s.isEmpty());
+	REQUIRE(s.size() == 0);
+	REQUIRE(!s.pop());
+}
+
+TEST_CASE("Stack: test clear/remove and exceptions", "[Stack]") {
+	Stack<std::string> s;
+	s.push("alpha");
+	s.push("beta");
+	REQUIRE(s.size() == 2);
+	REQUIRE(s.peek() == "beta");
+
+	s.clear();
+	REQUIRE(s.isEmpty());
+	REQUIRE(s.size() == 0);
+
+	//catch exception on peek empty stack
+	bool caught = 0;
+	try {
+		s.peek();
+	} catch (std::logic_error) {
+		caught = 1;
+	}
+	REQUIRE(caught);
+}
 
 /*XML Parser unit tests*/
 TEST_CASE("XML Parser: test XMLParser object attributes", "[XMLParser]"){
@@ -300,6 +344,9 @@ TEST_CASE("XML Parser: test XMLParser object attributes", "[XMLParser]"){
 	std::vector<TokenStruct> output = SashasParser.returnTokenizedInput();
 	REQUIRE(output.size() == 0);
 
+	//make sure XMLParser object cannot parse before tokenization
+	REQUIRE_FALSE(SashasParser.parseTokenizedInput());
+
 	//basic valid string to tokenize, should pass
 	std::string string1 = "<root><head>content!</head></root>";
 	REQUIRE(SashasParser.tokenizeInputString(string1));
@@ -308,16 +355,67 @@ TEST_CASE("XML Parser: test XMLParser object attributes", "[XMLParser]"){
 	output = SashasParser.returnTokenizedInput();
 	REQUIRE(output.size() == 5);
 
+	//should now be able to parse
+	REQUIRE(SashasParser.parseTokenizedInput());
+
 	SashasParser.clear();
 
 	//should now be empty again
 	output = SashasParser.returnTokenizedInput();
-	REQUIRE(output.size() == 5);
+	REQUIRE(output.size() == 0);
+
+	//should not be able to parse, now that it is empty
+	REQUIRE_FALSE(SashasParser.parseTokenizedInput());
 }
 
 TEST_CASE("XML Parser: test containsElementName", "[XMLParser]"){
-	
-}
-TEST_CASE("XML Parser: test frequencyElementName", "[XMLParser]"){
+	XMLParser SashasParser;
+	std::string xmlString = "<root><child/><sub>oh my god!! I'm content!!</sub></root>";
 
+	REQUIRE(SashasParser.tokenizeInputString(xmlString));
+	REQUIRE(SashasParser.parseTokenizedInput());
+
+	// Existing element names should be found
+	REQUIRE(SashasParser.containsElementName("root") == true);
+	REQUIRE(SashasParser.containsElementName("child") == true);
+	REQUIRE(SashasParser.containsElementName("sub") == true);
+
+	// Missing or different-case element names should not be found
+	REQUIRE(SashasParser.containsElementName("missing") == false);
+	REQUIRE(SashasParser.containsElementName("Root") == false);
 }
+
+TEST_CASE("XML Parser: test frequencyElementName", "[XMLParser]"){
+	XMLParser SashasParser;
+	std::string xmlString = "<root><child/><sub>hiiiiiyaaa</sub><child/></root>";
+
+	//frequencyElementName should throw error when called on untokenized parser
+	bool caught = 0;
+	try{
+		SashasParser.frequencyElementName("example");
+	}catch(std::logic_error){
+		caught = 1;
+	}
+	REQUIRE(caught == 1);
+
+	REQUIRE(SashasParser.tokenizeInputString(xmlString));
+
+	//frequencyElementName should ALSO throw error on tokenized but unparsed parser
+	caught = 0;
+	try{
+		SashasParser.frequencyElementName("example");
+	}catch(std::logic_error){
+		caught = 1;
+	}
+	REQUIRE(caught == 1);
+
+	REQUIRE(SashasParser.parseTokenizedInput());
+
+	// Frequency checks from the parsed content (root has 1, child appears twice, sub appears once)
+	REQUIRE(SashasParser.frequencyElementName("root") == 1);
+	REQUIRE(SashasParser.frequencyElementName("child") == 2);
+	REQUIRE(SashasParser.frequencyElementName("sub") == 1);
+	REQUIRE(SashasParser.frequencyElementName("missing") == 0);
+}
+
+
