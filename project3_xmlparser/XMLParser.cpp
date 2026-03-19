@@ -22,11 +22,24 @@ bool XMLParser::tokenizeInputString(const std::string &inputString)
 	//initial error checking
 	int size = inputString.size();
 
+	//check for valid size
 	if(size <= 1){
 		std::cout << "String is too short to be valid" << std::endl;
 		return false;
 	}
-	if(inputString[0] != '<' || inputString[size-1] != '>'){
+
+	//remove beginning and end whitespace
+	std::string inputCopy = inputString;
+	while(std::isspace(inputCopy[0])){ //trim beginning whitespace
+		inputCopy.erase(0, 1);
+	}
+	while(std::isspace(inputCopy[inputCopy.length() - 1])){
+		inputCopy.pop_back(); //trim end whitespace
+	}
+	size = inputCopy.size(); //update size
+
+	//check if string is enclosed by brackets
+	if(inputCopy[0] != '<' || inputCopy[size-1] != '>'){
 		std::cout << "String is not enclosed by brackets" << std::endl;
 		return false;
 	}
@@ -36,7 +49,7 @@ bool XMLParser::tokenizeInputString(const std::string &inputString)
 
 	//iterate through string
 	for(int i = 0; i < size; i++){
-		char c = inputString[i];
+		char c = inputCopy[i];
 		bool notbeginning = 0;
 		
 		if(c == '<'){ //branch if tag is found
@@ -46,7 +59,7 @@ bool XMLParser::tokenizeInputString(const std::string &inputString)
 		
 			//extract substring inside brackets
 			//bounds checking in case '<' is not found and returns npos
-			size_t name_end = inputString.find('>', i);
+			size_t name_end = inputCopy.find('>', i);
 			if(name_end == std::string::npos){
 				std::cout << "Missing closing '>' for tag" << std::endl;
 				return false;
@@ -55,7 +68,7 @@ bool XMLParser::tokenizeInputString(const std::string &inputString)
 				std::cout << "Empty tag content" << std::endl;
 				return false;
 			}
-			candidate = inputString.substr(i + 1, name_end - i - 1);
+			candidate = inputCopy.substr(i + 1, name_end - i - 1);
 
 			//identify declarations
 			if(candidate.find('?') == -1){ //if no '?', not a declaration
@@ -99,23 +112,7 @@ bool XMLParser::tokenizeInputString(const std::string &inputString)
 					return false;
 				}
 
-				for(char m : candidate){ //if whitespace is found, check validity
-					if(std::isspace(m)){
-						if(candidate.find(m) == 0){
-							std::cout << "Tag name starts with white space" << std::endl;
-							return false;
-						}
-						//if there are attributes after the tag name, just extract the tag name
-						candidate = candidate.substr(0, candidate.find(m)); 
-						hasattribute = 1;
-						continue;
-					}
-				}
-
-				//if(candidate.empty()){
-					//std::cout << "Tag contains no name after attribute strip" << std::endl;
-					//return false;
-				//}
+				//old location of whitespace check
 
 				//check for end tag indicators '/' and their validity
 				int index = candidate.find('/');
@@ -132,10 +129,7 @@ bool XMLParser::tokenizeInputString(const std::string &inputString)
 						candidate_type = END_TAG;
 					}
 					else if(index == (candidate.length() - 1)){ //if '/' is at the end, this is an empty tag
-						if(hasattribute){
-							std::cout << "Empty tag cannot contain attributes" << std::endl;
-							return false;
-						}
+						std::cout << "Empty tag containing attribute detected" << std::endl;
 						candidate_type = EMPTY_TAG;
 					}
 					candidate.erase(index, 1);
@@ -143,6 +137,19 @@ bool XMLParser::tokenizeInputString(const std::string &inputString)
 				else{ //if indicies are not equal, tag name contains multiple '/' --> invalid
 					std::cout << "Multiple instances of '/' in tag name" << std::endl;
 					return false;
+				}
+
+				for(char m : candidate){ //if whitespace is found, check validity
+					if(std::isspace(m)){
+						if(candidate.find(m) == 0){
+							std::cout << "Tag name starts with white space" << std::endl;
+							return false;
+						}
+						//if there are attributes after the tag name, just extract the tag name
+						candidate = candidate.substr(0, candidate.find(m)); 
+						hasattribute = 1;
+						continue;
+					}
 				}
 
 				//check for valid tag name syntax
@@ -175,16 +182,20 @@ bool XMLParser::tokenizeInputString(const std::string &inputString)
 			StringTokenType candidate_type = CONTENT;
 			
 			//error-checking if index of '<' exceeds string bounds
-			size_t content_end = inputString.find('<', i);
+			size_t content_end = inputCopy.find('<', i);
 			if(content_end == std::string::npos){
-				content_end = inputString.size();
+				content_end = inputCopy.size();
 			}
 			if(content_end <= static_cast<size_t>(i)){
 				continue;
 			}
-			candidate = inputString.substr(i, content_end - i);
+			candidate = inputCopy.substr(i, content_end - i);
 
 			//check for content validity
+			if((candidate.find("\\n") != -1)){
+				std::cout << "Content cannot contain returns" << std::endl;
+				return false;
+			}
 
 			//this point is only reached if content  is valid -- push candidate into tokenized input vector
 			TokenStruct toadd;
@@ -194,20 +205,8 @@ bool XMLParser::tokenizeInputString(const std::string &inputString)
 			i = content_end - 1; //increment i to go to next token
 			
 		}
-
 	}
 
-	// for (char c : inputString)
-	// {
-	// 	if (c == '<') {?? continue;}
-	// 	else if (c == '>') {?? continue;}
-	// 	else {?? continue;}
-	// }
-
-	for(int j = 0; j < tokenizedInputVector.size(); j++){
-		std::cout << tokenizedInputVector[j].tokenString << "    ";
-		std::cout << tokenizedInputVector[j].tokenType << std::endl;
-	}
 	return true;
 }
 
@@ -218,15 +217,32 @@ bool XMLParser::parseTokenizedInput()
 	// Iterate through tokenizedInputVector to check its validity
 	// and update the stack and bag accordingly, and refer to the following code structure:
 
-	// for (int i = 0; i < tokenizedInputVector.size(); i++)
-	// {
-	//   if (?? == START_TAG) {?? continue;}
-	//   else if (?? == END_TAG) {?? continue;}
-	//   else if (?? == EMPTY_TAG) {?? continue;}
-	//   ...
-	// }
+	int token_amt = tokenizedInputVector.size();
+	if(token_amt == 0){
+		std::cout << "Cannot parse empty input" << std::endl;
+		return false;
+	}
 
-	return false;
+	for (int i = 0; i < tokenizedInputVector.size(); i++){
+		if (tokenizedInputVector[i].tokenType == START_TAG) {
+			parseStack.push(tokenizedInputVector[i].tokenString);
+		}
+		else if (tokenizedInputVector[i].tokenType == END_TAG) { 
+			if(parseStack.peek() != tokenizedInputVector[i].tokenString){ //if there is a start/end tag mismatch, invalid
+				std::string end = tokenizedInputVector[i].tokenString;
+				std::string start = parseStack.peek();
+				std::cout << "End tag does not match preceding start tag" << std::endl;
+				return false;
+			}
+			elementNameBag.add(tokenizedInputVector[i].tokenString); //add valid tag name to bag
+			parseStack.pop(); //pop last start tag off of stack
+		}
+		else if (tokenizedInputVector[i].tokenType == EMPTY_TAG) { 
+			elementNameBag.add(tokenizedInputVector[i].tokenString); //add valid empty tag name to bag
+		}
+	}
+
+	return true;
 }
 
 void XMLParser::clear()

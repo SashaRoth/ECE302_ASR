@@ -216,7 +216,6 @@ TEST_CASE("XMLParser: Test parseTokenizedInput", "[XMLParser]")
 	REQUIRE(correctString);
 }
 
-/*
 // Refer to online parser https://jsonformatter.org/xml-parser#Sample
 TEST_CASE("XMLParser: Test XMLParser tokenize then parse various strings", "[XMLParser]")
 {
@@ -234,6 +233,7 @@ TEST_CASE("XMLParser: Test XMLParser tokenize then parse various strings", "[XML
 	REQUIRE_FALSE(myXMLParser.parseTokenizedInput());
 }
 
+/*
 TEST_CASE("XMLParser: Test XMLParser parse, contains and frequency", "[XMLParser]")
 {
 	XMLParser myXMLParser;
