@@ -370,8 +370,12 @@ TEST_CASE("XML Parser: test XMLParser object attributes", "[XMLParser]"){
 	REQUIRE(SashasParser.tokenizeInputString(invalidContent)); //should pass tokenization
 	REQUIRE_FALSE(SashasParser.parseTokenizedInput()); //should fail parsing
 
-	std::string invalidEmpty = "<empty/><?declaration?><empty/>";
-	REQUIRE(SashasParser.tokenizeInputString(invalidEmpty)); //should pass tokenization
+	std::string invalidDeclaration = "<empty/><?declaration?><empty/>";
+	REQUIRE(SashasParser.tokenizeInputString(invalidDeclaration)); //should pass tokenization
+	REQUIRE_FALSE(SashasParser.parseTokenizedInput()); //should fail parsing
+
+	std::string invalidRoot = "<?declaration?><empty/><empty/>";
+	REQUIRE(SashasParser.tokenizeInputString(invalidRoot)); //should pass tokenization
 	REQUIRE_FALSE(SashasParser.parseTokenizedInput()); //should fail parsing
 
 }
