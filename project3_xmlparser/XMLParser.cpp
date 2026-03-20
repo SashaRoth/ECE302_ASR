@@ -34,7 +34,7 @@ bool XMLParser::tokenizeInputString(const std::string &inputString)
 		else if(c == '>') closing++;
 	}
 	if(opening != closing || opening == 0 || closing == 0){
-		std::cout << "Every opening bracket must have a closing bracket";
+		std::cout << "Every opening bracket must have a closing bracket" << std::endl;
 		return false;
 	}
 
@@ -291,6 +291,12 @@ std::vector<TokenStruct> XMLParser::returnTokenizedInput() const
 
 bool XMLParser::containsElementName(const std::string &element) const
 {
+	if(!tokenized){
+		throw std::logic_error("Cannot call frequencyElementName on untokenized XMLParser");
+	}
+	if(!parsed){
+		throw std::logic_error("Cannot call frequencyElementName on unparsed XMLParser");
+	}
 	if(elementNameBag.contains(element)){
 		return true;
 	}
@@ -304,10 +310,10 @@ int XMLParser::frequencyElementName(const std::string &element) const
 	// or parseTokenizedInput() returns false
 	// If Bag is updated correctly, this should be as simple as one line.
 	if(!tokenized){
-		throw std::logic_error("Cannot call freuqncyElementName on untokenized XMLParser");
+		throw std::logic_error("Cannot call frequencyElementName on untokenized XMLParser");
 	}
 	if(!parsed){
-		throw std::logic_error("Cannot call freuqncyElementName on unparsed XMLParser");
+		throw std::logic_error("Cannot call frequencyElementName on unparsed XMLParser");
 	}
 
 	return elementNameBag.getFrequencyOf(element);
