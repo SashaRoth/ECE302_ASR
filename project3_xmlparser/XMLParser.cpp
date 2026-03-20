@@ -257,6 +257,10 @@ bool XMLParser::parseTokenizedInput()
 		else if (tokenizedInputVector[i].tokenType == EMPTY_TAG) { 
 			if(root == ""){
 				root = tokenizedInputVector[i].tokenString;
+				if(i != (tokenizedInputVector.size() - 1)){
+					//if empty tag is the root, it must be the only tag (other than declarations)
+					return false;
+				}
 			}
 			elementNameBag.add(tokenizedInputVector[i].tokenString); //add valid empty tag name to bag
 		}
