@@ -228,6 +228,7 @@ bool XMLParser::parseTokenizedInput()
 
 	//parsing resets parsing
 	parsed = 0;
+	tokenized = 0;
 
 	int token_amt = tokenizedInputVector.size();
 	std::string root = "";
@@ -285,6 +286,7 @@ bool XMLParser::parseTokenizedInput()
 	}
 
 	parsed = 1;
+	tokenized = 1;
 	return true;
 }
 
