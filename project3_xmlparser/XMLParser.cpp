@@ -19,6 +19,10 @@ bool XMLParser::tokenizeInputString(const std::string &inputString)
 	// TODO
 	// Use '<' and '>' as anchors to scan the string. Remember to clear each time before
 	// tokenizing a new string, and refer to the following code structure:
+
+	//tokenization resets parsing and tokenization
+	tokenized = 0;
+	parsed = 0;
 	
 	//initial error checking
 	int size = inputString.size();
@@ -212,7 +216,6 @@ bool XMLParser::tokenizeInputString(const std::string &inputString)
 	}
 
 	tokenized = 1;
-	parsed = 0;
 	return true;
 }
 
@@ -222,6 +225,9 @@ bool XMLParser::parseTokenizedInput()
 	// TODO: check whether there is one root element
 	// Iterate through tokenizedInputVector to check its validity
 	// and update the stack and bag accordingly, and refer to the following code structure:
+
+	//parsing resets parsing
+	parsed = 0;
 
 	int token_amt = tokenizedInputVector.size();
 	std::string root = "";
