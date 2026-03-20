@@ -364,6 +364,11 @@ TEST_CASE("XML Parser: test XMLParser object attributes", "[XMLParser]"){
 
 	//should not be able to parse, now that it is empty
 	REQUIRE_FALSE(SashasParser.parseTokenizedInput());
+
+	//adding this random test case because it failed the autograder first time:
+	std::string invalidContent = "word<header>content</header>"; //content cannot be outside tags
+	REQUIRE(SashasParser.tokenizeInputString(invalidContent)); //should pass tokenization
+	REQUIRE_FALSE(SashasParser.parseTokenizedInput()); //should fail parsing
 }
 
 TEST_CASE("XML Parser: test containsElementName", "[XMLParser]"){

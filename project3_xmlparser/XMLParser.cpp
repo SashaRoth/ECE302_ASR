@@ -28,6 +28,15 @@ bool XMLParser::tokenizeInputString(const std::string &inputString)
 		////std::cout << "String is too short to be valid" << std::endl;
 		return false;
 	}
+	int opening = 0, closing = 0;
+	for (char c : inputString){
+		if(c == '<') opening++;
+		else if(c == '>') closing++;
+	}
+	if(opening != closing){
+		std::cout << "Every opening bracket must have a closing bracket";
+		return false;
+	}
 
 	//remove beginning and end whitespace
 	std::string inputCopy = inputString;
@@ -40,10 +49,10 @@ bool XMLParser::tokenizeInputString(const std::string &inputString)
 	size = inputCopy.size(); //update size
 
 	//check if string is enclosed by brackets
-	if(inputCopy[0] != '<' || inputCopy[size-1] != '>'){
+	//if(inputCopy[0] != '<' || inputCopy[size-1] != '>'){
 		//std::cout << "String is not enclosed by brackets" << std::endl;
-		return false;
-	}
+		//return false;
+	//}
 
 	// clear tokens from previous parse
 	clear();
@@ -247,6 +256,12 @@ bool XMLParser::parseTokenizedInput()
 		}
 		else if (tokenizedInputVector[i].tokenType == EMPTY_TAG) { 
 			elementNameBag.add(tokenizedInputVector[i].tokenString); //add valid empty tag name to bag
+		}
+		else if (tokenizedInputVector[i].tokenType == CONTENT){
+			if(parseStack.isEmpty()){
+				//std::cout << "Content must be nested between tags";
+				return false;
+			}
 		}
 		if(i == tokenizedInputVector.size() - 1){
 			if(tokenizedInputVector[i].tokenString != root){
