@@ -369,6 +369,11 @@ TEST_CASE("XML Parser: test XMLParser object attributes", "[XMLParser]"){
 	std::string invalidContent = "word<someTag>Content</someTag>"; //content cannot be outside tags
 	REQUIRE(SashasParser.tokenizeInputString(invalidContent)); //should pass tokenization
 	REQUIRE_FALSE(SashasParser.parseTokenizedInput()); //should fail parsing
+
+	std::string invalidEmpty = "<?declaration?><emptyone/><emptytwo/>";
+	REQUIRE(SashasParser.tokenizeInputString(invalidEmpty)); //should pass tokenization
+	REQUIRE_FALSE(SashasParser.parseTokenizedInput()); //should fail parsing
+
 }
 
 TEST_CASE("XML Parser: test containsElementName", "[XMLParser]"){

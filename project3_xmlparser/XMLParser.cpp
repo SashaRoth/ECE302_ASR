@@ -255,6 +255,9 @@ bool XMLParser::parseTokenizedInput()
 			parseStack.pop(); //pop last start tag off of stack
 		}
 		else if (tokenizedInputVector[i].tokenType == EMPTY_TAG) { 
+			if(root == ""){
+				root = tokenizedInputVector[i].tokenString;
+			}
 			elementNameBag.add(tokenizedInputVector[i].tokenString); //add valid empty tag name to bag
 		}
 		else if (tokenizedInputVector[i].tokenType == CONTENT){
