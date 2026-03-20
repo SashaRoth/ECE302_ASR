@@ -33,7 +33,7 @@ bool XMLParser::tokenizeInputString(const std::string &inputString)
 		if(c == '<') opening++;
 		else if(c == '>') closing++;
 	}
-	if(opening != closing){
+	if(opening != closing || opening == 0 || closing == 0){
 		std::cout << "Every opening bracket must have a closing bracket";
 		return false;
 	}
