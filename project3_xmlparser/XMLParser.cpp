@@ -38,7 +38,7 @@ bool XMLParser::tokenizeInputString(const std::string &inputString)
 		else if(c == '>') closing++;
 	}
 	if(opening != closing || opening == 0 || closing == 0){
-		std::cout << "Every opening bracket must have a closing bracket" << std::endl;
+		//std::cout << "Every opening bracket must have a closing bracket" << std::endl;
 		return false;
 	}
 
@@ -232,13 +232,29 @@ bool XMLParser::parseTokenizedInput()
 
 	int token_amt = tokenizedInputVector.size();
 	std::string root = "";
+	bool declarationPhase = 1;
 
 	if(token_amt == 0){
 		//std::cout << "Cannot parse empty input" << std::endl;
 		return false;
 	}
 
+	//initial check that all declarations are at the beginning of the string
+	for (const TokenStruct &tok : tokenizedInputVector) {
+			if (tok.tokenType == DECLARATION) {
+				// Declaration only valid before any element is encountered
+				if (!declarationPhase || !parseStack.isEmpty()) {
+					return false;
+				}
+				continue;
+			}
+			else{
+				declarationPhase = false;
+			}
+		}
+
 	for (int i = 0; i < tokenizedInputVector.size(); i++){
+
 		if (tokenizedInputVector[i].tokenType == START_TAG) {
 			if(root == ""){
 				root = tokenizedInputVector[i].tokenString;
@@ -274,12 +290,6 @@ bool XMLParser::parseTokenizedInput()
 		else if (tokenizedInputVector[i].tokenType == CONTENT){
 			if(parseStack.isEmpty()){
 				//std::cout << "Content must be nested between tags";
-				return false;
-			}
-		}
-		else if(tokenizedInputVector[i].tokenType == DECLARATION){
-			if(root != ""){
-				std::cout << "Declarations cannot be nested between elements" << std::endl;
 				return false;
 			}
 		}
