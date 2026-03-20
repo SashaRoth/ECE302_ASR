@@ -97,10 +97,10 @@ bool XMLParser::tokenizeInputString(const std::string &inputString)
 				return false;
 			}
 			else{
-				if(notbeginning){
+				//if(notbeginning){
 					//std::cout << "Declarations not valid if not at the beginning of file" << std::endl;
-					return false;
-				}
+					//return false;
+				//}
 				candidate_type = DECLARATION; //tag is valid declaration, assign type and remove '?'
 				candidate.erase(0, 1);
 				candidate.pop_back();
@@ -274,6 +274,12 @@ bool XMLParser::parseTokenizedInput()
 		else if (tokenizedInputVector[i].tokenType == CONTENT){
 			if(parseStack.isEmpty()){
 				//std::cout << "Content must be nested between tags";
+				return false;
+			}
+		}
+		else if(tokenizedInputVector[i].tokenType == DECLARATION){
+			if(root != ""){
+				std::cout << "Declarations cannot be nested between elements" << std::endl;
 				return false;
 			}
 		}
