@@ -1,5 +1,6 @@
 #include "sorted_list.hpp"
 #include <stdexcept>
+#include <iostream>
 
 template <typename T>
 SortedList<T>::SortedList() : List<T>()
@@ -51,12 +52,13 @@ void SortedList<T>::insert(const T &item)
       return;
     }
   for(int i = 1; i <= List<T>::getLength(); i++){
-    if(item >= List<T>::getEntry(i)) {
-      List<T>::insert(i + 1, item); // insert item at the correct position to maintain sorted order
+    if(item <= List<T>::getEntry(i)) {
+      List<T>::insert(i, item); // insert item at the correct position to maintain sorted order
       return;
     }
   }
   // If we get here, item is larger than all elements, so append at the end
+  //std::cout << "Inserting " << item << " at the end of the list" << std::endl;
   List<T>::insert(List<T>::getLength() + 1, item);
 }
 

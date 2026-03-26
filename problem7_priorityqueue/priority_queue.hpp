@@ -22,7 +22,8 @@ public:
   T peek();
 
 private:
-  SortedList<T> priority_list;
+  SortedList<T> priority_list; //has-a relationship between PriorityQueue and SortedList
+  //size variable not needed, can use SortedList's getLength method
 };
 
 #include "priority_queue.tpp"

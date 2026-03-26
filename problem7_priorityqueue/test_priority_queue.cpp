@@ -6,6 +6,8 @@
 #include "sorted_list.hpp"
 #include "priority_queue.hpp"
 
+#include <iostream>
+
 /* Provided test cases */
 TEST_CASE("Priority: Testing Sorted List", "[sorted list]")
 {
@@ -78,6 +80,7 @@ TEST_CASE("Priority: Testing Priority Queue Add/isEmpty/peek/remove", "[priority
   pq.add(1);
   pq.add(5);
   pq.add(2);
+
   REQUIRE(pq.peek() == 5);
 
   pq.remove();
@@ -88,3 +91,57 @@ TEST_CASE("Priority: Testing Priority Queue Add/isEmpty/peek/remove", "[priority
 }
 
 /** Write your own test cases here */
+
+//test ascending order of sorted list
+TEST_CASE("SortedList: Test ascending order", "[sorted list]"){
+  SortedList<int> sl;
+
+  sl.insert(6);
+  sl.insert(99);
+  sl.insert(43);
+  sl.insert(-5);
+  sl.insert(300);
+
+  for(int i = 1; i < sl.getLength(); i++){
+    REQUIRE(sl.getEntry(i) <= sl.getEntry(i + 1));
+  }
+}
+
+TEST_CASE("SortedList: Test throw delegation", "[sorted list]"){
+  SortedList<int> sl;
+
+  REQUIRE(sl.isEmpty());
+
+  REQUIRE_THROWS_AS(sl.removeAt(1), std::out_of_range); //Priority queue's remove method delegates to sorted list's removeAt method, which handles exceptions
+  REQUIRE_THROWS_AS(sl.getEntry(1), std::out_of_range); //Priority queue's peek method delegates to sorted list's getEntry method, which handles exceptions
+
+}
+
+TEST_CASE("Priority queue: Test isEmpty()", "[priority queue]"){
+  PriorityQueue<char> pq;
+
+  REQUIRE(pq.isEmpty());
+
+  pq.add('a');
+
+  REQUIRE_FALSE(pq.isEmpty());
+}
+
+TEST_CASE("Priority queue: Test add(), remove(), and peek()", "[priority queue]"){
+  PriorityQueue<std::string> pq;
+
+  pq.add("element");
+  pq.add("another element!");
+
+  REQUIRE(pq.peek() == "element"); //add should be able to sort any data type in ascending order
+
+  pq.remove();
+
+  REQUIRE(pq.peek() == "another element!");
+
+  pq.remove();
+
+  REQUIRE_THROWS_AS(pq.peek(), std::out_of_range); //peek should throw exception when queue is empty
+  REQUIRE_THROWS_AS(pq.remove(), std::out_of_range); //remove should throw exception when queue is empty  
+
+}
