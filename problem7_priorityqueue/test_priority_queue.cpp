@@ -145,3 +145,51 @@ TEST_CASE("Priority queue: Test add(), remove(), and peek()", "[priority queue]"
   REQUIRE_THROWS_AS(pq.remove(), std::out_of_range); //remove should throw exception when queue is empty  
 
 }
+
+//testing with overloaded operator
+struct task{
+  //variables
+  std::string name;
+  int urgency;
+  //methods
+  task() : name(""), urgency(0) {}  // default constructor
+  task(std::string n, int u) : name(n), urgency(u) {}
+  bool operator <=(const task& other) const {
+    if(urgency <= other.urgency){
+      return true;
+    }
+    return false;
+  }
+  bool operator ==(const task& other) const {
+    if((name == other.name) && (urgency == other.urgency)){
+      return true;
+    }
+    return false;
+  }
+};
+
+TEST_CASE("Priority queue: test methods using overloaded operator", "[priority queue]"){
+  PriorityQueue<task> pq;
+
+  REQUIRE(pq.isEmpty());
+
+  task task1 = task("Touch grass", 2);
+  task task2 = task("Do homework", 5);
+  task task3 = task("Sleep", 0);
+
+
+  pq.add(task1);
+  pq.add(task2);
+  pq.add(task3);
+
+  REQUIRE(pq.peek() == task2);
+  pq.remove();
+  REQUIRE(pq.peek() == task1);
+  pq.remove();
+  REQUIRE(pq.peek() == task3);
+  pq.remove();
+
+  REQUIRE(pq.isEmpty());
+
+}
+
