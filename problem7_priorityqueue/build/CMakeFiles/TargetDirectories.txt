@@ -1,0 +1,6 @@
+C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/problem7_priorityqueue/build/CMakeFiles/test-priority-queue.dir
+C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/problem7_priorityqueue/build/CMakeFiles/submission.dir
+C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/problem7_priorityqueue/build/CMakeFiles/starter_download.dir
+C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/problem7_priorityqueue/build/CMakeFiles/test.dir
+C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/problem7_priorityqueue/build/CMakeFiles/edit_cache.dir
+C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/problem7_priorityqueue/build/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,8 @@
+[
+{
+  "directory": "C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/problem7_priorityqueue/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe   -g -std=gnu++11 -o CMakeFiles\\test-priority-queue.dir\\test_priority_queue.cpp.obj -c C:\\Users\\Sasha\\Desktop\\302\\personal_git_repository\\ECE302_ASR\\problem7_priorityqueue\\test_priority_queue.cpp",
+  "file": "C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/problem7_priorityqueue/test_priority_queue.cpp",
+  "output": "CMakeFiles/test-priority-queue.dir/test_priority_queue.cpp.obj"
+}
+]

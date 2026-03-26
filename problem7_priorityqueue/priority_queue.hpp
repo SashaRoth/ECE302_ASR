@@ -2,6 +2,7 @@
 #define _PRIORITY_QUEUE_HPP_
 
 #include "abstract_priority_queue.hpp"
+#include "sorted_list.hpp"
 
 // Type T must be orderable
 template <typename T>
@@ -21,7 +22,7 @@ public:
   T peek();
 
 private:
-  // TODO, you need to use composition to implement the priority queue using a sorted list
+  SortedList<T> priority_list;
 };
 
 #include "priority_queue.tpp"

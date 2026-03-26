@@ -51,8 +51,8 @@ void SortedList<T>::insert(const T &item)
       return;
     }
   for(int i = 1; i <= List<T>::getLength(); i++){
-    if(item <= List<T>::getEntry(i)) {
-      List<T>::insert(i, item); // insert item at the correct position to maintain sorted order
+    if(item >= List<T>::getEntry(i)) {
+      List<T>::insert(i + 1, item); // insert item at the correct position to maintain sorted order
       return;
     }
   }
@@ -75,6 +75,9 @@ void SortedList<T>::remove(const T &item)
 template <typename T>
 void SortedList<T>::removeAt(int position)
 {
+  if(isEmpty()){
+        throw std::out_of_range("Cannot remove from empty queue");
+    }
   List<T>::remove(position); // remove item at position
 }
 
@@ -87,6 +90,9 @@ void SortedList<T>::clear()
 template <typename T>
 T SortedList<T>::getEntry(int position) const
 {
+  if(isEmpty()){
+    throw std::out_of_range("Cannot peek empty queue");
+  }
   return List<T>::getEntry(position);
 } // Base Class function called, completed
 
