@@ -9,7 +9,9 @@ SortedList<T>::SortedList() : List<T>()
 template <typename T>
 SortedList<T>::SortedList(List<T> unsorted_list)
 {
-  // TODO, must comform to the description in the header file sorted_list.hpp
+  for(int i = 1; i <= unsorted_list.getLength(); i++) {
+    insert(unsorted_list.getEntry(i)); // insert each item from the unsorted list, will be sorted by insert function
+  }
 }
 
 template <typename T>
@@ -44,19 +46,36 @@ int SortedList<T>::getLength() const noexcept
 template <typename T>
 void SortedList<T>::insert(const T &item)
 {
-  // TODO, must comform to the description in the header file sorted_list.hpp
+  if((List<T>::getLength() == 0) || (item <= List<T>::getEntry(1))){
+      List<T>::insert(1, item); // if list empty or item <= first element, insert at position 1
+      return;
+    }
+  for(int i = 1; i <= List<T>::getLength(); i++){
+    if(item <= List<T>::getEntry(i)) {
+      List<T>::insert(i, item); // insert item at the correct position to maintain sorted order
+      return;
+    }
+  }
+  // If we get here, item is larger than all elements, so append at the end
+  List<T>::insert(List<T>::getLength() + 1, item);
 }
 
 template <typename T>
 void SortedList<T>::remove(const T &item)
 {
-  // TODO, must comform to the description in the header file sorted_list.hpp
+  for(int i = 1; i <= List<T>::getLength(); i++) {
+    if(List<T>::getEntry(i) == item) {
+      List<T>::remove(i); // remove the first occurrence of item
+      return;
+    }
+  }
+  throw std::invalid_argument("Item not found: remove"); // item not found
 }
 
 template <typename T>
 void SortedList<T>::removeAt(int position)
 {
-  // TODO, must comform to the description in the header file sorted_list.hpp
+  List<T>::remove(position); // remove item at position
 }
 
 template <typename T>
@@ -74,6 +93,10 @@ T SortedList<T>::getEntry(int position) const
 template <typename T>
 int SortedList<T>::getPosition(const T &item)
 {
-  // TODO, must comform to the description in the header file sorted_list.hpp
-  return 0;
+  for(int i = 1; i <= List<T>::getLength(); i++) {
+    if(List<T>::getEntry(i) == item) {
+      return i; // return the position of the first occurrence of item
+    }
+  }
+  throw std::invalid_argument("Item not found: getPosition"); // item not found
 }

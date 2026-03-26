@@ -10,7 +10,8 @@ class SortedList : public AbstractSortedList<T>, private List<T> // multiple inh
 public:
   SortedList();
 
-  SortedList(List<T> unsorted_list); // constructor from list (should sort the input list)
+  // constructor from list (should sort the input list)
+  SortedList(List<T> unsorted_list);
 
   SortedList(const SortedList &x); // copy constructor
 
@@ -40,7 +41,7 @@ public:
   int getPosition(const T &item);
 
 private:
-  // TODO, you might be able reuse code from Problem 6
+  // TODO
 };
 
 #include "sorted_list.tpp"
