@@ -430,4 +430,19 @@ TEST_CASE("XML Parser: test frequencyElementName", "[XMLParser]"){
 	REQUIRE(SashasParser.frequencyElementName("missing") == 0);
 }
 
+//verify that the calling of frequency element name on a tokenized but not parsed string throws logic error
+//check if it has been parsed
+//if it does not exist, throws freq=0
+TEST_CASE("XML Parser: checkoff test", "[XMLParser]"){
+	XMLParser SashasParser;
+	std::string xmlString = "<root><paragraph>content</paragraph></root>";
 
+	SashasParser.tokenizeInputString(xmlString);
+
+	REQUIRE_THROWS_AS(SashasParser.frequencyElementName("root"), std::logic_error);
+
+	REQUIRE(SashasParser.parseTokenizedInput());
+
+	REQUIRE(SashasParser.frequencyElementName("hello") == 0);
+
+}
