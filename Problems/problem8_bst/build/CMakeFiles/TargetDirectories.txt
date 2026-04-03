@@ -1,0 +1,6 @@
+C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/Problems/problem8_bst/build/CMakeFiles/test-bst.dir
+C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/Problems/problem8_bst/build/CMakeFiles/submission.dir
+C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/Problems/problem8_bst/build/CMakeFiles/starter_download.dir
+C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/Problems/problem8_bst/build/CMakeFiles/test.dir
+C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/Problems/problem8_bst/build/CMakeFiles/edit_cache.dir
+C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/Problems/problem8_bst/build/CMakeFiles/rebuild_cache.dir

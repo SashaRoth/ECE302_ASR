@@ -1,0 +1,3 @@
+"C:\Program Files\CMake\bin\cmake.exe" -E rm -f CMakeFiles\test-bst.dir/objects.a
+C:\msys64\ucrt64\bin\ar.exe qc CMakeFiles\test-bst.dir/objects.a @CMakeFiles\test-bst.dir\objects1.rsp
+C:\msys64\ucrt64\bin\g++.exe -g -Wl,--whole-archive CMakeFiles\test-bst.dir/objects.a -Wl,--no-whole-archive -o test-bst.exe -Wl,--out-implib,libtest-bst.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\test-bst.dir\linkLibs.rsp

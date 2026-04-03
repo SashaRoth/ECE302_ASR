@@ -49,7 +49,7 @@ void BinarySearchTree<KeyType, ItemType>::destroy()
 {
     if(root == nullptr) {return;}
 
-    std::stack storage;
+    std::stack<Node<KeyType, ItemType>*> storage;
     Node<KeyType, ItemType> *curr = nullptr;
     storage.push(root); //start by pushing the root onto stack
    
@@ -57,11 +57,11 @@ void BinarySearchTree<KeyType, ItemType>::destroy()
         curr = storage.top(); //the top of the stack is now the active node
         storage.pop();
 
-        if(curr.left != nullptr){   //store the left child on the stack
-            storage.push(curr.left);
+        if(curr->left != nullptr){   //store the left child on the stack
+            storage.push(curr->left);
         }
-        if(curr.right != nullptr){ //store the right child on the stack
-            storage.push(curr.right);
+        if(curr->right != nullptr){ //store the right child on the stack
+            storage.push(curr->right);
         }
 
         delete curr; //deallocate the node
@@ -72,11 +72,36 @@ void BinarySearchTree<KeyType, ItemType>::destroy()
 template <typename KeyType, typename ItemType>
 bool BinarySearchTree<KeyType, ItemType>::insert(const KeyType &key, const ItemType &item)
 {
+    if(root == nullptr){
+        root = new Node<KeyType, ItemType>;
+        root->key = key;
+        root->data = item;
+        root->left = nullptr;
+        root->right = nullptr;
+        return true;
+    }
+    Node<KeyType, ItemType> *curr = nullptr;
+    Node<KeyType, ItemType> *currParent = nullptr;
+    if(search(key, curr, currParent)){
+        return false;
+    }
+    Node<KeyType, ItemType> *newNode = new Node<KeyType, ItemType>;
+    newNode->key = key;
+    newNode->data = item;
+    newNode->left = nullptr;
+    newNode->right = nullptr;
+    if(currParent->left == nullptr){
+        currParent->left = newNode;
+    }
+    else{
+        currParent->right = newNode;
+    }
+    return true; ///TODO: DEBUG FROM HERE
+
     // TODO: Insert a new node into the BST if the key does not already exist.
     // Hint: If the tree is empty, create it as root node.
     // Otherwise, use the search function to check for duplicates and find the correct parent
     // If the key is unique, allocate a new node, and link it as the left or right child of the parent.
-    return false;
 }
 
 template <typename KeyType, typename ItemType>

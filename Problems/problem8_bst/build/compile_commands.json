@@ -1,0 +1,8 @@
+[
+{
+  "directory": "C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/Problems/problem8_bst/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe   -g -std=gnu++11 -o CMakeFiles\\test-bst.dir\\test_bst.cpp.obj -c C:\\Users\\Sasha\\Desktop\\302\\personal_git_repository\\ECE302_ASR\\Problems\\problem8_bst\\test_bst.cpp",
+  "file": "C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/Problems/problem8_bst/test_bst.cpp",
+  "output": "CMakeFiles/test-bst.dir/test_bst.cpp.obj"
+}
+]
