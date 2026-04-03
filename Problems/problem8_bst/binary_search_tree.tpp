@@ -72,7 +72,7 @@ void BinarySearchTree<KeyType, ItemType>::destroy()
 template <typename KeyType, typename ItemType>
 bool BinarySearchTree<KeyType, ItemType>::insert(const KeyType &key, const ItemType &item)
 {
-    if(root == nullptr){
+    if(root == nullptr){ //if tree is empty, just make the new node the root
         root = new Node<KeyType, ItemType>;
         root->key = key;
         root->data = item;
@@ -82,10 +82,12 @@ bool BinarySearchTree<KeyType, ItemType>::insert(const KeyType &key, const ItemT
     }
     Node<KeyType, ItemType> *curr = nullptr;
     Node<KeyType, ItemType> *currParent = nullptr;
-    if(search(key, curr, currParent)){
+    if(search(key, curr, currParent)){ //if search() returns true, key already exists, cannot insert duplicate
+       curr = nullptr;
+       currParent = nullptr;
         return false;
     }
-    Node<KeyType, ItemType> *newNode = new Node<KeyType, ItemType>;
+    Node<KeyType, ItemType> *newNode = new Node<KeyType, ItemType>; //otherwise, create a new node & insert it as a child of the parent node returned from search()
     newNode->key = key;
     newNode->data = item;
     newNode->left = nullptr;
@@ -96,17 +98,79 @@ bool BinarySearchTree<KeyType, ItemType>::insert(const KeyType &key, const ItemT
     else{
         currParent->right = newNode;
     }
-    return true; ///TODO: DEBUG FROM HERE
-
-    // TODO: Insert a new node into the BST if the key does not already exist.
-    // Hint: If the tree is empty, create it as root node.
-    // Otherwise, use the search function to check for duplicates and find the correct parent
-    // If the key is unique, allocate a new node, and link it as the left or right child of the parent.
+    return true;
 }
 
 template <typename KeyType, typename ItemType>
 bool BinarySearchTree<KeyType, ItemType>::remove(KeyType key)
 {
+    if(root == nullptr){ //cannot remove from empty tree
+        return false;
+    }
+    Node<KeyType, ItemType> *curr = nullptr;
+    Node<KeyType, ItemType> *currParent = nullptr;
+    if(!search(key, curr, currParent)){ //if search() returns false, key does not exist, cannot remove
+        curr = nullptr;
+        currParent = nullptr;
+        return false;
+    }
+    //case if node is a leaf
+    else if(curr->left == nullptr && curr->right == nullptr){ 
+        if(currParent->left == curr){ //if curr is the left child
+            currParent->left = nullptr;
+        }
+        else{ //if curr is the right child
+            currParent->right = nullptr;
+        }
+        delete curr;
+        curr = nullptr;
+        return true;
+    }
+    //case if node only has a left child
+    else if(curr->left != nullptr && curr->right == nullptr){ 
+        if(currParent->left == curr){ //if curr is the left child
+            currParent->left = curr->left;
+        }
+        else{ //if curr is the right child
+            currParent->right = curr->left;
+        }
+        delete curr;
+        curr = nullptr;
+        return true;
+    }
+    //case if node only has a right child
+    else if(curr->left == nullptr && curr->right != nullptr){ 
+        if(currParent->left == curr){ //if curr is the left child
+            currParent->left = curr->right;
+        }
+        else{ //if curr is the right child
+            currParent->right = curr->right;
+        }
+        delete curr;
+        curr = nullptr;
+        return true;
+    }
+    //case if node has two children
+    else{ 
+        Node<KeyType, ItemType> *successor = nullptr;
+        Node<KeyType, ItemType> *successor_parent = nullptr;
+        inorder_successor(root, curr, successor, successor_parent);
+
+        if(successor->right != nullptr){ //make sure successor's right child doesn't get orphaned
+            successor_parent->left = successor->right;
+        }
+        else{successor_parent->left = nullptr;}
+        
+        if(currParent->left == curr){ //if curr is the left child
+            currParent->left = successor;
+        }
+        else{ //if curr is the right child
+            currParent->right = successor;
+        }
+        delete curr;
+        curr = nullptr;
+        return true;
+    }
     // TODO: Remove a node with the given key from the BST, handling all cases.
     // Hint: If the tree is empty, return false.
     // Use the search function to find the node and its parent. If not found, return false.
