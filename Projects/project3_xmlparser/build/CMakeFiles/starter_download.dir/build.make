@@ -55,10 +55,10 @@ RM = "C:\Program Files\CMake\bin\cmake.exe" -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\project3_xmlparser
+CMAKE_SOURCE_DIR = C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\Projects\project3_xmlparser
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\project3_xmlparser\build
+CMAKE_BINARY_DIR = C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\Projects\project3_xmlparser\build
 
 # Utility rule file for starter_download.
 
@@ -69,7 +69,7 @@ include CMakeFiles/starter_download.dir/compiler_depend.make
 include CMakeFiles/starter_download.dir/progress.make
 
 CMakeFiles/starter_download:
-	cd /d C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\project3_xmlparser && "C:\Program Files\CMake\bin\cmake.exe" -E tar cfv C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/project3_xmlparser/build/../project3_xmlparser.zip --format=zip test_XMLParser.cpp XMLParser.hpp XMLParser.cpp Stack.hpp Stack.tpp Bag.hpp Bag.tpp Node.hpp Node.tpp catch.hpp CMakeLists.txt xmlFile.txt TestFile.txt
+	cd /d C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\Projects\project3_xmlparser && "C:\Program Files\CMake\bin\cmake.exe" -E tar cfv C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/Projects/project3_xmlparser/build/../project3_xmlparser.zip --format=zip test_XMLParser.cpp XMLParser.hpp XMLParser.cpp Stack.hpp Stack.tpp Bag.hpp Bag.tpp Node.hpp Node.tpp catch.hpp CMakeLists.txt xmlFile.txt TestFile.txt
 
 CMakeFiles/starter_download.dir/codegen:
 .PHONY : CMakeFiles/starter_download.dir/codegen
@@ -87,6 +87,6 @@ CMakeFiles/starter_download.dir/clean:
 .PHONY : CMakeFiles/starter_download.dir/clean
 
 CMakeFiles/starter_download.dir/depend:
-	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\project3_xmlparser C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\project3_xmlparser C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\project3_xmlparser\build C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\project3_xmlparser\build C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\project3_xmlparser\build\CMakeFiles\starter_download.dir\DependInfo.cmake "--color=$(COLOR)" starter_download
+	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\Projects\project3_xmlparser C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\Projects\project3_xmlparser C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\Projects\project3_xmlparser\build C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\Projects\project3_xmlparser\build C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\Projects\project3_xmlparser\build\CMakeFiles\starter_download.dir\DependInfo.cmake "--color=$(COLOR)" starter_download
 .PHONY : CMakeFiles/starter_download.dir/depend
 

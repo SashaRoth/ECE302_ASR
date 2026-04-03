@@ -8,8 +8,8 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/project3_xmlparser/XMLParser.cpp" "CMakeFiles/test-XMLParser.dir/XMLParser.cpp.obj" "gcc" "CMakeFiles/test-XMLParser.dir/XMLParser.cpp.obj.d"
-  "C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/project3_xmlparser/test_XMLParser.cpp" "CMakeFiles/test-XMLParser.dir/test_XMLParser.cpp.obj" "gcc" "CMakeFiles/test-XMLParser.dir/test_XMLParser.cpp.obj.d"
+  "C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/Projects/project3_xmlparser/XMLParser.cpp" "CMakeFiles/test-XMLParser.dir/XMLParser.cpp.obj" "gcc" "CMakeFiles/test-XMLParser.dir/XMLParser.cpp.obj.d"
+  "C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/Projects/project3_xmlparser/test_XMLParser.cpp" "CMakeFiles/test-XMLParser.dir/test_XMLParser.cpp.obj" "gcc" "CMakeFiles/test-XMLParser.dir/test_XMLParser.cpp.obj.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

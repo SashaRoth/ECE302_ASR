@@ -38,6 +38,7 @@ private:
 	//added flags to record if parser has been tokenized and parsed, for error throwing in frequencyElementName function
 	bool tokenized;
 	bool parsed;
+	std::string root;
 
 public:
 	/** The class constructor.
@@ -101,6 +102,11 @@ public:
 	/** Clears the internal data structures for an instance of the class.
 		@post The class instance can be used to tokenize a new input string. */
 	void clear();
+
+	/**Returns name of root tag
+	 * 
+	 */
+	std::string getRootName() const;
 
 private: //private helper functions: I added these to more easily test the validity of tag names
 	/** Checks if a given character is a valid symbol (_ - . or integers 0-9)

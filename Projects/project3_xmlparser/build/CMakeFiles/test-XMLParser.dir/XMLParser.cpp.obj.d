@@ -1,5 +1,5 @@
 CMakeFiles/test-XMLParser.dir/XMLParser.cpp.obj: \
- C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\project3_xmlparser\XMLParser.cpp \
+ C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\Projects\project3_xmlparser\XMLParser.cpp \
  C:/msys64/ucrt64/include/c++/15.2.0/string \
  C:/msys64/ucrt64/include/c++/15.2.0/bits/requires_hosted.h \
  C:/msys64/ucrt64/include/c++/15.2.0/x86_64-w64-mingw32/bits/c++config.h \
@@ -137,10 +137,10 @@ CMakeFiles/test-XMLParser.dir/XMLParser.cpp.obj: \
  C:/msys64/ucrt64/include/c++/15.2.0/bits/ostream.tcc \
  C:/msys64/ucrt64/include/c++/15.2.0/istream \
  C:/msys64/ucrt64/include/c++/15.2.0/bits/istream.tcc \
- C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\project3_xmlparser\XMLParser.hpp \
- C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\project3_xmlparser\Bag.hpp \
- C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\project3_xmlparser\Node.hpp \
- C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\project3_xmlparser\Node.tpp \
- C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\project3_xmlparser\Bag.tpp \
- C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\project3_xmlparser\Stack.hpp \
- C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\project3_xmlparser\Stack.tpp
+ C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\Projects\project3_xmlparser\XMLParser.hpp \
+ C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\Projects\project3_xmlparser\Bag.hpp \
+ C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\Projects\project3_xmlparser\Node.hpp \
+ C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\Projects\project3_xmlparser\Node.tpp \
+ C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\Projects\project3_xmlparser\Bag.tpp \
+ C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\Projects\project3_xmlparser\Stack.hpp \
+ C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\Projects\project3_xmlparser\Stack.tpp

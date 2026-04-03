@@ -1,14 +1,14 @@
 [
 {
-  "directory": "C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/project3_xmlparser/build",
-  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe   -g -std=gnu++11 -o CMakeFiles\\test-XMLParser.dir\\test_XMLParser.cpp.obj -c C:\\Users\\Sasha\\Desktop\\302\\personal_git_repository\\ECE302_ASR\\project3_xmlparser\\test_XMLParser.cpp",
-  "file": "C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/project3_xmlparser/test_XMLParser.cpp",
+  "directory": "C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/Projects/project3_xmlparser/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe   -g -std=gnu++11 -o CMakeFiles\\test-XMLParser.dir\\test_XMLParser.cpp.obj -c C:\\Users\\Sasha\\Desktop\\302\\personal_git_repository\\ECE302_ASR\\Projects\\project3_xmlparser\\test_XMLParser.cpp",
+  "file": "C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/Projects/project3_xmlparser/test_XMLParser.cpp",
   "output": "CMakeFiles/test-XMLParser.dir/test_XMLParser.cpp.obj"
 },
 {
-  "directory": "C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/project3_xmlparser/build",
-  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe   -g -std=gnu++11 -o CMakeFiles\\test-XMLParser.dir\\XMLParser.cpp.obj -c C:\\Users\\Sasha\\Desktop\\302\\personal_git_repository\\ECE302_ASR\\project3_xmlparser\\XMLParser.cpp",
-  "file": "C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/project3_xmlparser/XMLParser.cpp",
+  "directory": "C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/Projects/project3_xmlparser/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe   -g -std=gnu++11 -o CMakeFiles\\test-XMLParser.dir\\XMLParser.cpp.obj -c C:\\Users\\Sasha\\Desktop\\302\\personal_git_repository\\ECE302_ASR\\Projects\\project3_xmlparser\\XMLParser.cpp",
+  "file": "C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/Projects/project3_xmlparser/XMLParser.cpp",
   "output": "CMakeFiles/test-XMLParser.dir/XMLParser.cpp.obj"
 }
 ]

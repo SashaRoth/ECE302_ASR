@@ -11,6 +11,7 @@ XMLParser::XMLParser()
 {
 	tokenized = 0;
 	parsed = 0;
+	root = "";
 }
 
 // Then finish this function to pass unit tests 4-6
@@ -23,6 +24,7 @@ bool XMLParser::tokenizeInputString(const std::string &inputString)
 	//tokenization resets parsing and tokenization
 	tokenized = 0;
 	parsed = 0;
+	root = "";
 	
 	//initial error checking
 	int size = inputString.size();
@@ -231,7 +233,7 @@ bool XMLParser::parseTokenizedInput()
 	tokenized = 0;
 
 	int token_amt = tokenizedInputVector.size();
-	std::string root = "";
+	root = "";
 	bool declarationPhase = 1;
 
 	if(token_amt == 0){
@@ -371,4 +373,19 @@ bool XMLParser::isAlpha(char c) const {
 		return true;
 	}
 	return false;
+}
+
+//getRootName: extracts and returns the name of the root element after successful tokenization and parsing
+//throws logic error if either flag is zero
+
+std::string XMLParser::getRootName() const
+{
+	if(!tokenized){
+		throw std::logic_error("Cannot call getRootName on untokenized XMLParser");
+	}
+	if(!parsed){
+		throw std::logic_error("Cannot call getRootName on unparsed XMLParser");
+	}
+
+	return root;
 }

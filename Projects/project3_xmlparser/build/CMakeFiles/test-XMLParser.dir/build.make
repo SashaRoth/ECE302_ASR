@@ -55,10 +55,10 @@ RM = "C:\Program Files\CMake\bin\cmake.exe" -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\project3_xmlparser
+CMAKE_SOURCE_DIR = C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\Projects\project3_xmlparser
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\project3_xmlparser\build
+CMAKE_BINARY_DIR = C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\Projects\project3_xmlparser\build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/test-XMLParser.dir/depend.make
@@ -75,32 +75,32 @@ CMakeFiles/test-XMLParser.dir/codegen:
 .PHONY : CMakeFiles/test-XMLParser.dir/codegen
 
 CMakeFiles/test-XMLParser.dir/test_XMLParser.cpp.obj: CMakeFiles/test-XMLParser.dir/flags.make
-CMakeFiles/test-XMLParser.dir/test_XMLParser.cpp.obj: C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/project3_xmlparser/test_XMLParser.cpp
+CMakeFiles/test-XMLParser.dir/test_XMLParser.cpp.obj: C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/Projects/project3_xmlparser/test_XMLParser.cpp
 CMakeFiles/test-XMLParser.dir/test_XMLParser.cpp.obj: CMakeFiles/test-XMLParser.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\project3_xmlparser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/test-XMLParser.dir/test_XMLParser.cpp.obj"
-	C:\msys64\ucrt64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/test-XMLParser.dir/test_XMLParser.cpp.obj -MF CMakeFiles\test-XMLParser.dir\test_XMLParser.cpp.obj.d -o CMakeFiles\test-XMLParser.dir\test_XMLParser.cpp.obj -c C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\project3_xmlparser\test_XMLParser.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\Projects\project3_xmlparser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/test-XMLParser.dir/test_XMLParser.cpp.obj"
+	C:\msys64\ucrt64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/test-XMLParser.dir/test_XMLParser.cpp.obj -MF CMakeFiles\test-XMLParser.dir\test_XMLParser.cpp.obj.d -o CMakeFiles\test-XMLParser.dir\test_XMLParser.cpp.obj -c C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\Projects\project3_xmlparser\test_XMLParser.cpp
 
 CMakeFiles/test-XMLParser.dir/test_XMLParser.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/test-XMLParser.dir/test_XMLParser.cpp.i"
-	C:\msys64\ucrt64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\project3_xmlparser\test_XMLParser.cpp > CMakeFiles\test-XMLParser.dir\test_XMLParser.cpp.i
+	C:\msys64\ucrt64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\Projects\project3_xmlparser\test_XMLParser.cpp > CMakeFiles\test-XMLParser.dir\test_XMLParser.cpp.i
 
 CMakeFiles/test-XMLParser.dir/test_XMLParser.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/test-XMLParser.dir/test_XMLParser.cpp.s"
-	C:\msys64\ucrt64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\project3_xmlparser\test_XMLParser.cpp -o CMakeFiles\test-XMLParser.dir\test_XMLParser.cpp.s
+	C:\msys64\ucrt64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\Projects\project3_xmlparser\test_XMLParser.cpp -o CMakeFiles\test-XMLParser.dir\test_XMLParser.cpp.s
 
 CMakeFiles/test-XMLParser.dir/XMLParser.cpp.obj: CMakeFiles/test-XMLParser.dir/flags.make
-CMakeFiles/test-XMLParser.dir/XMLParser.cpp.obj: C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/project3_xmlparser/XMLParser.cpp
+CMakeFiles/test-XMLParser.dir/XMLParser.cpp.obj: C:/Users/Sasha/Desktop/302/personal_git_repository/ECE302_ASR/Projects/project3_xmlparser/XMLParser.cpp
 CMakeFiles/test-XMLParser.dir/XMLParser.cpp.obj: CMakeFiles/test-XMLParser.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\project3_xmlparser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/test-XMLParser.dir/XMLParser.cpp.obj"
-	C:\msys64\ucrt64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/test-XMLParser.dir/XMLParser.cpp.obj -MF CMakeFiles\test-XMLParser.dir\XMLParser.cpp.obj.d -o CMakeFiles\test-XMLParser.dir\XMLParser.cpp.obj -c C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\project3_xmlparser\XMLParser.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\Projects\project3_xmlparser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/test-XMLParser.dir/XMLParser.cpp.obj"
+	C:\msys64\ucrt64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/test-XMLParser.dir/XMLParser.cpp.obj -MF CMakeFiles\test-XMLParser.dir\XMLParser.cpp.obj.d -o CMakeFiles\test-XMLParser.dir\XMLParser.cpp.obj -c C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\Projects\project3_xmlparser\XMLParser.cpp
 
 CMakeFiles/test-XMLParser.dir/XMLParser.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/test-XMLParser.dir/XMLParser.cpp.i"
-	C:\msys64\ucrt64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\project3_xmlparser\XMLParser.cpp > CMakeFiles\test-XMLParser.dir\XMLParser.cpp.i
+	C:\msys64\ucrt64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\Projects\project3_xmlparser\XMLParser.cpp > CMakeFiles\test-XMLParser.dir\XMLParser.cpp.i
 
 CMakeFiles/test-XMLParser.dir/XMLParser.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/test-XMLParser.dir/XMLParser.cpp.s"
-	C:\msys64\ucrt64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\project3_xmlparser\XMLParser.cpp -o CMakeFiles\test-XMLParser.dir\XMLParser.cpp.s
+	C:\msys64\ucrt64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\Projects\project3_xmlparser\XMLParser.cpp -o CMakeFiles\test-XMLParser.dir\XMLParser.cpp.s
 
 # Object files for target test-XMLParser
 test__XMLParser_OBJECTS = \
@@ -116,7 +116,7 @@ test-XMLParser.exe: CMakeFiles/test-XMLParser.dir/build.make
 test-XMLParser.exe: CMakeFiles/test-XMLParser.dir/linkLibs.rsp
 test-XMLParser.exe: CMakeFiles/test-XMLParser.dir/objects1.rsp
 test-XMLParser.exe: CMakeFiles/test-XMLParser.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\project3_xmlparser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable test-XMLParser.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\Projects\project3_xmlparser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable test-XMLParser.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\test-XMLParser.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -128,6 +128,6 @@ CMakeFiles/test-XMLParser.dir/clean:
 .PHONY : CMakeFiles/test-XMLParser.dir/clean
 
 CMakeFiles/test-XMLParser.dir/depend:
-	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\project3_xmlparser C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\project3_xmlparser C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\project3_xmlparser\build C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\project3_xmlparser\build C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\project3_xmlparser\build\CMakeFiles\test-XMLParser.dir\DependInfo.cmake "--color=$(COLOR)" test-XMLParser
+	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\Projects\project3_xmlparser C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\Projects\project3_xmlparser C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\Projects\project3_xmlparser\build C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\Projects\project3_xmlparser\build C:\Users\Sasha\Desktop\302\personal_git_repository\ECE302_ASR\Projects\project3_xmlparser\build\CMakeFiles\test-XMLParser.dir\DependInfo.cmake "--color=$(COLOR)" test-XMLParser
 .PHONY : CMakeFiles/test-XMLParser.dir/depend
 
