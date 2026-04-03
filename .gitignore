@@ -1,0 +1,32 @@
+# Ignore generated build artifacts
+/build/
+**/build/
+**/CMakeFiles/
+**/cmake_install.cmake
+**/CMakeCache.txt
+**/CTestTestfile.cmake
+**/compile_commands.json
+**/Makefile
+**/Makefile.old
+**/Testing/
+**/*.exe
+**/*.obj
+**/*.o
+**/*.pdb
+**/*.ilk
+**/*.idb
+**/*.log
+**/*.out
+
+# IDE and editor settings
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*~
+*.tmp
+*.swp
+*.swo
