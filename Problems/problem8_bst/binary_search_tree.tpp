@@ -47,9 +47,26 @@ bool BinarySearchTree<KeyType, ItemType>::retrieve(const KeyType &key, ItemType 
 template <typename KeyType, typename ItemType>
 void BinarySearchTree<KeyType, ItemType>::destroy()
 {
-    // TODO: Iteratively delete all nodes in the tree using a stack.
-    // Hint: Use a stack to traverse the tree. For each node, push its children onto the stack, delete the node,
-    // and repeat until the stack is empty. Set root to nullptr at the end to avoid dangling pointers.
+    if(root == nullptr) {return;}
+
+    std::stack storage;
+    Node<KeyType, ItemType> *curr = nullptr;
+    storage.push(root); //start by pushing the root onto stack
+   
+    while(!storage.empty()){
+        curr = storage.top(); //the top of the stack is now the active node
+        storage.pop();
+
+        if(curr.left != nullptr){   //store the left child on the stack
+            storage.push(curr.left);
+        }
+        if(curr.right != nullptr){ //store the right child on the stack
+            storage.push(curr.right);
+        }
+
+        delete curr; //deallocate the node
+    }
+    root = nullptr; //avoid dangling root node
 }
 
 template <typename KeyType, typename ItemType>
