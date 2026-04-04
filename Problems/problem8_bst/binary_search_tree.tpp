@@ -168,11 +168,14 @@ bool BinarySearchTree<KeyType, ItemType>::remove(KeyType key)
         Node<KeyType, ItemType> *successor_parent = nullptr;
         inorder_successor(root, curr, successor, successor_parent);
 
+        Node<KeyType, ItemType> *currLeft = curr->left;  // save curr's children before any pointer changes
+        Node<KeyType, ItemType> *currRight = curr->right;
+
         successor_parent->left = successor->right; //make sure successor's right child doesn't get orphaned
 
-        successor->left = curr->left; //make the successor inherit curr's children
-        if (successor != curr->right){
-            successor->right = curr->right;
+        successor->left = currLeft; //make the successor inherit curr's children
+        if (successor != currRight){
+            successor->right = currRight;
         }
         
         if (currParent == nullptr){ //if curr is the root, just make successor the root
