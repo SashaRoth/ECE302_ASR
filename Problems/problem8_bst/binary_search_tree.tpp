@@ -40,33 +40,37 @@ bool BinarySearchTree<KeyType, ItemType>::retrieve(const KeyType &key, ItemType 
     Node<KeyType, ItemType> *curr = nullptr;
     Node<KeyType, ItemType> *curr_parent = nullptr;
     bool found = search(key, curr, curr_parent);
-    item = found ? curr->data : ItemType(); // if key is found, curr points to the node with the key
+    if (found) {
+        item = curr->data;
+    } else {
+        item = ItemType();
+    }
     return found;
 } // end retrieve
 
 template <typename KeyType, typename ItemType>
 void BinarySearchTree<KeyType, ItemType>::destroy()
 {
-    if(root == nullptr) {return;}
+    if (root == nullptr) { return; }
 
     std::stack<Node<KeyType, ItemType>*> storage;
     Node<KeyType, ItemType> *curr = nullptr;
-    storage.push(root); //start by pushing the root onto stack
-   
-    while(!storage.empty()){
-        curr = storage.top(); //the top of the stack is now the active node
+    storage.push(root); // start by pushing the root onto stack
+
+    while (!storage.empty()) {
+        curr = storage.top(); // the top of the stack is now the active node
         storage.pop();
 
-        if(curr->left != nullptr){   //store the left child on the stack
-            storage.push(curr->left);
-        }
-        if(curr->right != nullptr){ //store the right child on the stack
+        if (curr->right != nullptr) { // push right node
             storage.push(curr->right);
         }
+        if (curr->left != nullptr) { // push left node
+            storage.push(curr->left);
+        }
 
-        delete curr; //deallocate the node
+        delete curr; // deallocate the node after pushing children
     }
-    root = nullptr; //avoid dangling root node
+    root = nullptr; // avoid dangling root node
 }
 
 template <typename KeyType, typename ItemType>
@@ -92,10 +96,9 @@ bool BinarySearchTree<KeyType, ItemType>::insert(const KeyType &key, const ItemT
     newNode->data = item;
     newNode->left = nullptr;
     newNode->right = nullptr;
-    if(currParent->left == nullptr){
+    if (key < currParent->key) {
         currParent->left = newNode;
-    }
-    else{
+    } else {
         currParent->right = newNode;
     }
     return true;
@@ -116,7 +119,10 @@ bool BinarySearchTree<KeyType, ItemType>::remove(KeyType key)
     }
     //case if node is a leaf
     else if(curr->left == nullptr && curr->right == nullptr){ 
-        if(currParent->left == curr){ //if curr is the left child
+        if(currParent == nullptr){
+            root = nullptr;
+        }
+        else if(currParent->left == curr){ //if curr is the left child
             currParent->left = nullptr;
         }
         else{ //if curr is the right child
@@ -128,7 +134,10 @@ bool BinarySearchTree<KeyType, ItemType>::remove(KeyType key)
     }
     //case if node only has a left child
     else if(curr->left != nullptr && curr->right == nullptr){ 
-        if(currParent->left == curr){ //if curr is the left child
+        if(currParent == nullptr){
+            root = curr->left;
+        }
+        else if(currParent->left == curr){ //if curr is the left child
             currParent->left = curr->left;
         }
         else{ //if curr is the right child
@@ -140,7 +149,10 @@ bool BinarySearchTree<KeyType, ItemType>::remove(KeyType key)
     }
     //case if node only has a right child
     else if(curr->left == nullptr && curr->right != nullptr){ 
-        if(currParent->left == curr){ //if curr is the left child
+        if(currParent == nullptr){
+            root = curr->right;
+        }
+        else if(currParent->left == curr){ //if curr is the left child
             currParent->left = curr->right;
         }
         else{ //if curr is the right child
@@ -159,30 +171,58 @@ bool BinarySearchTree<KeyType, ItemType>::remove(KeyType key)
         if(successor->right != nullptr){ //make sure successor's right child doesn't get orphaned
             successor_parent->left = successor->right;
         }
-        else{successor_parent->left = nullptr;}
+
+        successor->left = curr->left; //make the successor inherit curr's children
+        if (successor != curr->right){
+            successor->right = curr->right;
+        }
         
-        if(currParent->left == curr){ //if curr is the left child
+        if (currParent == nullptr){ //if curr is the root, just make successor the root
+            root = successor;
+        }
+        else if (currParent->left == curr){ //if curr is a child, check which one, then assign it to curr_parent
             currParent->left = successor;
         }
-        else{ //if curr is the right child
+        else{
             currParent->right = successor;
         }
-        delete curr;
+
+        delete curr; //delete & deallocate curr
         curr = nullptr;
         return true;
     }
-    // TODO: Remove a node with the given key from the BST, handling all cases.
-    // Hint: If the tree is empty, return false.
-    // Use the search function to find the node and its parent. If not found, return false.
-    // For deletion, handle these cases:  (1) node is a leaf, (2) node has only a right child,
-    // (3) node has only a left child, (4) node has two children (replace with inorder successor).
-    // Update parent pointers and free memory as needed. Return true if deleted, false otherwise.
-    return false;
 }
 
 template <typename KeyType, typename ItemType>
 void BinarySearchTree<KeyType, ItemType>::treeSort(KeyType arr[], int arr_size)
-{
+{    
+    if(arr_size <= 1){
+        return;
+    }
+    destroy();
+    for(int i = 0; i < arr_size; i++){
+        if(!insert(arr[i], 1)){
+            throw std::invalid_argument("Duplicate value found in treeSort()");
+        }
+    }
+
+    Node<KeyType, ItemType> *curr = nullptr;
+    Node<KeyType, ItemType> *successor = nullptr;
+    Node<KeyType, ItemType> *successorParent = nullptr;
+    
+    curr = root;
+    while(curr->left != nullptr){ //move to the leftmost node
+        curr = curr->left;
+    }
+    int i = 0;
+    while(i < arr_size){
+        arr[i] = curr->key; //overwrite the array with in-order values
+        inorder_successor(root, curr, successor, successorParent); //iterate through the tree in order
+        if(successor == nullptr){break;}
+        curr = successor;
+        i++;
+    }
+
     // TODO: Implement tree sort using the BST.
     // Hint: Insert all array elements into the BST, throwing an exception if a duplicate is found.
     // Then perform an in-order traversal to collect sorted values and overwrite the input array with them.

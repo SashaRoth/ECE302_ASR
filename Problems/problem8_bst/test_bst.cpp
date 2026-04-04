@@ -24,7 +24,6 @@ TEST_CASE("BST: Test Duplicate Insert", "[duplicate insert]")
     REQUIRE_FALSE(bst1.insert(12, 12));
 }
 
-/*
 TEST_CASE("BST: Test Remove With No Children", "[remove]")
 {
     TreeType bst1;
@@ -50,6 +49,7 @@ TEST_CASE("BST: Test Remove With No Children", "[remove]")
     REQUIRE(bst1.isEmpty());
 }
 
+
 TEST_CASE("BST: Test Destroy after Copy Assign", "[copy assign]")
 {
     TreeType bst1;
@@ -73,5 +73,106 @@ TEST_CASE("BST: Test Destroy after Copy Assign", "[copy assign]")
     REQUIRE(bst2.retrieve(25, item));
     REQUIRE_FALSE(bst2.retrieve(51, item));
 }
-    */
+    
 /* Write your own test cases here */
+
+//destroy
+TEST_CASE("BST: Test destroy() method and edge cases", "[destroy]"){
+    int item;
+    TreeType SashasBST;
+    SashasBST.destroy(); //edge case: destroy should run fine on an empty tree
+
+    SashasBST.insert(1, 2);
+    SashasBST.insert(3, 4);
+    SashasBST.insert(5, 6);
+
+    REQUIRE(!SashasBST.isEmpty());
+    REQUIRE(SashasBST.retrieve(1, item)); //make sure tree has content
+    REQUIRE(SashasBST.retrieve(3, item));
+    REQUIRE(SashasBST.retrieve(5, item));
+
+    SashasBST.destroy();
+
+    REQUIRE(SashasBST.isEmpty());
+    REQUIRE_FALSE(SashasBST.retrieve(1, item)); //tree should be empty now
+    REQUIRE_FALSE(SashasBST.retrieve(3, item));
+    REQUIRE_FALSE(SashasBST.retrieve(5, item));
+
+}
+
+//insert
+TEST_CASE("BST: Test insert() method and edge cases", "[insert]"){
+    int item = 302;
+    TreeType SashasBST;
+
+    REQUIRE(SashasBST.insert(1, item)); //should be able to insert item into empty tree
+    REQUIRE(SashasBST.insert(2, item)); //should be able to insert duplicate value with different key
+
+    REQUIRE_FALSE(SashasBST.insert(1, item)); //should NOT be able to insert item with duplicate key
+}
+
+//remove
+TEST_CASE("BST: Test remove() method and edge cases", "[remove]"){
+    int item = 302;
+    TreeType SashasBST;
+
+    REQUIRE_FALSE(SashasBST.remove(1)); //cannot remove from empty tree
+
+    SashasBST.insert(7, item);
+    SashasBST.insert(3, item);
+    SashasBST.insert(9, item);
+    SashasBST.insert(2, item);
+    SashasBST.insert(4, item);
+    SashasBST.insert(8, item);
+    SashasBST.insert(10, item);
+    /*
+            7
+          /   \
+        3       9
+       / \     / \
+      2   4   8   10
+    */
+    REQUIRE_FALSE(SashasBST.remove(1)); //cannot remove value that does not exist
+    REQUIRE(SashasBST.remove(7)); //should be able to remove root
+    REQUIRE(SashasBST.remove(2)); //should be able to remove leaf
+}
+//treeSort
+TEST_CASE("BST: Test treeSort() method", "[treeSort]"){
+    TreeType SashasBST;
+    int arr[] = {5, 3, 8, 1, 9, 2, 7, 4, 6};
+    int arr_size = 9;
+    int expected[] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+
+    SashasBST.treeSort(arr, arr_size);
+
+    for(int i = 0; i < arr_size; i++){
+        REQUIRE(arr[i] == expected[i]);
+    }
+}
+
+TEST_CASE("BST: Test treeSort() with empty array", "[treeSort]"){
+    TreeType SashasBST;
+    int arr[] = {};
+    int arr_size = 0;
+
+    SashasBST.treeSort(arr, arr_size); // Should not crash
+}
+
+TEST_CASE("BST: Test treeSort() with single element", "[treeSort]"){
+    TreeType SashasBST;
+    int arr[] = {302};
+    int arr_size = 1;
+
+    SashasBST.treeSort(arr, arr_size);
+
+    REQUIRE(arr[0] == 302);
+}
+
+TEST_CASE("BST: Test treeSort() with duplicates throws exception", "[treeSort]"){
+    TreeType SashasBST;
+    int arr[] = {1, 2, 2, 3};
+    int arr_size = 4;
+
+    REQUIRE_THROWS_AS(SashasBST.treeSort(arr, arr_size), std::invalid_argument);
+}
+
