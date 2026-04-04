@@ -201,10 +201,13 @@ void BinarySearchTree<KeyType, ItemType>::treeSort(KeyType arr[], int arr_size)
         return;
     }
     destroy();
+    int item = 1;
     for(int i = 0; i < arr_size; i++){
-        if(!insert(arr[i], 1)){
+        if(retrieve(arr[i], item)){
+            destroy();
             throw std::invalid_argument("Duplicate value found in treeSort()");
         }
+        insert(arr[i], item);
     }
 
     Node<KeyType, ItemType> *curr = nullptr;
