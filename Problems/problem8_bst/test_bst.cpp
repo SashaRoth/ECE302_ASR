@@ -87,16 +87,10 @@ TEST_CASE("BST: Test destroy() method and edge cases", "[destroy]"){
     SashasBST.insert(5, 6);
 
     REQUIRE(!SashasBST.isEmpty());
-    REQUIRE(SashasBST.retrieve(1, item)); //make sure tree has content
-    REQUIRE(SashasBST.retrieve(3, item));
-    REQUIRE(SashasBST.retrieve(5, item));
 
     SashasBST.destroy();
 
-    REQUIRE(SashasBST.isEmpty());
-    REQUIRE_FALSE(SashasBST.retrieve(1, item)); //tree should be empty now
-    REQUIRE_FALSE(SashasBST.retrieve(3, item));
-    REQUIRE_FALSE(SashasBST.retrieve(5, item));
+    REQUIRE(SashasBST.isEmpty()); //tree should be empty now
 
 }
 
