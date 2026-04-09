@@ -189,6 +189,40 @@ TEST_CASE("Demo Pathfinding Gif Creation", "[pathfinder]")
 
 //Basic solver functionality
 
+TEST_CASE("queue: Basic operations", "[queue]"){
+
+  Queue<Coord> q;
+
+  REQUIRE(q.isEmpty());
+
+  q.enqueue(Coord(1, 1));
+  REQUIRE_FALSE(q.isEmpty());
+
+  q.enqueue(Coord(2, 2));
+  q.enqueue(Coord(3, 3));
+  q.enqueue(Coord(4, 4));
+
+  REQUIRE(q.peekFront() == Coord(1, 1));
+
+  q.dequeue();
+  REQUIRE(q.peekFront() == Coord(2, 2));
+
+  q.dequeue();
+  REQUIRE(q.peekFront() == Coord(3, 3));
+}
+
+TEST_CASE("checkImage: Invalid image edge cases", "[pathfinder]"){
+    Image<Pixel> img_extracolor = readFromFile("../tests/maze00_extra_color.png");
+    Image<Pixel> img_extrastart = readFromFile("../tests/maze00_extra_start.png");
+    Image<Pixel> img_nostart = readFromFile("../tests/maze00_no_start.png");
+    
+    //constructor delegates to load, which delegates to checkImage
+    REQUIRE_THROWS_AS(PathFinder my_solver(img_extracolor), std::invalid_argument);
+    REQUIRE_THROWS_AS(PathFinder my_solver(img_extrastart), std::invalid_argument);
+    REQUIRE_THROWS_AS(PathFinder my_solver(img_nostart), std::invalid_argument);
+
+}
+
 TEST_CASE("findPath: Simple maze 00", "[pathfinder]"){
     Image<Pixel> img0 = readFromFile("../tests/maze00.png");
     PathFinder my_solver(img0);
@@ -244,9 +278,21 @@ TEST_CASE("findPath: Big maze 02", "[pathfinder]"){
     my_solver.clear();
 }
 
-TEST_CASE("findPath: Maze with no blue? 03", "[pathfinder]"){
+TEST_CASE("findPath: Second large maze 03", "[pathfinder]"){
     Image<Pixel> img3 = readFromFile("../tests/maze03.png");
     PathFinder my_solver(img3);
+
+    REQUIRE(my_solver.getEnd() == Coord());
+    
+    my_solver.findPath("NSWE");
+    my_solver.writeSolutionToFile("../tests/sashasoutput03_NSWE.png");
+    REQUIRE(compareImagesExit("../tests/sashasoutput03_NSWE.png", "../tests/output03_NSWE.png"));
+    my_solver.clear();
+}
+
+TEST_CASE("findPath: Start on exit", "[pathfinder]"){
+    Image<Pixel> img = readFromFile("../tests/maze03.png");
+    PathFinder my_solver(img);
 
     REQUIRE(my_solver.getEnd() == Coord());
     
