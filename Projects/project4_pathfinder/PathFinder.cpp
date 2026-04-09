@@ -91,6 +91,7 @@ void PathFinder::findPath(const std::string &strategy)
     }
 
     curr = actions.peekFront(); //make the current state the first coord in queue
+    actions.dequeue();
     explored[curr.row][curr.col] = true;
 
     for(int i = 0; i < 4; i++){
@@ -98,34 +99,38 @@ void PathFinder::findPath(const std::string &strategy)
 
         switch(direction){
             case 'N':
-                next = Coord(curr.row+1, curr.col);
-            case 'S':
                 next = Coord(curr.row-1, curr.col);
+                break;
+            case 'S':
+                next = Coord(curr.row+1, curr.col);
+                break;
             case 'W':
                 next = Coord(curr.row, curr.col-1);
+                break;
             case 'E':
                 next = Coord(curr.row, curr.col+1);
+                break;
         }
 
         if(image(next.row, next.col) == BLACK){ //if the next pixel is a border, skip it
-            break;
+            ;
         }
         else if(explored[next.row][next.col]){ //if the next pixel has already been explored, skip it
-            break;
+            ;
         }
+        else{
+            next.link(curr); //next node is either the exit or a valid action; link its parent for backtracking
 
-        next.link(curr); //next node is either the exit or a valid action; link its parent for backtracking
-
-        if(isEnd(next)){ //if the next pixel is the exit, mark it as green
-            image(next.row, next.col) = GREEN;
-            final = next;
-            backtrack(next);
-            return;
+            if(isEnd(next)){ //if the next pixel is the exit, mark it as green
+                image(next.row, next.col) = GREEN;
+                final = next;
+                backtrack(next);
+                return;
+            }
+            else{ //if neither applies, add the pixel to the queue
+                actions.enqueue(next);
+            } 
         }
-        else{ //if neither applies, add the pixel to the queue
-            image(next.row, next.col) = YELLOW;
-            actions.enqueue(next);
-        } 
     }
    }
 }
@@ -264,11 +269,11 @@ bool PathFinder::isEnd(const Coord &potential) const
 void PathFinder::backtrack(Coord end)
 {
     Coord curr = end;
-    Coord* prev = curr.parent;
-    while(prev != nullptr){
-        image(prev->row, prev->col) = YELLOW;
-        curr = *prev;
-        prev = curr.parent;
+    Coord prev = curr.get_parent();
+    while(prev != Coord()){
+        image(prev.row, prev.col) = YELLOW;
+        curr = prev;
+        prev = curr.get_parent();
     }
     return;
 }

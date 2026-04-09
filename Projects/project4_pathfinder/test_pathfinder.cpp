@@ -193,6 +193,7 @@ TEST_CASE("Basic findPath functionality and validation", "[pathfinder]"){
     Image<Pixel> img0 = readFromFile("../tests/maze00.png");
     PathFinder my_solver(img0);
     Coord end = Coord(14, 0);
+    REQUIRE(my_solver.getEnd() == Coord());
     
     my_solver.findPath("NSWE");
 

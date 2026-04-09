@@ -3,6 +3,7 @@
 
 #include <cstdlib>
 #include <iostream>
+#include <memory>
 #include "lib/image.h"
 #include "lib/gif.h"
 #include "list.hpp"
@@ -13,7 +14,7 @@ struct Coord
 {
   int row;
   int col;
-  Coord* parent;
+  std::shared_ptr<Coord> parent;
   Coord() : row(-1), col(-1), parent(nullptr) {}
   Coord(int r, int c) : row(r), col(c), parent(nullptr) {}
   bool operator==(const Coord &other) const
@@ -24,8 +25,14 @@ struct Coord
   {
     return !(*this == other);
   }
-  void link(Coord p){
-    parent = &p;
+  void link(const Coord &p){
+    parent = std::make_shared<Coord>(p);
+  }
+  Coord get_parent(){
+    if(parent == nullptr){
+      return Coord();
+    }
+    return *parent;
   }
 };
 
