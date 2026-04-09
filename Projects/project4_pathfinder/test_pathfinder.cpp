@@ -159,8 +159,6 @@ TEST_CASE("Demo Pathfinding Duration Test", "[pathfinder]")
     my_solver.clear();
 }
 
-*/
-
 // Demo of findPathWithVisualization (not included in grader)
 TEST_CASE("Demo Pathfinding Gif Creation", "[pathfinder]")
 {
@@ -185,5 +183,6 @@ TEST_CASE("Demo Pathfinding Gif Creation", "[pathfinder]")
     my_solver.findPathWithVisualization("../tests/myoutput02", 5, 50);
     my_solver.clear();
 }
+*/
 
 /* Write your own unit tests here */

@@ -38,7 +38,7 @@ void PathFinder::clear()
    image = Image<Pixel>();
    initial = Coord();
    final = Coord();
-   explored.clear();
+   explored.assign(image.height(), std::vector<bool>(image.width(), false));
    return; // TODO
 }
 
@@ -87,10 +87,11 @@ void PathFinder::findPath(const std::string &strategy)
 
    while(true){
     if(actions.isEmpty()){ //if there are no potential actions, no exit found
-        return;
+        throw std::runtime_error("No exit found");
     }
 
     curr = actions.peekFront(); //make the current state the first coord in queue
+    explored[curr.row][curr.col] = true;
 
     for(int i = 0; i < 4; i++){
         direction = strategy[i];
@@ -109,20 +110,26 @@ void PathFinder::findPath(const std::string &strategy)
         if(image(next.row, next.col) == BLACK){ //if the next pixel is a border, skip it
             break;
         }
-        else if(isEnd(next)){ //if the next pixel is the exit, mark it as green
+        else if(explored[next.row][next.col]){ //if the next pixel has already been explored, skip it
+            break;
+        }
+
+        next.link(curr); //next node is either the exit or a valid action; link its parent for backtracking
+
+        if(isEnd(next)){ //if the next pixel is the exit, mark it as green
             image(next.row, next.col) = GREEN;
             final = next;
+            backtrack(next);
             return;
         }
         else{ //if neither applies, add the pixel to the queue
+            image(next.row, next.col) = YELLOW;
             actions.enqueue(next);
         }
         
     }
     
    }
-
-    // TODO, strategy is default at "NSWE". Must use Queue ADT to implement BFS algorithm
 }
 
 // BONUS: Same BFS as findPath(), plus GIF visualization
@@ -254,6 +261,18 @@ bool PathFinder::isEnd(const Coord &potential) const
         }
     }
     return false;
+}
+
+void PathFinder::backtrack(Coord end)
+{
+    Coord curr = end;
+    Coord* prev = curr.parent;
+    while(prev != nullptr){
+        image(prev->row, prev->col) = YELLOW;
+        curr = *prev;
+        prev = curr.parent;
+    }
+    return;
 }
 
 // Returns true if both images have GREEN pixels at exactly the same coordinates.

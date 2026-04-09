@@ -13,8 +13,9 @@ struct Coord
 {
   int row;
   int col;
-  Coord() : row(-1), col(-1) {}
-  Coord(int r, int c) : row(r), col(c) {}
+  Coord* parent;
+  Coord() : row(-1), col(-1), parent(nullptr) {}
+  Coord(int r, int c) : row(r), col(c), parent(nullptr) {}
   bool operator==(const Coord &other) const
   {
     return row == other.row && col == other.col;
@@ -22,6 +23,9 @@ struct Coord
   bool operator!=(const Coord &other) const
   {
     return !(*this == other);
+  }
+  void link(Coord p){
+    parent = &p;
   }
 };
 
@@ -102,7 +106,13 @@ private:
   Coord final;
   std::vector<std::vector<bool>> explored;
   
+  /** @brief Determine if a coordinate matches the end goal state of being an exit
+   *  @param potential: the coord to check
+   *  @return true if the coord is an exit, false if not */
   bool isEnd(const Coord &potential) const;
+  /** @brief After an exit is found, backtrack and mark the path in yellow
+   *  @post The shortest path to the exit will be yellow */
+  void backtrack(const Coord end);
 };
 
 // Nonmember functions
