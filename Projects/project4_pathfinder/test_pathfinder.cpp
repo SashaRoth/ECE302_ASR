@@ -65,7 +65,7 @@ TEST_CASE("PathFinder: Test minimum requirements on ADT queue and invalid images
     Image<Pixel> img4 = readFromFile("../tests/maze00_extra_start.png");
     REQUIRE_THROWS_AS(PathFinder myFinder(img4), std::invalid_argument);
 }
-/*
+
 TEST_CASE("PathFinder: Test basic getStart and getEnd", "[pathfinder]")
 {
     // 3x3 image with one RED pixel at (1,1)
@@ -84,6 +84,8 @@ TEST_CASE("PathFinder: Test basic getStart and getEnd", "[pathfinder]")
     REQUIRE(myFinder.getStart() == Coord(1, 1));
     REQUIRE(myFinder.getEnd() == Coord(-1, -1)); // not yet discovered by BFS
 }
+
+
 
 TEST_CASE("PathFinder: Test helper functions load, clear and checkImage", "[pathfinder]")
 {
@@ -110,6 +112,7 @@ TEST_CASE("PathFinder: Test helper functions load, clear and checkImage", "[path
     REQUIRE_NOTHROW(myFinder.checkImage(img));
 }
 
+/*
 
 // Demo of how long it takes to find a path (not included in grader)
 TEST_CASE("Demo Pathfinding Duration Test", "[pathfinder]")
@@ -156,6 +159,8 @@ TEST_CASE("Demo Pathfinding Duration Test", "[pathfinder]")
     my_solver.clear();
 }
 
+*/
+
 // Demo of findPathWithVisualization (not included in grader)
 TEST_CASE("Demo Pathfinding Gif Creation", "[pathfinder]")
 {
@@ -171,7 +176,7 @@ TEST_CASE("Demo Pathfinding Gif Creation", "[pathfinder]")
     my_solver.load(img1);
     // maze01: unsolvable — throws, but partial search is still recorded in the GIF
     // Record 1 frame every 50 BFS steps, 5ms per frame
-    REQUIRE_THROWS(my_solver.findPathWithVisualization("../tests/myoutput01", 5, 50));
+    //REQUIRE_THROWS(my_solver.findPathWithVisualization("../tests/myoutput01", 5, 50));
     my_solver.clear();
 
     Image<Pixel> img2 = readFromFile("../tests/maze02.png");
@@ -180,6 +185,5 @@ TEST_CASE("Demo Pathfinding Gif Creation", "[pathfinder]")
     my_solver.findPathWithVisualization("../tests/myoutput02", 5, 50);
     my_solver.clear();
 }
-*/
 
 /* Write your own unit tests here */

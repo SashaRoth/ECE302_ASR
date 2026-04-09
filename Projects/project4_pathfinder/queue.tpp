@@ -9,19 +9,19 @@ bool Queue<T>::isEmpty() const
 template <typename T>
 void Queue<T>::enqueue(const T &item)
 {
-  internal_list.insert(internal_list.getLength(), item);
+  internal_list.insert(internal_list.getLength() + 1, item);
   return;
 }
 
 template <typename T>
 void Queue<T>::dequeue()
 {
-  internal_list.remove(0);
+  internal_list.remove(1);
   return;
 }
 
 template <typename T>
 T Queue<T>::peekFront() const
 {
-  return internal_list.getEntry(0);
+  return internal_list.getEntry(1);
 }

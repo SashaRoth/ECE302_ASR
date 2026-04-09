@@ -32,7 +32,14 @@ void PathFinder::load(const Image<Pixel> &img)
 
 void PathFinder::clear()
 {
-    return; // TODO
+   while(!actions.isEmpty()){
+    actions.dequeue();
+   }
+   image = Image<Pixel>();
+   initial = Coord();
+   final = Coord();
+   explored.clear();
+   return; // TODO
 }
 
 void PathFinder::checkImage(const Image<Pixel> &img) const
@@ -58,20 +65,19 @@ void PathFinder::checkImage(const Image<Pixel> &img) const
 
 Coord PathFinder::getStart() const
 {
-    // TODO
-    return Coord(); // placeholder
+    return initial;
 }
 
 Coord PathFinder::getEnd() const
 {
-    // TODO
-    return Coord(); // placeholder
+    return final;
 }
 
 void PathFinder::findPath(const std::string &strategy)
 {
    if(isEnd(initial)){  //check if the initial pixel is the exit
     image(initial.row, initial.col) = GREEN;
+    final = initial;
     return;
    } 
    Coord next;
@@ -105,6 +111,7 @@ void PathFinder::findPath(const std::string &strategy)
         }
         else if(isEnd(next)){ //if the next pixel is the exit, mark it as green
             image(next.row, next.col) = GREEN;
+            final = next;
             return;
         }
         else{ //if neither applies, add the pixel to the queue
