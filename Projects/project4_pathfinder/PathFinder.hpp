@@ -97,7 +97,12 @@ public:
 
 private:
   Image<Pixel> image;
-  // TODO: Add more private member variables and methods as needed
+  Queue<Coord> actions;
+  Coord initial;
+  Coord final;
+  std::vector<std::vector<bool>> explored;
+  
+  bool isEnd(const Coord &potential) const;
 };
 
 // Nonmember functions
@@ -115,4 +120,4 @@ bool compareImagesExit(const std::string &img1_str, const std::string &img2_str)
  * @return true if every pixel is identical, false otherwise */
 bool compareImages(const std::string &img1_str, const std::string &img2_str);
 
-#endif // _PATHFINDER_HPP
+#endif // _PATHFINDER_HPP;

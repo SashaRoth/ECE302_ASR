@@ -16,8 +16,7 @@ public:
   T peekFront() const;
 
 private:
-  // TODO
-  // Use ADT list as the internal data structure to implement the queue
+  List<T> internal_list;
 };
 
 #include "queue.tpp"

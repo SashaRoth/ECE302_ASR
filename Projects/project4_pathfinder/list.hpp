@@ -32,7 +32,8 @@ public:
   void setEntry(int position, const T &newValue);
 
 private:
-  // TODO, you might be able reuse code from Problem 3/5/6/7
+  int size;
+  T *data;
 };
 
 #include "list.tpp"

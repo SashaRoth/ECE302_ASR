@@ -3,25 +3,25 @@
 template <typename T>
 bool Queue<T>::isEmpty() const
 {
-  // TODO
-  return false; // placeholder
+  return internal_list.isEmpty();
 }
 
 template <typename T>
 void Queue<T>::enqueue(const T &item)
 {
-  // TODO
+  internal_list.insert(internal_list.getLength(), item);
+  return;
 }
 
 template <typename T>
 void Queue<T>::dequeue()
 {
-  // TODO
+  internal_list.remove(0);
+  return;
 }
 
 template <typename T>
 T Queue<T>::peekFront() const
 {
-  // TODO
-  return T(); // placeholder
+  return internal_list.getEntry(0);
 }

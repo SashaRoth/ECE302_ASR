@@ -15,17 +15,45 @@ PathFinder::~PathFinder()
 
 void PathFinder::load(const Image<Pixel> &img)
 {
-    // TODO
+    checkImage(img);
+    image = img;
+    explored.assign(image.height(), std::vector<bool>(image.width(), false));
+    Pixel curr;                                 
+    for(int i = 0; i<image.height(); i++){
+       for(int j = 0; j<image.width(); j++){
+            curr = image(i, j);
+            if(curr == RED){
+            initial = Coord(i, j);
+           }
+        }
+    }
+    return;
 }
 
 void PathFinder::clear()
 {
-    // TODO
+    return; // TODO
 }
 
 void PathFinder::checkImage(const Image<Pixel> &img) const
 {
-    // TODO
+    Pixel curr;
+    int redcount = 0;
+    for(int i = 0; i<img.height(); i++){
+        for(int j = 0; j<img.width(); j++){
+           curr = img(i, j);
+           if(curr == RED){
+            redcount++;
+           }
+           else if(curr != BLACK && curr != WHITE){
+            throw std::invalid_argument("Image cannot contain non-black/white/red pixels");
+           }
+        }
+    }
+    if(redcount != 1){
+        throw std::invalid_argument("Image must contain exactly one red pixel");
+    }
+    return;
 }
 
 Coord PathFinder::getStart() const
@@ -42,6 +70,51 @@ Coord PathFinder::getEnd() const
 
 void PathFinder::findPath(const std::string &strategy)
 {
+   if(isEnd(initial)){  //check if the initial pixel is the exit
+    image(initial.row, initial.col) = GREEN;
+    return;
+   } 
+   Coord next;
+   Coord curr;
+   char direction;
+   actions.enqueue(initial);
+
+   while(true){
+    if(actions.isEmpty()){ //if there are no potential actions, no exit found
+        return;
+    }
+
+    curr = actions.peekFront(); //make the current state the first coord in queue
+
+    for(int i = 0; i < 4; i++){
+        direction = strategy[i];
+
+        switch(direction){
+            case 'N':
+                next = Coord(curr.row+1, curr.col);
+            case 'S':
+                next = Coord(curr.row-1, curr.col);
+            case 'W':
+                next = Coord(curr.row, curr.col-1);
+            case 'E':
+                next = Coord(curr.row, curr.col+1);
+        }
+
+        if(image(next.row, next.col) == BLACK){ //if the next pixel is a border, skip it
+            break;
+        }
+        else if(isEnd(next)){ //if the next pixel is the exit, mark it as green
+            image(next.row, next.col) = GREEN;
+            return;
+        }
+        else{ //if neither applies, add the pixel to the queue
+            actions.enqueue(next);
+        }
+        
+    }
+    
+   }
+
     // TODO, strategy is default at "NSWE". Must use Queue ADT to implement BFS algorithm
 }
 
@@ -161,6 +234,19 @@ void PathFinder::addFrameToGif(GifWriter &gif, int frame_duration)
 void PathFinder::writeSolutionToFile(const std::string &filename)
 {
     writeToFile(image, filename);
+}
+
+bool PathFinder::isEnd(const Coord &potential) const
+{
+    if(image(potential.row, potential.col) == WHITE){
+        if(potential.row == 0 || potential.row == (image.height() - 1)){
+            return true;
+        }
+        if(potential.col == 0 || potential.col == (image.width() - 1)){
+            return true;
+        }
+    }
+    return false;
 }
 
 // Returns true if both images have GREEN pixels at exactly the same coordinates.
