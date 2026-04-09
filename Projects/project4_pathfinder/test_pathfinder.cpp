@@ -9,6 +9,7 @@
 #include <iostream>
 
 /* Provided test cases */
+
 TEST_CASE("PathFinder: Test minimum requirements on ADT queue and invalid images")
 {
     Queue<int> queue;
@@ -112,7 +113,7 @@ TEST_CASE("PathFinder: Test helper functions load, clear and checkImage", "[path
     REQUIRE_NOTHROW(myFinder.checkImage(img));
 }
 
-/*
+
 
 // Demo of how long it takes to find a path (not included in grader)
 TEST_CASE("Demo Pathfinding Duration Test", "[pathfinder]")
@@ -183,19 +184,74 @@ TEST_CASE("Demo Pathfinding Gif Creation", "[pathfinder]")
     my_solver.findPathWithVisualization("../tests/myoutput02", 5, 50);
     my_solver.clear();
 }
-*/
 
 /* Write your own unit tests here */
 
 //Basic solver functionality
 
-TEST_CASE("Basic findPath functionality and validation", "[pathfinder]"){
+TEST_CASE("findPath: Simple maze 00", "[pathfinder]"){
     Image<Pixel> img0 = readFromFile("../tests/maze00.png");
     PathFinder my_solver(img0);
-    Coord end = Coord(14, 0);
+    Coord NSWE_end = Coord(14, 0);
+    Coord WENS_end = Coord(10, 0);
+
     REQUIRE(my_solver.getEnd() == Coord());
     
     my_solver.findPath("NSWE");
+    my_solver.writeSolutionToFile("../tests/sashasoutput00_NSWE.png");
+    REQUIRE(compareImages("../tests/sashasoutput00_NSWE.png", "../tests/output00_final_visual.png"));
+    my_solver.clear();
 
-    REQUIRE(my_solver.getEnd() == end);
+    my_solver.load(img0);
+    my_solver.findPath("WENS");
+    my_solver.writeSolutionToFile("../tests/sashasoutput00_WENS.png");
+    REQUIRE_FALSE(compareImages("../tests/sashasoutput00_WENS.png", "../tests/output00_final_visual.png")); //using different strategy, image should be different
+    my_solver.clear();
+}
+
+TEST_CASE("findPath: Maze with no exit 01", "[pathfinder]"){
+    Image<Pixel> img1 = readFromFile("../tests/maze01.png");
+    PathFinder my_solver(img1);
+    
+    REQUIRE_THROWS_AS(my_solver.findPath("NSWE"), std::runtime_error);
+    my_solver.writeSolutionToFile("../tests/sashasoutput01_NSWE.png");
+    REQUIRE(compareImages("../tests/sashasoutput01_NSWE.png", "../tests/output01_final_visual.png"));
+    my_solver.clear();
+
+    my_solver.load(img1);
+    REQUIRE_THROWS_AS(my_solver.findPath("WENS"), std::runtime_error);
+    my_solver.writeSolutionToFile("../tests/sashasoutput01_WENS.png");
+    REQUIRE(compareImages("../tests/sashasoutput01_WENS.png", "../tests/output01_final_visual.png")); //in maze with no exit, different strategies yield same image
+    my_solver.clear();
+}
+
+
+TEST_CASE("findPath: Big maze 02", "[pathfinder]"){
+    Image<Pixel> img2 = readFromFile("../tests/maze02.png");
+    PathFinder my_solver(img2);
+
+    REQUIRE(my_solver.getEnd() == Coord());
+    
+    my_solver.findPath("NSWE");
+    my_solver.writeSolutionToFile("../tests/sashasoutput02_NSWE.png");
+    REQUIRE(compareImages("../tests/sashasoutput02_NSWE.png", "../tests/output02_final_visual.png"));
+    my_solver.clear();
+
+    my_solver.load(img2);
+    my_solver.findPath("WENS");
+    my_solver.writeSolutionToFile("../tests/sashasoutput02_WENS.png");
+    REQUIRE(compareImagesExit("../tests/sashasoutput02_WENS.png", "../tests/output02_final_visual.png")); //different strategy should yield same exit in this case
+    my_solver.clear();
+}
+
+TEST_CASE("findPath: Maze with no blue? 03", "[pathfinder]"){
+    Image<Pixel> img3 = readFromFile("../tests/maze03.png");
+    PathFinder my_solver(img3);
+
+    REQUIRE(my_solver.getEnd() == Coord());
+    
+    my_solver.findPath("NSWE");
+    my_solver.writeSolutionToFile("../tests/sashasoutput03_NSWE.png");
+    REQUIRE(compareImagesExit("../tests/sashasoutput03_NSWE.png", "../tests/output03_NSWE.png"));
+    my_solver.clear();
 }

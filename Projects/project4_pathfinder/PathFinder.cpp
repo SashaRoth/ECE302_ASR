@@ -84,6 +84,7 @@ void PathFinder::findPath(const std::string &strategy)
    Coord curr;
    char direction;
    actions.enqueue(initial);
+   explored[initial.row][initial.col] = true; //mark start as explored
 
    while(true){
     if(actions.isEmpty()){ //if there are no potential actions, no exit found
@@ -92,7 +93,6 @@ void PathFinder::findPath(const std::string &strategy)
 
     curr = actions.peekFront(); //make the current state the first coord in queue
     actions.dequeue();
-    explored[curr.row][curr.col] = true;
 
     for(int i = 0; i < 4; i++){
         direction = strategy[i];
@@ -112,7 +112,10 @@ void PathFinder::findPath(const std::string &strategy)
                 break;
         }
 
-        if(image(next.row, next.col) == BLACK){ //if the next pixel is a border, skip it
+        if(next.col < 0 || next.col >= image.width() || next.row < 0 || next.row >= image.height()){ //bounds checking
+            ;
+        }
+        else if(image(next.row, next.col) == BLACK){ //if the next pixel is a border, skip it
             ;
         }
         else if(explored[next.row][next.col]){ //if the next pixel has already been explored, skip it
@@ -129,6 +132,8 @@ void PathFinder::findPath(const std::string &strategy)
             }
             else{ //if neither applies, add the pixel to the queue
                 actions.enqueue(next);
+                explored[next.row][next.col] = true;
+                image(next.row, next.col) = BLUE;
             } 
         }
     }
@@ -255,6 +260,10 @@ void PathFinder::writeSolutionToFile(const std::string &filename)
 
 bool PathFinder::isEnd(const Coord &potential) const
 {
+    if(potential.col < 0 || potential.col >= image.width() || 
+        potential.row < 0 || potential.row >= image.height()){ //bounds checking
+            return false;
+        }
     if(image(potential.row, potential.col) == WHITE){
         if(potential.row == 0 || potential.row == (image.height() - 1)){
             return true;
@@ -270,7 +279,7 @@ void PathFinder::backtrack(Coord end)
 {
     Coord curr = end;
     Coord prev = curr.get_parent();
-    while(prev != Coord()){
+    while(prev != initial){
         image(prev.row, prev.col) = YELLOW;
         curr = prev;
         prev = curr.get_parent();

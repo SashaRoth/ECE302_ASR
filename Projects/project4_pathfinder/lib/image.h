@@ -99,9 +99,10 @@ T &Image<T>::operator()(std::size_t r, std::size_t c)
 template <typename T>
 T Image<T>::operator()(std::size_t r, std::size_t c) const
 {
-
-  if ((r >= _height) || (c >= _width))
+  if ((r >= _height) || (c >= _width)){
+    char b = 'b';
     throw std::out_of_range("Image: Invalid location in operator()");
+  }
 
   return _data[r * _width + c];
 }
