@@ -125,10 +125,8 @@ void PathFinder::findPath(const std::string &strategy)
         else{ //if neither applies, add the pixel to the queue
             image(next.row, next.col) = YELLOW;
             actions.enqueue(next);
-        }
-        
+        } 
     }
-    
    }
 }
 

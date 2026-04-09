@@ -186,3 +186,15 @@ TEST_CASE("Demo Pathfinding Gif Creation", "[pathfinder]")
 */
 
 /* Write your own unit tests here */
+
+//Basic solver functionality
+
+TEST_CASE("Basic findPath functionality and validation", "[pathfinder]"){
+    Image<Pixel> img0 = readFromFile("../tests/maze00.png");
+    PathFinder my_solver(img0);
+    Coord end = Coord(14, 0);
+    
+    my_solver.findPath("NSWE");
+
+    REQUIRE(my_solver.getEnd() == end);
+}
