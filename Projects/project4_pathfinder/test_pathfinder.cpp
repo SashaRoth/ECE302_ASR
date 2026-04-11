@@ -234,6 +234,7 @@ TEST_CASE("findPath: Simple maze 00", "[pathfinder]"){
     my_solver.findPath("NSWE");
     my_solver.writeSolutionToFile("../tests/sashasoutput00_NSWE.png");
     REQUIRE(compareImages("../tests/sashasoutput00_NSWE.png", "../tests/output00_final_visual.png"));
+    //REQUIRE( compareImages("../source/tests/output00_NSWE.png", "../source/tests/cache/sashasoutput00_NSWE.png"));
     my_solver.clear();
 
     my_solver.load(img0);
