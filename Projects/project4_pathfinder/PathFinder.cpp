@@ -80,6 +80,11 @@ void PathFinder::findPath(const std::string &strategy)
     final = initial;
     return;
    } 
+   if(image.height() <= 1 || image.width() <= 1){  //if either dimension of the image is 1, the initial pixel must be an exit
+    image(initial.row, initial.col) = GREEN;
+    final = initial;
+    return;
+   } 
    Coord next;
    Coord curr;
    char direction;
@@ -133,7 +138,6 @@ void PathFinder::findPath(const std::string &strategy)
             else{ //if neither applies, add the pixel to the queue
                 actions.enqueue(next);
                 explored[next.row][next.col] = true;
-                //image(next.row, next.col) = BLUE;
             } 
         }
     }

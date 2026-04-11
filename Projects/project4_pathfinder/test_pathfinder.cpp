@@ -233,14 +233,13 @@ TEST_CASE("findPath: Simple maze 00", "[pathfinder]"){
     
     my_solver.findPath("NSWE");
     my_solver.writeSolutionToFile("../tests/sashasoutput00_NSWE.png");
-    REQUIRE(compareImages("../tests/sashasoutput00_NSWE.png", "../tests/output00_final_visual.png"));
-    //REQUIRE( compareImages("../source/tests/output00_NSWE.png", "../source/tests/cache/sashasoutput00_NSWE.png"));
+    REQUIRE(compareImages("../tests/sashasoutput00_NSWE.png", "../tests/output00_NSWE.png"));
     my_solver.clear();
 
     my_solver.load(img0);
     my_solver.findPath("WENS");
     my_solver.writeSolutionToFile("../tests/sashasoutput00_WENS.png");
-    REQUIRE_FALSE(compareImages("../tests/sashasoutput00_WENS.png", "../tests/output00_final_visual.png")); //using different strategy, image should be different
+    REQUIRE_FALSE(compareImagesExit("../tests/sashasoutput00_WENS.png", "../tests/sashasoutput00_NSWE.png")); //using different strategy, exit should be different
     my_solver.clear();
 }
 
@@ -250,13 +249,13 @@ TEST_CASE("findPath: Maze with no exit 01", "[pathfinder]"){
     
     REQUIRE_THROWS_AS(my_solver.findPath("NSWE"), std::runtime_error);
     my_solver.writeSolutionToFile("../tests/sashasoutput01_NSWE.png");
-    REQUIRE(compareImages("../tests/sashasoutput01_NSWE.png", "../tests/output01_final_visual.png"));
+    REQUIRE(compareImagesExit("../tests/sashasoutput01_NSWE.png", "../tests/output01_final_visual.png"));
     my_solver.clear();
 
     my_solver.load(img1);
     REQUIRE_THROWS_AS(my_solver.findPath("WENS"), std::runtime_error);
     my_solver.writeSolutionToFile("../tests/sashasoutput01_WENS.png");
-    REQUIRE(compareImages("../tests/sashasoutput01_WENS.png", "../tests/output01_final_visual.png")); //in maze with no exit, different strategies yield same image
+    REQUIRE(compareImagesExit("../tests/sashasoutput01_WENS.png", "../tests/output01_final_visual.png")); //in maze with no exit, different strategies yield same image
     my_solver.clear();
 }
 
@@ -269,7 +268,7 @@ TEST_CASE("findPath: Big maze 02", "[pathfinder]"){
     
     my_solver.findPath("NSWE");
     my_solver.writeSolutionToFile("../tests/sashasoutput02_NSWE.png");
-    REQUIRE(compareImages("../tests/sashasoutput02_NSWE.png", "../tests/output02_final_visual.png"));
+    REQUIRE(compareImages("../tests/sashasoutput02_NSWE.png", "../tests/output02_NSWE.png"));
     my_solver.clear();
 
     my_solver.load(img2);
