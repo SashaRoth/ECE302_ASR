@@ -268,7 +268,7 @@ bool PathFinder::isEnd(const Coord &potential) const
         potential.row < 0 || potential.row >= image.height()){ //bounds checking
             return false;
         }
-    if(image(potential.row, potential.col) == WHITE){
+    if(image(potential.row, potential.col) == WHITE || image(potential.row, potential.col) == RED){
         if(potential.row == 0 || potential.row == (image.height() - 1)){
             return true;
         }
