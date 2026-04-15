@@ -38,6 +38,14 @@ void ArrayMaxHeap<ItemType>::heapCreate()
       heapRebuild(index);
 }
 
+template <typename ItemType>
+void ArrayMaxHeap<ItemType>::swapNodes(int node1, int node2)
+{
+   ItemType temp = items[node1];
+   items[node1] = items[node2];
+   items[node2] = temp;
+}
+
 // -----------------------------------------------------------------------
 // Public methods
 // -----------------------------------------------------------------------
@@ -95,6 +103,18 @@ void ArrayMaxHeap<ItemType>::heapRebuild(const int subTreeNodeIndex)
 {
    if (!isLeaf(subTreeNodeIndex))
    {
+      int largerChildIndex;
+      if(items[getLeftChildIndex()] >= items[getRightChildIndex()]){
+         largerChildIndex = getLeftChildIndex();
+      }
+      else{
+         largerChildIndex = getRightChildIndex();
+      }
+
+      if(items[subTreeNodeIndex] < largerChildIndex){
+         swapNodes(subTreeNodeIndex, largerChildIndex);
+         heapRebuild(largerChildIndex);
+      }
       // TODO
       // 1. Find the larger child
       // 2. If the node < larger child, swap them
