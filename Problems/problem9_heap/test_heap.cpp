@@ -18,7 +18,7 @@ TEST_CASE("Heap: test construct from array", "[construct]")
    REQUIRE(heap.isEmpty() == true);
 }
 
-/*
+
 TEST_CASE("Heap: test heap sort", "[sort]")
 {
    int array[] = {15, 5, 20, 10, 30};
@@ -30,7 +30,7 @@ TEST_CASE("Heap: test heap sort", "[sort]")
    REQUIRE(array[3] == 10);
    REQUIRE(array[4] == 5);
 }
-*/
+
 
 /* Additional test cases */
 TEST_CASE("Heap: test peekTop, remove, add", "[peekTop]"){

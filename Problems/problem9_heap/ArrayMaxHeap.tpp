@@ -170,6 +170,17 @@ bool ArrayMaxHeap<ItemType>::remove()
 template <typename ItemType>
 void ArrayMaxHeap<ItemType>::heapSort(ItemType anArray[], int n)
 {
+   if(n > DEFAULT_CAPACITY){
+      throw std::invalid_argument("Array exceeds heap capacity");
+   }
+   for(int i = 0; i < n; i++){
+      for(int j = 0; j < n; j++){
+         if(i != j && anArray[i] == anArray[j]){
+         throw std::invalid_argument("Array cannot contain duplicate values");
+      }
+    }
+   }
+
    // TODO
    // 1. Start with entire array as heap region, sorted region empty
    // 2. Build max heap (bottom-up)
