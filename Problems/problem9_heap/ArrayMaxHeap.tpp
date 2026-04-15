@@ -104,14 +104,19 @@ void ArrayMaxHeap<ItemType>::heapRebuild(const int subTreeNodeIndex)
    if (!isLeaf(subTreeNodeIndex))
    {
       int largerChildIndex;
-      if(items[getLeftChildIndex()] >= items[getRightChildIndex()]){
-         largerChildIndex = getLeftChildIndex();
+      int indexR = getRightChildIndex(subTreeNodeIndex);
+      int indexL = getLeftChildIndex(subTreeNodeIndex);
+      if(indexR >= itemCount){
+         largerChildIndex = indexL;
+      }
+      else if(items[indexL] >= items[indexR]){
+         largerChildIndex = indexL;
       }
       else{
-         largerChildIndex = getRightChildIndex();
+         largerChildIndex = indexR;
       }
 
-      if(items[subTreeNodeIndex] < largerChildIndex){
+      if(items[subTreeNodeIndex] < items[largerChildIndex]){
          swapNodes(subTreeNodeIndex, largerChildIndex);
          heapRebuild(largerChildIndex);
       }
@@ -139,7 +144,7 @@ bool ArrayMaxHeap<ItemType>::add(const ItemType &newData)
    items[currIndex] = newData;
    
    //bubble up until heap property has been restored, or until newData cannot bubble up further
-   while(items[currIndex] > items[parentIndex] && parentIndex > 0){ 
+   while(items[currIndex] > items[parentIndex] && currIndex > 0){ 
       swapNodes(currIndex, parentIndex);
       parentIndex = getParentIndex(parentIndex);
       currIndex = getParentIndex(currIndex);

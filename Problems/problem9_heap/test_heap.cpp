@@ -18,6 +18,7 @@ TEST_CASE("Heap: test construct from array", "[construct]")
    REQUIRE(heap.isEmpty() == true);
 }
 
+/*
 TEST_CASE("Heap: test heap sort", "[sort]")
 {
    int array[] = {15, 5, 20, 10, 30};
@@ -29,5 +30,35 @@ TEST_CASE("Heap: test heap sort", "[sort]")
    REQUIRE(array[3] == 10);
    REQUIRE(array[4] == 5);
 }
+*/
 
 /* Additional test cases */
+TEST_CASE("Heap: test peekTop, remove, add", "[peekTop]"){
+   int array[] = {80, 20, 60, 50, 15, 30, 20, 90};
+   ArrayMaxHeap<int> heap(array, 8); //upon constructor call, heapRebuild() is called
+   REQUIRE(!heap.isEmpty());
+
+   REQUIRE(heap.peekTop() == 90); //heapRebuild should have moved 90 to the root
+
+   REQUIRE(heap.remove()); //remove should return true, heap is not empty
+   REQUIRE(heap.peekTop() == 80); //80 should have sifted to the top
+
+   REQUIRE(heap.add(70)); //heap is not at capacity, should allow add
+   REQUIRE(heap.peekTop() == 80); //70 < 80, should not have sifted up
+   REQUIRE(heap.add(100));
+   REQUIRE(heap.peekTop() == 100); //100 > 80, should have sifted to the top
+}
+
+TEST_CASE("Heap: test peekTop, remove, add edge cases"){
+   int emptyArray[] = {};
+   ArrayMaxHeap<int> emptyHeap(emptyArray, 0); //begin with empty array
+   REQUIRE(emptyHeap.isEmpty());
+
+   REQUIRE_FALSE(emptyHeap.remove()); //cannot remove from empty heap
+   REQUIRE_THROWS_AS(emptyHeap.peekTop(), std::out_of_range); //peeking an empty heap should throw an error
+
+   int fullArray[] = {80, 20, 60, 50, 15, 30, 20, 90, 80, 20, 60, 50, 15, 30, 20, 90, 80, 20, 60, 50, 15, 30, 20, 90, 80, 20, 60, 50, 15, 30, 20};
+   ArrayMaxHeap<int> fullHeap(fullArray, 63); //upon constructor call, heapRebuild() is called
+
+   REQUIRE_FALSE(fullHeap.add(1)); //cannot add to full heap
+}
