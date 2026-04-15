@@ -115,29 +115,35 @@ void ArrayMaxHeap<ItemType>::heapRebuild(const int subTreeNodeIndex)
          swapNodes(subTreeNodeIndex, largerChildIndex);
          heapRebuild(largerChildIndex);
       }
-      // TODO
-      // 1. Find the larger child
-      // 2. If the node < larger child, swap them
-      // 3. Recurse on the swapped child's index
    }
 }
 
 template <typename ItemType>
 ItemType ArrayMaxHeap<ItemType>::peekTop() const
 {
-   // TODO
-   // Throw std::out_of_range if heap is empty
-   return ItemType(); // placeholder
+   if(isEmpty()){
+      throw std::out_of_range("Cannot peek empty heap");
+   }
+   return items[0];
 }
 
 template <typename ItemType>
 bool ArrayMaxHeap<ItemType>::add(const ItemType &newData)
 {
-   // TODO
-   // 1. Return false if full or newData is a duplicate
-   // 2. Place newData at the end
-   // 3. Bubble up: swap with parent until heap property is restored
-   return false; // placeholder
+   if(getNumberOfNodes() >= DEFAULT_CAPACITY){
+      return false;
+   }
+   int currIndex = DEFAULT_CAPACITY - 1;
+   int parentIndex = getParentIndex(currIndex);
+   items[currIndex] = newData;
+   
+   //bubble up until heap property has been restored, or until newData cannot bubble up further
+   while(items[currIndex] > items[parentIndex] && parentIndex > 0){ 
+      swapNodes(currIndex, parentIndex);
+      parentIndex = getParentIndex(parentIndex);
+      currIndex = getParentIndex(currIndex);
+   }
+   return true;
 }
 
 template <typename ItemType>
