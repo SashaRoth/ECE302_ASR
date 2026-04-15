@@ -133,8 +133,9 @@ bool ArrayMaxHeap<ItemType>::add(const ItemType &newData)
    if(getNumberOfNodes() >= DEFAULT_CAPACITY){
       return false;
    }
-   int currIndex = DEFAULT_CAPACITY - 1;
+   int currIndex = itemCount; //start from first empty slot in array
    int parentIndex = getParentIndex(currIndex);
+   itemCount++;
    items[currIndex] = newData;
    
    //bubble up until heap property has been restored, or until newData cannot bubble up further
@@ -149,11 +150,16 @@ bool ArrayMaxHeap<ItemType>::add(const ItemType &newData)
 template <typename ItemType>
 bool ArrayMaxHeap<ItemType>::remove()
 {
-   // TODO
-   // 1. Return false if empty
-   // 2. Remove the root by replacing it with the last item
-   // 3. Bubble down by calling heapRebuild to restore heap property
-   return false; // placeholder
+   if(isEmpty()){
+      return false;
+   }
+
+   items[0] = items[itemCount - 1]; //replace root with last item
+   itemCount--;
+   
+   heapRebuild(0); //restore heap property
+
+   return true;
 }
 
 template <typename ItemType>
