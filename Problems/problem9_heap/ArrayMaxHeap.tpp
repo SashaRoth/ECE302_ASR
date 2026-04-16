@@ -181,14 +181,13 @@ void ArrayMaxHeap<ItemType>::heapSort(ItemType anArray[], int n)
     }
    }
 
-   // TODO
-   // 1. Start with entire array as heap region, sorted region empty
-   // 2. Build max heap (bottom-up)
-   // 3. Repeat until heap is empty:
-   //    Swap root (max) with last element in heap
-   //    Move that element to sorted region (end of array)
-   //    Shrink heap region by 1
-   //    Heapify root to restore heap
-   // 4. End state: Heap region empty, Sorted region = entire array (ascending order)
-   // 5. Reverse array to get descending order
+   for (int i = 0; i < itemCount; i++) //move array into heap
+      items[i] = anArray[i];
+   heapCreate(); //maintani heap property
+
+   for(int i = 0; i < n; i++){ //move sorted values back into array
+      anArray[i] = peekTop();
+      remove();
+      heapRebuild(0);
+   }
 }

@@ -62,3 +62,29 @@ TEST_CASE("Heap: test peekTop, remove, add edge cases"){
 
    REQUIRE_FALSE(fullHeap.add(1)); //cannot add to full heap
 }
+
+TEST_CASE("Heap: test heap sort + edge cases (Sasha's ver)", "[sort]")
+{
+   int SashasArray1[] = {-52, 6, 17, 9, 44, 69, 100, 5000};
+   ArrayMaxHeap<int> heap(SashasArray1, 8);
+   heap.heapSort(SashasArray1, 8);
+   REQUIRE(SashasArray1[0] == 5000);
+   REQUIRE(SashasArray1[1] == 100);
+   REQUIRE(SashasArray1[2] == 69);
+   REQUIRE(SashasArray1[3] == 44);
+   REQUIRE(SashasArray1[4] == 17);
+   REQUIRE(SashasArray1[5] == 9);
+   REQUIRE(SashasArray1[6] == 6);
+   REQUIRE(SashasArray1[7] == -52);
+
+   //edge case: duplicates
+   int SashasArray2[] = {-52, 6, 6, 9, 44, 69, 100, 5000};
+   ArrayMaxHeap<int> duplicateheap(SashasArray2, 8);
+   REQUIRE_THROWS_AS(duplicateheap.heapSort(SashasArray2, 8), std::invalid_argument); //cannot sort duplicate values
+
+   //edge case: beyond capacity
+   char SashasArray3[] = {'h', 'i', ':', '3'}; 
+   ArrayMaxHeap<char> bigheap(SashasArray3, 4); 
+   //give it a fake out-of-bounds size when calling heapSort
+   REQUIRE_THROWS_AS(bigheap.heapSort(SashasArray3, 65), std::invalid_argument); //cannot sort array beyond capacity
+}
