@@ -148,7 +148,7 @@ bool ArrayMaxHeap<ItemType>::add(const ItemType &newData)
    }
    for(int i = 0; i < itemCount; i++){
       if(newData == items[i]){
-         throw std::invalid_argument("Heap cannot contain duplicate data");
+         return false;
       }
    }
    int currIndex = itemCount; //start from first empty slot in array
