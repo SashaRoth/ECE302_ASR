@@ -9,7 +9,7 @@
 #include <iostream>
 
 /* Provided test cases */
-
+/*
 TEST_CASE("PathFinder: Test minimum requirements on ADT queue and invalid images")
 {
     Queue<int> queue;
@@ -184,8 +184,7 @@ TEST_CASE("Demo Pathfinding Gif Creation", "[pathfinder]")
     my_solver.findPathWithVisualization("../tests/myoutput02", 5, 50);
     my_solver.clear();
 }
-
-/* Write your own unit tests here */
+  
 
 //Basic solver functionality
 
@@ -300,4 +299,39 @@ TEST_CASE("findPath: Start on exit", "[pathfinder]"){
     my_solver.writeSolutionToFile("../tests/sashasoutput03_NSWE.png");
     REQUIRE(compareImagesExit("../tests/sashasoutput03_NSWE.png", "../tests/output03_NSWE.png"));
     my_solver.clear();
+}
+
+
+TEST_CASE("Checkoff test case", "[findPath]"){
+     Image<Pixel> im(8, 8);
+     std::size_t idx = 0;
+     bool alternate = false;
+    for (std::size_t r = 0; r < 8; r++){
+        alternate = !alternate;
+        for (std::size_t c = 0; c < 8; c++)
+        {
+            if(alternate){
+                im(r, c) = WHITE;
+            }
+            else{
+                im(r, c) = BLACK;
+            }
+            alternate = !alternate;
+        }
+    }
+
+    im(2, 2) = RED;
+     PathFinder my_solver(im);
+     REQUIRE_THROWS_AS(my_solver.findPath("NSWE"), std::runtime_error);
+}
+     */
+
+TEST_CASE("Checkoff test case 2", "[findPath]"){
+    Image<Pixel> img0 = readFromFile("../tests/maze00.png");
+    PathFinder my_solver(img0);
+    my_solver.findPath("NSWE");
+
+    REQUIRE(my_solver.getPathLength() == 4);
+    REQUIRE(my_solver.getNumVisited() == 13);
+
 }

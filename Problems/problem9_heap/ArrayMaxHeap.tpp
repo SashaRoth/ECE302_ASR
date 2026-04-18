@@ -174,8 +174,8 @@ void ArrayMaxHeap<ItemType>::heapSort(ItemType anArray[], int n)
       throw std::invalid_argument("Array exceeds heap capacity");
    }
    for(int i = 0; i < n; i++){
-      for(int j = 0; j < n; j++){
-         if(i != j && anArray[i] == anArray[j]){
+      for(int j = i + 1; j < n; j++){
+         if(anArray[i] == anArray[j]){
          throw std::invalid_argument("Array cannot contain duplicate values");
       }
     }

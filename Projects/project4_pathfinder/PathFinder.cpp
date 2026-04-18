@@ -17,6 +17,8 @@ void PathFinder::load(const Image<Pixel> &img)
 {
     checkImage(img);
     image = img;
+    NumofVisited = 0;
+    pathLength = 0;
     explored.assign(image.height(), std::vector<bool>(image.width(), false));
     Pixel curr;                                 
     for(int i = 0; i<image.height(); i++){
@@ -73,6 +75,16 @@ Coord PathFinder::getEnd() const
     return final;
 }
 
+int PathFinder::getNumVisited() const
+{
+    return NumofVisited;
+}
+
+int PathFinder::getPathLength() const
+{
+    return pathLength;
+}
+
 void PathFinder::findPath(const std::string &strategy)
 {
    if(isEnd(initial)){  //check if the initial pixel is the exit
@@ -127,6 +139,7 @@ void PathFinder::findPath(const std::string &strategy)
             ;
         }
         else{
+            NumofVisited++; //increment number of states visited
             next.link(curr); //next node is either the exit or a valid action; link its parent for backtracking
 
             if(isEnd(next)){ //if the next pixel is the exit, mark it as green
@@ -283,8 +296,10 @@ void PathFinder::backtrack(Coord end)
 {
     Coord curr = end;
     Coord prev = curr.get_parent();
+    pathLength = 1; //path length is at least 1 if exit is one pixel away from start
     while(prev != initial){
         image(prev.row, prev.col) = YELLOW;
+        pathLength++;
         curr = prev;
         prev = curr.get_parent();
     }

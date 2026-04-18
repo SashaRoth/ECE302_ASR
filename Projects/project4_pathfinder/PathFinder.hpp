@@ -76,6 +76,10 @@ public:
    * @return Coord object representing the end coordinate, if not yet found, return the default Coord */
   Coord getEnd() const;
 
+  int getNumVisited() const;
+
+  int getPathLength() const;
+
   /** @brief Find the path from start to end using BFS algorithm and Queue ADT
    * @param strategy: string representing the search strategy, default is "NSWE". When adding new coordinates to the queue,
    * the order of the coordinates is determined by this string. For example, "NSWE" means North, South, West, East.
@@ -111,6 +115,8 @@ private:
   Queue<Coord> actions;
   Coord initial;
   Coord final;
+  int pathLength;
+  int NumofVisited;
   std::vector<std::vector<bool>> explored;
   
   /** @brief Determine if a coordinate matches the end goal state of being an exit
