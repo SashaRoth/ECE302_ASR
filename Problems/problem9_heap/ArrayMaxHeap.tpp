@@ -59,6 +59,14 @@ template <typename ItemType>
 ArrayMaxHeap<ItemType>::ArrayMaxHeap(const ItemType someArray[], const int arraySize)
     : itemCount(arraySize)
 {
+   for(int i = 0; i < arraySize; i++){
+      for(int j = i + 1; j < arraySize; j++){
+         if(someArray[i] == someArray[j]){
+            itemCount = 0; // leave heap empty if throwing error
+            throw std::invalid_argument("Array cannot contain duplicate values");
+         }
+      }
+   }
    for (int i = 0; i < itemCount; i++)
       items[i] = someArray[i];
    heapCreate();
@@ -138,6 +146,11 @@ bool ArrayMaxHeap<ItemType>::add(const ItemType &newData)
    if(getNumberOfNodes() >= DEFAULT_CAPACITY){
       return false;
    }
+   for(int i = 0; i < itemCount; i++){
+      if(newData == items[i]){
+         throw std::invalid_argument("Heap cannot contain duplicate data");
+      }
+   }
    int currIndex = itemCount; //start from first empty slot in array
    int parentIndex = getParentIndex(currIndex);
    itemCount++;
@@ -184,7 +197,7 @@ void ArrayMaxHeap<ItemType>::heapSort(ItemType anArray[], int n)
    itemCount = n;
    for (int i = 0; i < itemCount; i++) //move array into heap
       items[i] = anArray[i];
-   heapCreate(); //maintani heap property
+   heapCreate(); //maintain heap property
 
    for(int i = 0; i < n; i++){ //move sorted values back into array
       anArray[i] = peekTop();
