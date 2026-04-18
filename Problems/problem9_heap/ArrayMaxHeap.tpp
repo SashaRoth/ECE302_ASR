@@ -181,6 +181,7 @@ void ArrayMaxHeap<ItemType>::heapSort(ItemType anArray[], int n)
     }
    }
 
+   itemCount = n;
    for (int i = 0; i < itemCount; i++) //move array into heap
       items[i] = anArray[i];
    heapCreate(); //maintani heap property
