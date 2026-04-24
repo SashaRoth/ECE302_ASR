@@ -4,21 +4,19 @@
 template <typename ItemType>
 Graph<ItemType>::Graph()
 {
-  // TODO
+  edgeCount = 0;
 }
 
 template <typename ItemType>
 int Graph<ItemType>::getNumVertices() const
 {
-  // TODO
-  return 0; // Placeholder
+  return adjList.size();
 }
 
 template <typename ItemType>
 int Graph<ItemType>::getNumEdges() const
 {
-  // TODO
-  return 0; // Placeholder
+  return edgeCount;
 }
 
 template <typename ItemType>
