@@ -1,4 +1,5 @@
 #include "graph.hpp"
+#include <queue>
 
 template <typename ItemType>
 Graph<ItemType>::Graph()

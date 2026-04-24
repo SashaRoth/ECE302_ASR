@@ -2,17 +2,18 @@
 #define _GRAPH_H_
 
 #include "abstract_graph.hpp"
+#include <stack>
+#include <queue>
 
 template <typename ItemType>
 class Graph : public AbstractGraph<ItemType>
 {
 private:
-    // TODO: Add your private members here
-    // Using an adjacency list or adjacency matrix
+    std::map<ItemType, std::set<ItemType>> adjList;
+    std::stack<ItemType> DFS_stack;
+    std::queue<ItemType> BFS_queue;
+    int edgeCount;
 
-    // For adjacency matrix, you may use a 2D array, or a vector of vectors etc and an array of vertices to map the indices to vertices
-    // For adjacency list, you can use a std::map to map vertices to the set of adjacent vertices
-    // Refer to std::vector, std::set, std::map, std::unordered_map etc
 public:
     Graph();
     int getNumVertices() const;
