@@ -22,8 +22,22 @@ int Graph<ItemType>::getNumEdges() const
 template <typename ItemType>
 bool Graph<ItemType>::add(ItemType start, ItemType end)
 {
-  // TODO
-  return false; // Placeholder
+  //error checking
+  if(start == end){return false;} //if the start node is the end node, return false
+  if(!adjList.count(start) && !adjList.count(end) && !adjList.empty()){return false;} //if both verts are new and the graph is not empty, insertion would create a disconnected graph
+  if(adjList[start].count(end)){return false;} //if the start node already has an edge to the end node, return false
+
+  //insertion procedure
+  if(!adjList.count(start)){ //add start if not already there
+    adjList.emplace(start, std::set<ItemType>{});
+  }
+  if(!adjList.count(end)){ //add end if not already there
+    adjList.emplace(end, std::set<ItemType>{});
+  }
+  adjList[start].insert(end); //add edge from start-->end
+  adjList[end].insert(start); //add edge from end-->start
+  
+  return true;
 }
 
 template <typename ItemType>
