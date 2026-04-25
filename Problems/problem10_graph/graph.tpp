@@ -51,6 +51,7 @@ bool Graph<ItemType>::add(ItemType start, ItemType end)
 template <typename ItemType>
 bool Graph<ItemType>::remove(ItemType start, ItemType end)
 {
+  bool deleted = false;
   //error checking
   if(start == end){return false;} //if the start node is the end node, return false
   if(!adjList.count(start) || !adjList.count(end)){return false;} //if either node doesn't exist, edge cannot exist
@@ -62,12 +63,13 @@ bool Graph<ItemType>::remove(ItemType start, ItemType end)
 
   if(adjList[start].empty()){ //if either node now has no edges, remove it
     adjList.erase(start);
-    return true;
+    deleted = true;
   }
   if(adjList[end].empty()){
     adjList.erase(end);
-    return true;
+    deleted = true;
   }
+  if(deleted){return true;}
 
   depthFirstTraversal(start, [this](ItemType& i){ visiter(i); });
   if(!visitChecker.count(end)){ //if the graph is now disconnected, undo removal

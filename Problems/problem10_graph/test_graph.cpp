@@ -54,6 +54,11 @@ TEST_CASE("Test remove", "[remove]"){
 
   REQUIRE(g.getNumEdges() == 2);
   REQUIRE(g.getNumVertices() == 3); //removing this edge leaves '8' with no edges, so it should be removed
+
+  REQUIRE(g.remove(6, 7)); //remove all edges, this should empty the graph
+  REQUIRE(g.remove(5, 6));
+  REQUIRE(g.getNumEdges() == 0);
+  REQUIRE(g.getNumVertices() == 0);
 }
 
 //declare printer function for DFS and BFS tracking
