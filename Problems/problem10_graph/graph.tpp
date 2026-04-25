@@ -121,13 +121,12 @@ void Graph<ItemType>::breadthFirstTraversal(ItemType start, std::function<void(I
     ItemType current = q.front();
     q.pop();
     visit(current);
-  std::vector<ItemType> neighbor(adjList[current].begin(), adjList[current].end());
-  for(int i = neighbor.size() - 1; i >= 0; i--)
+    for (ItemType neighbor : adjList[current]) // visit neighbors
     {
-      if (!visited.count(neighbor[i])) // count is a method in std::set that returns 1 if the item is in the set, and 0 otherwise
+      if (!visited.count(neighbor)) // count is a method in std::set that returns 1 if the item is in the set, and 0 otherwise
       {
-        visited.insert(neighbor[i]);
-        q.push(neighbor[i]);
+        visited.insert(neighbor);
+        q.push(neighbor);
       }
     }
   }
