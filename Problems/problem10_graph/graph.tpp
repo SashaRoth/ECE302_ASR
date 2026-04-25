@@ -83,7 +83,7 @@ bool Graph<ItemType>::remove(ItemType start, ItemType end)
 template <typename ItemType>
 void Graph<ItemType>::depthFirstTraversal(ItemType start, std::function<void(ItemType &)> visit)
 {
-  // TODO, use a stack and similar code structure to breadthFirstTraversal
+  if(!adjList.count(start)){return;}
   std::stack<ItemType> s;
   std::set<ItemType> visited;
 
@@ -93,11 +93,11 @@ void Graph<ItemType>::depthFirstTraversal(ItemType start, std::function<void(Ite
   while(!s.empty()){
     ItemType current = s.top();
     s.pop();
+    visit(current);
 
-    for(auto next = adjList[current].rbegin(); next != adjList[current].rend(); next++){ // visit next node
+    for(ItemType neighbor : adjList[current]){ // visit next node
       if(!visited.count(*next)){
         s.push(*next);
-        visit(current);
         visited.insert(*next);
       }
     }
@@ -107,6 +107,7 @@ void Graph<ItemType>::depthFirstTraversal(ItemType start, std::function<void(Ite
 template <typename ItemType>
 void Graph<ItemType>::breadthFirstTraversal(ItemType start, std::function<void(ItemType &)> visit)
 {
+  if(!adjList.count(start)){return;}
   std::queue<ItemType> q;
   std::set<ItemType> visited; // set is a container that stores unique items in sorted order, and provides fast lookup
   q.push(start);
@@ -115,13 +116,13 @@ void Graph<ItemType>::breadthFirstTraversal(ItemType start, std::function<void(I
   {
     ItemType current = q.front();
     q.pop();
-    for (auto neighbor = adjList[current].rbegin(); neighbor != adjList[current].rend(); neighbor++) // visit neighbors
+    visit(current);
+    for (ItemType neighbor : adjList[current]) // visit neighbors
     {
       if (!visited.count(*neighbor)) // count is a method in std::set that returns 1 if the item is in the set, and 0 otherwise
       {
-        q.push(*neighbor);
-        visit(current);
         visited.insert(*neighbor);
+        q.push(*neighbor);
       }
     }
   }
