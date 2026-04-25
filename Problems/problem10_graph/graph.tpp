@@ -71,11 +71,14 @@ bool Graph<ItemType>::remove(ItemType start, ItemType end)
   }
   if(deleted){return true;}
 
+  visitChecker.clear();
   depthFirstTraversal(start, [this](ItemType& i){ visiter(i); });
   if(!visitChecker.count(end)){ //if the graph is now disconnected, undo removal
     add(start, end);
+    visitChecker.clear();
     return false;
   }
+  visitChecker.clear();
 
   return true;
 }
@@ -97,7 +100,7 @@ void Graph<ItemType>::depthFirstTraversal(ItemType start, std::function<void(Ite
     for(ItemType next : adjList[current]){ // visit next node
       if(!visited.count(next)){
         s.push(next);
-        visit(current);
+        visit(next);
         visited.insert(next);
       }
     }
