@@ -4,7 +4,7 @@
 template <typename ItemType>
 inline void Graph<ItemType>::visiter(ItemType i)
 {
-  std::cout << "Visited " << i << std::endl;
+  //std::cout << "Visited " << i << std::endl;
   visitChecker.insert(i);
 }
 
@@ -32,7 +32,7 @@ bool Graph<ItemType>::add(ItemType start, ItemType end)
   //error checking
   if(start == end){return false;} //if the start node is the end node, return false
   if(!adjList.count(start) && !adjList.count(end) && !adjList.empty()){return false;} //if both verts are new and the graph is not empty, insertion would create a disconnected graph
-  if(adjList[start].count(end)){return false;} //if the start node already has an edge to the end node, return false
+  if(adjList.count(start) && adjList[start].count(end)){return false;} //if the start node already has an edge to the end node, return false
 
   //insertion procedure
   if(!adjList.count(start)){ //add start if not already there
@@ -58,13 +58,22 @@ bool Graph<ItemType>::remove(ItemType start, ItemType end)
   
   adjList[start].erase(end); //remove the edge
   adjList[end].erase(start);
+  edgeCount--;
+
+  if(adjList[start].empty()){ //if either node now has no edges, remove it
+    adjList.erase(start);
+    return true;
+  }
+  if(adjList[end].empty()){
+    adjList.erase(end);
+    return true;
+  }
 
   depthFirstTraversal(start, [this](ItemType& i){ visiter(i); });
-  if(!visitChecker.count(end)){ //if the end node is no longer connected, undo removal
+  if(!visitChecker.count(end)){ //if the graph is now disconnected, undo removal
     add(start, end);
     return false;
   }
-  edgeCount--;
 
   return true;
 }

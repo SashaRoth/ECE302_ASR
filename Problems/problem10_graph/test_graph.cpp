@@ -11,7 +11,7 @@ TEST_CASE("Test Construction", "[construction]")
   REQUIRE(g.getNumEdges() == 0);
 }
 
-TEST_CASE("Test Add", "[add]"){
+TEST_CASE("Test add", "[add]"){
   Graph<int> g;
   REQUIRE(g.getNumVertices() == 0);
   REQUIRE(g.getNumEdges() == 0);
@@ -33,22 +33,27 @@ TEST_CASE("Test remove", "[remove]"){
   Graph<int> g;
   REQUIRE(g.add(5, 6));
   REQUIRE(g.add(6, 7));
-  REQUIRE(g.getNumEdges() == 2);
-  REQUIRE(g.getNumVertices() == 3);  //TODO: figure out why this is returning 2
+  REQUIRE(g.add(7, 8));
+  REQUIRE(g.getNumEdges() == 3);
+  REQUIRE(g.getNumVertices() == 4);
 
-  REQUIRE_FALSE(g.remove(8, 9)); //cannot remove edge from nonexistent verts
+  REQUIRE_FALSE(g.remove(9, 10)); //cannot remove edge from nonexistent verts
   REQUIRE_FALSE(g.remove(5, 7)); //cannot remove nonexistent edge
-  REQUIRE_FALSE(g.remove(5, 6)); //cannot remove edge if it results in a disconnected graph
-  REQUIRE(g.getNumEdges() == 2);
-  REQUIRE(g.getNumVertices() == 3);
+  REQUIRE_FALSE(g.remove(6, 7)); //cannot remove edge that results in disconnected graph
+  REQUIRE(g.getNumEdges() == 3); //counts should remain unchanged
+  REQUIRE(g.getNumVertices() == 4);
   
   REQUIRE(g.add(5, 7));
-  REQUIRE(g.getNumEdges() == 3); //new edge created
-  REQUIRE(g.getNumVertices() == 3);
-  REQUIRE(g.remove(6, 7)); //valid remove
+  REQUIRE(g.getNumEdges() == 4); //new edge created, counts update
+  REQUIRE(g.getNumVertices() == 4);
+  REQUIRE(g.remove(5, 7)); //valid remove
+  REQUIRE(g.getNumEdges() == 3); //counts revert
+  REQUIRE(g.getNumVertices() == 4);
+
+  REQUIRE(g.remove(7, 8));
 
   REQUIRE(g.getNumEdges() == 2);
-  REQUIRE(g.getNumVertices() == 3);
+  REQUIRE(g.getNumVertices() == 3); //removing this edge leaves '8' with no edges, so it should be removed
 }
 
 //declare printer function for DFS and BFS tracking
@@ -74,6 +79,32 @@ TEST_CASE("Test DFS", "[depthFirstTraversal]"){
   REQUIRE(g.add('f', 'g'));
   REQUIRE(g.add('d', 'h'));
 
+  std::cout << "Starting Depth-First Traversal" << std::endl;
   g.depthFirstTraversal('a', printer);
+  std::cout << std::endl;
+
+}
+
+TEST_CASE("Test BFS", "[breadthFirstTraversal]"){
+  Graph<char> g;
+  
+  std::function<void(char)> visit;
+  visit = printer;
+
+  REQUIRE(g.add('a', 'b')); //reconstruct example graph from lec 24
+  REQUIRE(g.add('a', 'f'));
+  REQUIRE(g.add('a', 'i'));
+  REQUIRE(g.add('b', 'e'));
+  REQUIRE(g.add('b', 'c'));
+  REQUIRE(g.add('e', 'c'));
+  REQUIRE(g.add('e', 'g'));
+  REQUIRE(g.add('c', 'd'));
+  REQUIRE(g.add('g', 'd'));
+  REQUIRE(g.add('f', 'g'));
+  REQUIRE(g.add('d', 'h'));
+
+  std::cout << "Starting Breadth-First Traversal" << std::endl;
+  g.breadthFirstTraversal('a', printer);
+  std::cout << std::endl;
 
 }
