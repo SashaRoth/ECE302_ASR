@@ -2,6 +2,13 @@
 #include <queue>
 
 template <typename ItemType>
+inline void Graph<ItemType>::visiter(ItemType i)
+{
+  std::cout << "Visited " << i << std::endl;
+  visitChecker.insert(i);
+}
+
+template <typename ItemType>
 Graph<ItemType>::Graph()
 {
   edgeCount = 0;
@@ -44,14 +51,46 @@ bool Graph<ItemType>::add(ItemType start, ItemType end)
 template <typename ItemType>
 bool Graph<ItemType>::remove(ItemType start, ItemType end)
 {
-  // TODO
-  return false; // Placeholder
+  //error checking
+  if(start == end){return false;} //if the start node is the end node, return false
+  if(!adjList.count(start) || !adjList.count(end)){return false;} //if either node doesn't exist, edge cannot exist
+  if(!adjList[start].count(end)){return false;} //if the edge doesn't exist, return false
+  
+  adjList[start].erase(end); //remove the edge
+  adjList[end].erase(start);
+
+  depthFirstTraversal(start, [this](ItemType& i){ visiter(i); });
+  if(!visitChecker.count(end)){ //if the end node is no longer connected, undo removal
+    add(start, end);
+    return false;
+  }
+  edgeCount--;
+
+  return true;
 }
 
 template <typename ItemType>
 void Graph<ItemType>::depthFirstTraversal(ItemType start, std::function<void(ItemType &)> visit)
 {
   // TODO, use a stack and similar code structure to breadthFirstTraversal
+  std::stack<ItemType> s;
+  std::set<ItemType> visited;
+
+  s.push(start);
+  visited.insert(start);
+
+  while(!s.empty()){
+    ItemType current = s.top();
+    s.pop();
+    visit(current);
+
+    for(ItemType next : adjList[current]){
+      if(!visited.count(next)){
+        s.push(next);
+        visited.insert(next);
+      }
+    }
+  }
 }
 
 template <typename ItemType>
@@ -66,7 +105,7 @@ void Graph<ItemType>::breadthFirstTraversal(ItemType start, std::function<void(I
     ItemType current = q.front();
     q.pop();
     visit(current);
-    for (ItemType neighbor : std::vector<ItemType>{}) // TODO: get the neighbors of current
+    for (ItemType neighbor : adjList[current]) // TODO: get the neighbors of current
     {
       if (!visited.count(neighbor)) // count is a method in std::set that returns 1 if the item is in the set, and 0 otherwise
       {

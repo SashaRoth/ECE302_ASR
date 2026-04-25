@@ -10,8 +10,8 @@ class Graph : public AbstractGraph<ItemType>
 {
 private:
     std::map<ItemType, std::set<ItemType>> adjList;
-    std::stack<ItemType> DFS_stack;
-    std::queue<ItemType> BFS_queue;
+    std::set<ItemType> visitChecker;
+    void visiter(ItemType i);
     int edgeCount;
 
 public:
