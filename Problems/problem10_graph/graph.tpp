@@ -36,6 +36,7 @@ bool Graph<ItemType>::add(ItemType start, ItemType end)
   }
   adjList[start].insert(end); //add edge from start-->end
   adjList[end].insert(start); //add edge from end-->start
+  edgeCount++;
   
   return true;
 }
