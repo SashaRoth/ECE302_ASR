@@ -4,6 +4,8 @@
 #include "abstract_graph.hpp"
 #include <stack>
 #include <queue>
+#include <set>
+#include <map>
 
 template <typename ItemType>
 class Graph : public AbstractGraph<ItemType>
