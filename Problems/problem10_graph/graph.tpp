@@ -89,17 +89,16 @@ void Graph<ItemType>::depthFirstTraversal(ItemType start, std::function<void(Ite
 
   s.push(start);
   visited.insert(start);
-  visit(start);
 
   while(!s.empty()){
     ItemType current = s.top();
     s.pop();
+    visit(current);
 
-    for(ItemType next : adjList[current]){
-      if(!visited.count(next)){
-        s.push(next);
-        visited.insert(next);
-        visit(next);
+    for(auto next = adjList[current].rbegin(); next != adjList[current].rend(); next++){ // visit next node
+      if(!visited.count(*next)){
+        s.push(*next);
+        visited.insert(*next);
       }
     }
   }
@@ -117,12 +116,12 @@ void Graph<ItemType>::breadthFirstTraversal(ItemType start, std::function<void(I
     ItemType current = q.front();
     q.pop();
     visit(current);
-    for (ItemType neighbor : adjList[current]) // TODO: get the neighbors of current
+    for (auto neighbor = adjList[current].rbegin(); neighbor != adjList[current].rend(); neighbor++) // visit neighbors
     {
-      if (!visited.count(neighbor)) // count is a method in std::set that returns 1 if the item is in the set, and 0 otherwise
+      if (!visited.count(*neighbor)) // count is a method in std::set that returns 1 if the item is in the set, and 0 otherwise
       {
-        visited.insert(neighbor);
-        q.push(neighbor);
+        visited.insert(*neighbor);
+        q.push(*neighbor);
       }
     }
   }
