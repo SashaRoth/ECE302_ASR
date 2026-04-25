@@ -89,16 +89,17 @@ void Graph<ItemType>::depthFirstTraversal(ItemType start, std::function<void(Ite
 
   s.push(start);
   visited.insert(start);
+  visit(start);
 
   while(!s.empty()){
     ItemType current = s.top();
     s.pop();
-    visit(current);
 
     for(ItemType next : adjList[current]){
       if(!visited.count(next)){
         s.push(next);
         visited.insert(next);
+        visit(next);
       }
     }
   }
