@@ -44,9 +44,12 @@ TEST_CASE("GraphSearch: Test A* Pathfinding")
   std::vector<char> expectedPath = {'A', 'C', 'H', 'I', 'J', 'P'};
   REQUIRE(path == expectedPath);
 
-  // TODO: Comment here why you don't even need to run the code to extract the
-  // shortest path from C to P, then use the REQUIRE statement to check that the path is correct.
-  // Take a screenshot of your comment and the REQUIRE statement here.
+  //The most optimal path from C to P is a subpath of the most optimal path from 
+  //A to P, which has already been found. Therefore, we can already tell that the path
+  //will be C-> H-> I-> J-> P
+  path = graph.AStarSearch('C', 'P', heuristicToP);
+  expectedPath = {'C', 'H', 'I', 'J', 'P'};
+  REQUIRE(path == expectedPath);
 }
 
 TEST_CASE("GraphSearch: Test Dijkstra Distances")
@@ -72,6 +75,11 @@ TEST_CASE("GraphSearch: Test Dijkstra Distances")
   // TODO: Verify the minimum distances from vertex 3 to all other vertices using REQUIRE statements.
   // Take a screenshot of these REQUIRE statements and upload it.
   distances = graph.dijkstra('3');
+  REQUIRE(distances['0'] == 8);
+  REQUIRE(distances['1'] == 4);
+  REQUIRE(distances['2'] == 3);
+  REQUIRE(distances['3'] == 0);
+  REQUIRE(distances['4'] == 7);
 }
 
 TEST_CASE("Test that Dijkstra_from_AStar and regular Dijkstra")
@@ -125,8 +133,20 @@ TEST_CASE("Test that Dijkstra_from_AStar and regular Dijkstra")
 
   // TODO: What exactly are we verifying in this test case?
   // Justify your answer using both your understanding of the algorithms and the implementation in GraphSearch.tpp.
+  
+  //These test cases are storing the distance from 0 to a number of nodes using the 
+  //default Djikstra algorithm, then verifying that they match the minimal path cost of the A*-based
+  //Dkistra algorithm. Basically, it is verifying that the Djikstra algoritm yields the same result
+  //as an A* algorithm with no heuristic.
+
 
   // Also explain why std::priority_queue and std::map are used so frequently
   // in Lectures 25 and 26 graph search code, and which operations does each of
   // them support our task the most so they become a good fit for graph search algorithms.
+
+  //Both of these data structures are used to represent adjacent nodes to each node in a graph,
+  //they are good for this application because both use a "key + element" structure, which allows
+  //us to store elements in a pair with associated data (in this case, their neighbors).
+  //This is very useful for breadth-first and depth-first traversals/searches, where we need to
+  //quickly and iteratively access neighboring nodes.
 }
