@@ -74,9 +74,9 @@ bool frontier_queue<T>::contains(const T &state)
 template <typename T>
 void frontier_queue<T>::replaceif(const T &state, int cost)
 {
-  for(State<T> item : queue){
-    if(item.getValue() == state && cost < item.getFCost()){
-      item.updatePathCost(cost);
+  for(auto it = queue.begin(); it < queue.end(); it++){
+    if(it->getValue() == state && cost < it->getPathCost()){
+      it->updatePathCost(cost);
     }
   }
 }

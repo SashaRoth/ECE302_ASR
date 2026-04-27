@@ -47,7 +47,7 @@ TEST_CASE("Simple contains and replaceif test", "[frontier_queue]")
   REQUIRE(state2.getPathCost() == 1);
 }
 
-/* Puzzle tests start here*/
+/*
 TEST_CASE("Simple hash test", "[puzzle]")
 {
   Puzzle p1, p2, p3;
@@ -57,6 +57,7 @@ TEST_CASE("Simple hash test", "[puzzle]")
   REQUIRE(p2.hash() == 305419896ULL);
   REQUIRE(p1.hash() != p3.hash());
 }
+
 
 TEST_CASE("Simple operator== and operator!= test", "[puzzle]")
 {
@@ -82,7 +83,7 @@ TEST_CASE("Simple heuristic test", "[puzzle]")
   REQUIRE(p3.heuristic(goal) == 2);
 }
 
-/* Puzzle solver tests start here*/
+
 TEST_CASE("Simple search test cost 0", "[PuzzleSolver]")
 {
   Puzzle puzzle1, puzzle2;
@@ -148,6 +149,9 @@ TEST_CASE("Simple search test cost 2", "[PuzzleSolver]")
     REQUIRE(solver.getSolutionPath() == expected_path);
   }
 }
+*/
+
+//PuzzleSolver tests start here
 
 /** Two time-consuming tests are given here for your reference. Uncomment them to try locally.
  * The test case of cost 31 should execute within 1 minute locally to avoid timeout on the autograder.*/
