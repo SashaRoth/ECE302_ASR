@@ -58,7 +58,7 @@ TEST_CASE("Simple hash test", "[puzzle]")
   REQUIRE(p1.hash() != p3.hash());
 }
 
-/*
+
 TEST_CASE("Simple operator== and operator!= test", "[puzzle]")
 {
   Puzzle p1, p2, p3;
@@ -70,6 +70,8 @@ TEST_CASE("Simple operator== and operator!= test", "[puzzle]")
   REQUIRE(p1 != p3);
   REQUIRE_FALSE(p1 != p2);
 }
+
+/*
 
 TEST_CASE("Simple heuristic test", "[puzzle]")
 {

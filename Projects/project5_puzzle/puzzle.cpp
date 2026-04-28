@@ -138,15 +138,20 @@ unsigned long long Puzzle::hash() const
 
 bool Puzzle::operator==(const Puzzle &rhs) const
 {
-  // TODO
-  // do not compare tile by tile, use other public member functions
-  return false;
+  for(int r = 0; r < 3; r++){
+    for(int c = 0; c < 3; c++){
+      Position p{r, c};
+      if(getLabel(p) != rhs.getLabel(p)){
+        return false;
+      }
+    }
+  }
+  return true;
 }
 
 bool Puzzle::operator!=(const Puzzle &rhs) const
 {
-  // TODO
-  return false;
+  return !(*this == rhs);
 }
 
 int Puzzle::heuristic(const Puzzle &goal) const
