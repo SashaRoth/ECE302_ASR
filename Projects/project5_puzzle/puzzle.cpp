@@ -121,6 +121,18 @@ unsigned long long Puzzle::hash() const
   // TODO
   // use bitwise << and | to implemnt the concatenation
   // e.g., 2<<4 | 3 is actually hex 23, which is 35 in decimal
+
+  unsigned long long output;
+
+  for(int i = 0; i < 8; i++){
+    int fourbit = 0;
+
+    for(int j = 0; j < 4; j++){
+      ;
+    }
+
+    output = output & fourbit;
+  }
   return 0;
 }
 
