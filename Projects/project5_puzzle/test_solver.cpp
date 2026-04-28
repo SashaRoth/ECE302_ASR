@@ -47,7 +47,7 @@ TEST_CASE("Simple contains and replaceif test", "[frontier_queue]")
   REQUIRE(state2.getPathCost() == 1);
 }
 
-/*
+
 TEST_CASE("Simple hash test", "[puzzle]")
 {
   Puzzle p1, p2, p3;
@@ -58,7 +58,7 @@ TEST_CASE("Simple hash test", "[puzzle]")
   REQUIRE(p1.hash() != p3.hash());
 }
 
-
+/*
 TEST_CASE("Simple operator== and operator!= test", "[puzzle]")
 {
   Puzzle p1, p2, p3;

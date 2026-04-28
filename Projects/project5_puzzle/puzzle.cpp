@@ -118,22 +118,22 @@ Image<Pixel> Puzzle::toPicture() const
 
 unsigned long long Puzzle::hash() const
 {
-  // TODO
-  // use bitwise << and | to implemnt the concatenation
-  // e.g., 2<<4 | 3 is actually hex 23, which is 35 in decimal
+  unsigned long long output = 0;
 
-  unsigned long long output;
-
-  for(int i = 0; i < 8; i++){
+  for(int i = 0; i <= 8; i++){
+    std::string concat = "";
     int fourbit = 0;
+    int current = board[i];
 
     for(int j = 0; j < 4; j++){
-      ;
+      int bit = current%2;
+      fourbit = fourbit | bit << j;
+      current = current/2;
     }
 
-    output = output & fourbit;
+    output = output | ((unsigned long long)fourbit << ((8-i)*4));
   }
-  return 0;
+  return output;
 }
 
 bool Puzzle::operator==(const Puzzle &rhs) const
