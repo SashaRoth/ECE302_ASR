@@ -3,6 +3,8 @@
 
 #include <string>
 #include <vector>
+#include <unordered_set>
+#include <unordered_map>
 #include "state.hpp"
 #include "frontier_queue.hpp"
 #include "puzzle.hpp"
@@ -40,6 +42,10 @@ private:
   Puzzle initial, goal;
   int solution_cost;
   std::vector<Puzzle> solution_path;
+
+  frontier_queue<Puzzle> frontier;
+  std::unordered_set<unsigned long long> explored;
+  std::unordered_map<Puzzle, Puzzle> parent_map;
 };
 
 #endif

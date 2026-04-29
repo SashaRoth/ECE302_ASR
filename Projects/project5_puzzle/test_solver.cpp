@@ -85,8 +85,6 @@ TEST_CASE("Simple heuristic test", "[puzzle]")
   REQUIRE(p3.heuristic(goal) == 2);
 }
 
-/*
-
 TEST_CASE("Simple search test cost 0", "[PuzzleSolver]")
 {
   Puzzle puzzle1, puzzle2;
@@ -105,6 +103,8 @@ TEST_CASE("Simple search test cost 0", "[PuzzleSolver]")
     REQUIRE(solver.getSolutionPath().size() == 1);
   }
 }
+
+/*
 
 TEST_CASE("Simple search test cost 1", "[PuzzleSolver]")
 {
