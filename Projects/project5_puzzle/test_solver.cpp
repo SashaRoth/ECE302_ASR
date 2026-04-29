@@ -71,7 +71,7 @@ TEST_CASE("Simple operator== and operator!= test", "[puzzle]")
   REQUIRE_FALSE(p1 != p2);
 }
 
-/*
+
 
 TEST_CASE("Simple heuristic test", "[puzzle]")
 {
@@ -85,6 +85,7 @@ TEST_CASE("Simple heuristic test", "[puzzle]")
   REQUIRE(p3.heuristic(goal) == 2);
 }
 
+/*
 
 TEST_CASE("Simple search test cost 0", "[PuzzleSolver]")
 {

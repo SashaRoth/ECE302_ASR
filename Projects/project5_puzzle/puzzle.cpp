@@ -156,7 +156,29 @@ bool Puzzle::operator!=(const Puzzle &rhs) const
 
 int Puzzle::heuristic(const Puzzle &goal) const
 {
-  // TODO
-  // Research Manhattan distance and implement the heuristic function
-  return 0;
+  int heur_dist = 0;
+
+  for(int i = 0; i <= 8; i++){
+    Tile current_tile = board[i]; //iterate through the current board
+
+    if(current_tile == BLANK){continue;} //skip the blank tile
+    
+    //calculate the row/col of the current tile
+    int current_row = i/3;
+    int current_col = i%3;
+
+    //find the tile in the goal board
+    int goal_row = 0;
+    int goal_col = 0;
+    for(int j = 0; j <= 8; j++){
+      if(goal.board[j] == current_tile){
+        goal_row = j/3;
+        goal_col = j%3;
+        break;
+      }
+    }
+    int manhattan = std::abs(current_row - goal_row) + std::abs(current_col - goal_col);
+    heur_dist += manhattan;
+  }
+  return heur_dist;
 }
