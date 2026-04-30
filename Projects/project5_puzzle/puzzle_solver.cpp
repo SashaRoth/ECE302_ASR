@@ -111,10 +111,13 @@ bool PuzzleSolver::search()
       int neighbor_h = neighbor.heuristic(goal); //calculate new heuristic
 
       if(frontier.contains(neighbor)){
-        // If in frontier with worse cost, update it
-        frontier.replaceif(neighbor, neighbor_g);
-        parent_map[neighbor] = current.getValue(); //update the parent as well
-      } else {
+        // Only update if our path is better than existing cost
+        int current_cost = frontier.getCurrentPathCost(neighbor);
+        if(neighbor_g < current_cost) {
+          frontier.replaceif(neighbor, neighbor_g);
+          parent_map[neighbor] = current.getValue();
+        }
+      } else if(!explored.count(neighbor.hash())){
         // If not seen before, add to frontier
         frontier.push(neighbor, neighbor_g, neighbor_h);
         parent_map[neighbor] = current.getValue();
