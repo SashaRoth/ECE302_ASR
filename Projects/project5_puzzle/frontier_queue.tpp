@@ -1,4 +1,5 @@
 #include "frontier_queue.hpp"
+#include <stdexcept>
 
 // Min-heap index helpers:
 //   parent of i      : (i - 1) / 2
@@ -8,6 +9,9 @@
 template <typename T>
 State<T> frontier_queue<T>::pop()
 {
+  if(empty()){
+    throw std::out_of_range("Cannot pop from empty vector");
+  }
   int end = queue.size() - 1;
   std::swap(queue[0], queue[end]);
 
@@ -85,7 +89,7 @@ template <typename T>
 int frontier_queue<T>::getCurrentPathCost(const T &state)
 {
   for(State<T> item : queue){
-    if(item == state){
+    if(item.getValue() == state){
       return item.getFCost();
     }
   }

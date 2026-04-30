@@ -88,9 +88,10 @@ bool PuzzleSolver::search()
 
   std::vector<Puzzle::Action> actions = {Puzzle::LEFT, Puzzle::RIGHT, Puzzle::UP, Puzzle::DOWN};  //create a vector to store all four actions
   frontier.push(initial, 0, initial.heuristic(goal));
-  explored.insert(initial.hash());
 
   State<Puzzle> current = frontier.pop();
+  explored.insert(current.getValue().hash());  // Mark as explored AFTER popping
+  
   while(current.getValue() != goal){ //if the current state = the goal, exit
     std::vector<Puzzle> neighbors;  //create a vector to generate next neighbors
 
@@ -109,25 +110,32 @@ bool PuzzleSolver::search()
       int neighbor_g = current.getPathCost() + 1; //add 1 to the path cost
       int neighbor_h = neighbor.heuristic(goal); //calculate new heuristic
 
-      frontier.push(neighbor, neighbor_g, neighbor_h); //add to frontier queue and explored set
-      explored.insert(neighbor.hash());
-      parent_map[neighbor] = current.getValue(); //store puzzle-parent relationship
+      if(frontier.contains(neighbor)){
+        // If in frontier with worse cost, update it
+        frontier.replaceif(neighbor, neighbor_g);
+        parent_map[neighbor] = current.getValue(); //update the parent as well
+      } else {
+        // If not seen before, add to frontier
+        frontier.push(neighbor, neighbor_g, neighbor_h);
+        parent_map[neighbor] = current.getValue();
+      }
     }
 
     if(frontier.empty()){ //if the frontier is empty, no solution found
       return false;
     }
     current = frontier.pop(); //pop the next neighbor to explore
+    explored.insert(current.getValue().hash());  // mark as explored 
   }
 
   solution_cost = current.getPathCost(); //get the final path cost
 
-  Puzzle current_backtrack = initial; //backtrack to find the solution path
-  while(current_backtrack != current.getValue()){
-    solution_path.push_back(current_backtrack);
+  Puzzle current_backtrack = current.getValue(); //backtrack to find the solution path
+  while(current_backtrack != initial){
+    solution_path.insert(solution_path.begin(), current_backtrack);
     current_backtrack = parent_map.at(current_backtrack);
   }
-  solution_path.push_back(current.getValue());
+  solution_path.insert(solution_path.begin(), initial);
 
   return true;
 }

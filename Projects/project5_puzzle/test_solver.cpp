@@ -2,6 +2,7 @@
 #include "catch.hpp"
 
 #include "puzzle_solver.hpp"
+#include <chrono>
 
 /* Frontier queue tests start here*/
 TEST_CASE("Simple push and pop test", "[frontier_queue]")
@@ -104,8 +105,6 @@ TEST_CASE("Simple search test cost 0", "[PuzzleSolver]")
   }
 }
 
-/*
-
 TEST_CASE("Simple search test cost 1", "[PuzzleSolver]")
 {
   Puzzle puzzle1, puzzle2;
@@ -128,6 +127,8 @@ TEST_CASE("Simple search test cost 1", "[PuzzleSolver]")
     REQUIRE(solver.getSolutionPath() == expected_path);
   }
 }
+
+
 
 TEST_CASE("Simple search test cost 2", "[PuzzleSolver]")
 {
@@ -152,14 +153,14 @@ TEST_CASE("Simple search test cost 2", "[PuzzleSolver]")
     REQUIRE(solver.getSolutionPath() == expected_path);
   }
 }
-*/
+
 
 //PuzzleSolver tests start here
 
 /** Two time-consuming tests are given here for your reference. Uncomment them to try locally.
  * The test case of cost 31 should execute within 1 minute locally to avoid timeout on the autograder.*/
 
-/*
+
 TEST_CASE("Time-consuming search test cost 8", "[PuzzleSolver]")
 {
   Puzzle puzzle1, puzzle2;
@@ -188,6 +189,7 @@ TEST_CASE("Time-consuming search test cost 8", "[PuzzleSolver]")
   REQUIRE(curr == puzzle1);
 }
 
+/*
 TEST_CASE("Time-consuming search test cost 31", "[PuzzleSolver]")
 {
   Puzzle puzzle1, puzzle2;
@@ -208,3 +210,47 @@ TEST_CASE("Time-consuming search test cost 31", "[PuzzleSolver]")
 */
 
 // You still need to write your own unit test
+
+//Additional frontier queue edge cases (e.g., replaceif with equal cost, pop order with ties)
+TEST_CASE("Frontier queue edge cases", "[frontier_queue]"){
+  frontier_queue<char> sashas_fq;
+  REQUIRE(sashas_fq.empty());
+  State<char> example('A', 0, 1);
+  sashas_fq.push('A', 0, 1);
+
+  //searching for nonexistent value with contains()
+  REQUIRE_FALSE(sashas_fq.contains('B'));
+
+  //calling getCurrentPathCost() on nonexistent value
+  REQUIRE(sashas_fq.getCurrentPathCost('B') == -1);
+
+  //popping from empty frontier
+  REQUIRE(sashas_fq.pop().getValue() == example.getValue()); //should pop correctly
+  REQUIRE_THROWS_AS(sashas_fq.pop(), std::out_of_range);
+}
+
+//Puzzle hash collisions or equality edge cases
+TEST_CASE("Puzzle hash collisions", "[puzzle]")
+{
+  Puzzle sashas_p1, sashas_p2;
+  sashas_p1.fromString("012345678");
+  sashas_p2.fromString("102345678");
+  // Different puzzles should have different hashes
+  REQUIRE(sashas_p1.hash() != sashas_p2.hash());
+}
+
+//Solver correctness on a puzzle of your choice
+TEST_CASE("Solver correctness on random puzzle", "[PuzzleSolver]")
+{
+  Puzzle sashas_p1, sashas_p2;
+  REQUIRE(sashas_p1.fromString("123456780")); // goal
+  REQUIRE(sashas_p2.fromString("123456078")); // blank at (2,0), 7 and 8 shifted
+  {
+    PuzzleSolver solver(sashas_p2, sashas_p1);
+    REQUIRE(solver.search());
+    REQUIRE(solver.getSolutionCost() == 2);
+    // Verify first and last states
+    REQUIRE(solver.getSolutionPath().front() == "123456078");
+    REQUIRE(solver.getSolutionPath().back() == "123456780");
+  }
+}
