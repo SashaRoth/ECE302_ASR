@@ -135,10 +135,11 @@ bool PuzzleSolver::search()
 
   Puzzle current_backtrack = current.getValue(); //backtrack to find the solution path
   while(current_backtrack != initial){
-    solution_path.insert(solution_path.begin(), current_backtrack);
+    solution_path.push_back(current_backtrack);
     current_backtrack = parent_map.at(current_backtrack);
   }
-  solution_path.insert(solution_path.begin(), initial);
+  solution_path.push_back(initial);
+  std::reverse(solution_path.begin(), solution_path.end());
 
   return true;
 }

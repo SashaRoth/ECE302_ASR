@@ -5,6 +5,7 @@
 #include <vector>
 #include <unordered_set>
 #include <unordered_map>
+#include <algorithm>
 #include "state.hpp"
 #include "frontier_queue.hpp"
 #include "puzzle.hpp"
