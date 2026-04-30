@@ -19,7 +19,7 @@ State<T> frontier_queue<T>::pop()
   queue.pop_back();
 
   int current_idx = 0;
-  while(current_idx > end){
+  while(2 * current_idx + 1 < queue.size()){
     int left_child = (2*current_idx) + 1;
     int right_child = (2*current_idx) + 2;
     int smallest = current_idx;
@@ -90,7 +90,7 @@ int frontier_queue<T>::getCurrentPathCost(const T &state)
 {
   for(State<T> item : queue){
     if(item.getValue() == state){
-      return item.getFCost();
+      return item.getPathCost();
     }
   }
   return -1;

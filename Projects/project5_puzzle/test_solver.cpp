@@ -189,7 +189,7 @@ TEST_CASE("Time-consuming search test cost 8", "[PuzzleSolver]")
   REQUIRE(curr == puzzle1);
 }
 
-/*
+
 TEST_CASE("Time-consuming search test cost 31", "[PuzzleSolver]")
 {
   Puzzle puzzle1, puzzle2;
@@ -207,7 +207,7 @@ TEST_CASE("Time-consuming search test cost 31", "[PuzzleSolver]")
   std::cout << "\n**********************************************************\n"
             << std::endl;
 }
-*/
+
 
 // You still need to write your own unit test
 
