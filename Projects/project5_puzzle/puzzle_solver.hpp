@@ -46,6 +46,7 @@ private:
 
   frontier_queue<Puzzle> frontier;
   std::unordered_set<unsigned long long> explored;
+  std::unordered_map<unsigned long long, int> frontier_costs;  // Maps puzzle hash to g-cost in frontier
   std::unordered_map<Puzzle, Puzzle> parent_map;
 };
 

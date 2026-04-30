@@ -69,71 +69,63 @@ bool PuzzleSolver::search()
 {
   solution_cost = 0;
   solution_path.clear();
-  // A* outline:
-  // 1) Enqueue the initial Puzzle into frontier with:
-  //      g = 0, h = initial.heuristic(goal), f = g + h.
-  // 2) Keep a visited structure (hash-based is convenient for Puzzle).
-  // 3) Dequeue (pop) the frontier entry with smallest f.
-  //      From that node, read puzzle state and its g-cost.
-  // 4) If current state is the goal, set solution_cost = current g-cost and return true.
-  //      backtrace the solution via parent relationship into solution_path.
-  // 5) Otherwise, generate neighbors in action order LEFT, RIGHT, UP, DOWN.
-  // 6) For each valid neighbor:
-  //      neighbor_g = current_g + 1
-  //      neighbor_h = neighbor.heuristic(goal)
-  //      use frontier contain method and visited structure to determine:
-  //      - if not "seen" before, enqueue neighbor with g, h values, set up the parent relationship
-  //      - if already in frontier with higher g, update that entry via replaceif, update the parent relationship if needed
-  // 7) If frontier becomes empty, no solution is found: return false.
-
-  std::vector<Puzzle::Action> actions = {Puzzle::LEFT, Puzzle::RIGHT, Puzzle::UP, Puzzle::DOWN};  //create a vector to store all four actions
+  frontier_costs.clear();
+  explored.clear();
+  parent_map.clear();
+  
+  std::vector<Puzzle::Action> actions = {Puzzle::LEFT, Puzzle::RIGHT, Puzzle::UP, Puzzle::DOWN};
   frontier.push(initial, 0, initial.heuristic(goal));
+  frontier_costs[initial.hash()] = 0;
 
   State<Puzzle> current = frontier.pop();
-  explored.insert(current.getValue().hash());  // Mark as explored AFTER popping
+  frontier_costs.erase(current.getValue().hash());
+  explored.insert(current.getValue().hash());
   
-  while(current.getValue() != goal){ //if the current state = the goal, exit
-    std::vector<Puzzle> neighbors;  //create a vector to generate next neighbors
+  while(current.getValue() != goal){
+    std::vector<Puzzle> neighbors;
 
     for(Puzzle::Action action : actions){
-
-      std::pair<bool, Puzzle> result = current.getValue().apply(action); //apply an action
+      std::pair<bool, Puzzle> result = current.getValue().apply(action);
       bool valid = result.first;
       Puzzle nextNeighbor = result.second;
 
-      if(valid && !explored.count(nextNeighbor.hash())){ //only add to neighbors vector if valid and not explored
+      if(valid && !explored.count(nextNeighbor.hash())){
         neighbors.push_back(nextNeighbor);
       }
     }
 
     for(Puzzle neighbor : neighbors){
-      int neighbor_g = current.getPathCost() + 1; //add 1 to the path cost
-      int neighbor_h = neighbor.heuristic(goal); //calculate new heuristic
+      int neighbor_g = current.getPathCost() + 1;
+      int neighbor_h = neighbor.heuristic(goal);
+      unsigned long long neighbor_hash = neighbor.hash();
 
-      if(frontier.contains(neighbor)){
-        // Only update if our path is better than existing cost
-        int current_cost = frontier.getCurrentPathCost(neighbor);
-        if(neighbor_g < current_cost) {
+      auto it = frontier_costs.find(neighbor_hash);
+      if(it != frontier_costs.end()){
+        // Neighbor is already in frontier, update if the current path is better
+        if(neighbor_g < it->second) {
           frontier.replaceif(neighbor, neighbor_g);
+          frontier_costs[neighbor_hash] = neighbor_g;
           parent_map[neighbor] = current.getValue();
         }
-      } else if(!explored.count(neighbor.hash())){
-        // If not seen before, add to frontier
+      } else if(!explored.count(neighbor_hash)){
+        // Not in frontier, add new to frontier
         frontier.push(neighbor, neighbor_g, neighbor_h);
+        frontier_costs[neighbor_hash] = neighbor_g;
         parent_map[neighbor] = current.getValue();
       }
     }
 
-    if(frontier.empty()){ //if the frontier is empty, no solution found
+    if(frontier.empty()){
       return false;
     }
-    current = frontier.pop(); //pop the next neighbor to explore
-    explored.insert(current.getValue().hash());  // mark as explored 
+    current = frontier.pop();
+    frontier_costs.erase(current.getValue().hash());
+    explored.insert(current.getValue().hash());
   }
 
-  solution_cost = current.getPathCost(); //get the final path cost
+  solution_cost = current.getPathCost();
 
-  Puzzle current_backtrack = current.getValue(); //backtrack to find the solution path
+  Puzzle current_backtrack = current.getValue();
   while(current_backtrack != initial){
     solution_path.push_back(current_backtrack);
     current_backtrack = parent_map.at(current_backtrack);
