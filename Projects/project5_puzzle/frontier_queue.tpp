@@ -78,9 +78,27 @@ bool frontier_queue<T>::contains(const T &state)
 template <typename T>
 void frontier_queue<T>::replaceif(const T &state, int cost)
 {
+  bool changed = false;
+  int idx = 0;
   for(auto it = queue.begin(); it < queue.end(); it++){
     if(it->getValue() == state && cost < it->getPathCost()){
       it->updatePathCost(cost);
+      changed = true;
+      break;
+    }
+    idx++;
+  }
+
+  //if a node is updated, bubble it up to restore heap property
+  if(changed){
+    while(idx > 0){
+      int parent_idx = (idx - 1) / 2;
+      if(queue[idx].getFCost() < queue[parent_idx].getFCost()){
+        std::swap(queue[idx], queue[parent_idx]);
+        idx = parent_idx;
+      } else {
+        break;
+      }
     }
   }
 }
