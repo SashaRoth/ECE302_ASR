@@ -39,6 +39,8 @@ public:
    *  If no solution is found, solution_cost will remain 0 and solution_path will remain empty. */
   bool search();
 
+  void generateGIF(std::vector<Puzzle>);
+
 private:
   Puzzle initial, goal;
   int solution_cost;

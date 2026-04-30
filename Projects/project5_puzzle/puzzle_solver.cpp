@@ -133,5 +133,22 @@ bool PuzzleSolver::search()
   solution_path.push_back(initial);
   std::reverse(solution_path.begin(), solution_path.end());
 
+  generateGIF(solution_path);
+
   return true;
+}
+
+void PuzzleSolver::generateGIF(std::vector<Puzzle> solution)
+{
+  std::string filename = initial.toString() + ".gif";
+  GifWriter gif;
+  Image<Pixel> img = initial.toPicture();
+  int frame_duration = 100; // 100 centiseconds = 1 second
+  GifBegin(&gif, filename.c_str(), img.width(), img.height(), frame_duration, 8, true);
+
+  for(Puzzle frame : solution){
+    addFrameToGif(gif, frame, frame_duration);
+  }
+
+  GifEnd(&gif);
 }
